@@ -1,0 +1,25 @@
+{% extends 'pages/register-pages/base.html' %} {% block title %}
+<title>ログイン</title>
+{% endblock %} {% block body %}
+<div class="registration-box">
+    <main class="registration-main">
+        <img src="../../static/img/cathouse.svg" alt="キャットハウス">
+        <div class="registration-container">
+                <h1>Welcome to <br>
+                    ShareHappy</h1>
+            <div class="registration-label">
+                <label for="username">ユーザーネーム</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="registration-label">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div class="registraion-button">
+                <button class="login-button">ログイン</button>
+                <button class="signup-button">新規登録</button>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
