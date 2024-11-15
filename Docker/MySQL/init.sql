@@ -7,14 +7,14 @@
 -- GRANT ALL PRIVILEGES ON sharehappy.* TO 'testuser';
 
 -- 11/15/05:00 DB接続
-DROP DATABASE IF EXISTS chatapp;
+DROP DATABASE IF EXISTS sharehappy;
 DROP USER IF EXISTS 'testuser';
 
 CREATE USER 'testuser'@'%' IDENTIFIED BY 'testuser';
 CREATE DATABASE IF NOT EXISTS sharehappy;
 USE sharehappy;
 
-GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser'@'%';
+GRANT ALL PRIVILEGES ON sharehappy.* TO 'testuser'@'%';
 FLUSH PRIVILEGES;
 -- end 11/15/05:00 DB接続
 
