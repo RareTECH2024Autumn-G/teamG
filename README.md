@@ -8,6 +8,7 @@ test
 テスト 3
 ここを試しに変えたよ！
 こんにちは
+こんにちわ２
 
 # hackathon-begginers-sample
 
