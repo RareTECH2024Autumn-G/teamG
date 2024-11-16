@@ -50,13 +50,13 @@ def signup():
 @app.route('/signup', methods=['POST'])
 def userSignup():
     name = request.form.get('name')
-    sex = request.form.get("sex")
+    sex = request.form.get('sex')
     mailaddress = request.form.get('mailaddress')
     password = request.form.get('password')
     passwordConfirm = request.form.get('passwordConfirm')
-    sharehouseid = request.form.get("sharehouseid")
+    sharehouseid = request.form.get('sharehouseid')
 
-    pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
     if name == '' or mailaddress =='' or password == '' or passwordConfirm == '' or sex == '':
         flash('空のフォームがあるようです')
@@ -70,12 +70,12 @@ def userSignup():
         DBuser = dbConnect.getUser(mailaddress)
 
         if DBuser != None:
-            flash("すでに登録されています")
+            flash('すでに登録されています')
         else:
             dbConnect.createUser(uid, name, mailaddress, password,sex,sharehouseid)
             UserId = str(uid)
-            session["uid"] = UserId
-            return redirect("/login")
+            session['uid'] = UserId
+            return redirect('/login')
     return redirect('/signup')
 
 # ログインページの表示
@@ -86,23 +86,23 @@ def display_login():
 #ログイン機能
 @app.route('/login', methods=['POST'])
 def userLogin():
-    mailaddress = request.form.get("mailaddress")
-    password = request.form.get("password")
+    mailaddress = request.form.get('mailaddress')
+    password = request.form.get('password')
 
-    if mailaddress == "" or password == "":
-        flash("メールアドレスおよびパスワードを入力してください")
+    if mailaddress == '' or password == '':
+        flash('メールアドレスおよびパスワードを入力してください')
     else:
         user = dbConnect.getUser(mailaddress)
         if user is None:
-            flash("このユーザーは存在しません")
+            flash('このユーザーは存在しません')
         else:
-            hashPassword = hashlib.sha256(password.encode("utf-8")).hexdigest()
-            if hashPassword !=user["password"]:
-                flash("パスワードが違います")
+            hashPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
+            if hashPassword !=user['password']:
+                flash('パスワードが違います')
             else:
-                session["uid"] = user["uid"]
-                return redirect("/home")
-        return redirect("/signup")
+                session['uid'] = user['uid']
+                return redirect('/home')
+        return redirect('/signup')
     
 # homeページの表示
 @app.route('/home')
@@ -110,4 +110,4 @@ def home():
     return render_template('pages/home-pages/home.html')
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=False)
+    app.run(host='0.0.0.0', debug=False)
