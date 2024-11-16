@@ -20,15 +20,15 @@ FLUSH PRIVILEGES;
 
 CREATE TABLE sharehouse (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  name varchar(50) NOT NULL
+  name varchar(255) NOT NULL
 );
 
 CREATE TABLE users (
-    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name varchar(50) NOT NULL,
-    mailaddress varchar(50) NOT NULL,
-    password varchar(50) NOT NULL,
-    sex int NOT NULL,
+    uid varchar(255) NOT NULL PRIMARY KEY,
+    name varchar(255) NOT NULL,
+    mailaddress varchar(255) NOT NULL,
+    password varchar(255) NOT NULL,
+    sex varchar(30) NOT NULL,
     sharehouseid int NOT NULL REFERENCES sharehouse(id),
     comment varchar(255),
     admin boolean 
@@ -36,29 +36,29 @@ CREATE TABLE users (
 
 CREATE TABLE statuses (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name varchar(50)
+    name varchar(255)
 );
 
 CREATE TABLE chatgroups (
-    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name varchar(50) NOT NULL,
+    cid int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
     required int NOT NULL,
     comment varchar(255),
-    statusid int REFERENCES status(id)
+    statusid int REFERENCES statuses(id)
 );
 
 CREATE TABLE usergroups (
-    user_id int NOT NULL REFERENCES users(id),
-    group_id int NOT NULL REFERENCES chatgroups(id)
+    user_id varchar(255) NOT NULL REFERENCES users(uid),
+    group_id int NOT NULL REFERENCES chatgroups(cid)
 );
 
 CREATE TABLE messages (
-    id int PRIMARY KEY AUTO_INCREMENT,
-    user_id int REFERENCES users(id),
-    group_id int REFERENCES chatgroups(id),
+    mid int PRIMARY KEY AUTO_INCREMENT,
+    user_id varchar(255)  NOT NULL REFERENCES users(uid),
+    group_id int REFERENCES chatgroups(cid),
     creatdate date not null,
     message varchar(255)
 );
 
 -- サンプルユーザーをINSERT
-INSERT INTO users(id, name, mailaddress, password)VALUES(1,'ねむ太郎','sasuganinemui@gmail.com','netaina');
+INSERT INTO users(uid, name, mailaddress, password,sex,sharehouseid)VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578',"man",1);

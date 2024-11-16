@@ -4,8 +4,10 @@
   border: solid #000;
   border-radius: 30px;
   padding: 50px;
-  margin: 80px;
-  box-shadow: 4px 4px 6px #8E8E93;
+  margin: 80px auto;
+  box-shadow: 4px 4px 6px #8e8e93;
+  width: 80%;
+  max-width: 1000px;
 }
 .registration-main {
   display: flex;
@@ -15,17 +17,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
 }
 .registration-container h1 {
   font-size: 60px;
   font-weight: bold;
 }
-.registration-label label{
+.registration-label {
+  margin: 10px auto;
+}
+.registration-label label {
   font-size: 17px;
   margin-bottom: 5px;
 }
-.registration-label input{
+.registration-label input {
   width: 390px;
   height: 40px;
   border: solid;
@@ -46,12 +50,16 @@
 }
 .signup-button {
   font-size: 20px;
-  padding: 15px;
   width: 400px;
+  height: 60px;
   border: none;
   border-radius: 10px;
-  color: #FFF;
-  background-color: #A1EC95;
+  color: #fff;
+  background-color: #a1ec95;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 .signup-button:hover {
   box-shadow: 0px 5px 10px #353535;
@@ -62,8 +70,11 @@
   border: solid #000;
   border-radius: 30px;
   padding: 50px;
-  margin: 80px;
-  box-shadow: 4px 4px 6px #8E8E93;
+  margin: 80px auto;
+  box-shadow: 4px 4px 6px #8e8e93;
+  width: 80%;
+  max-width: 800px;
+  text-align: center;
 }
 .flexbox {
   display: flex;
@@ -121,7 +132,7 @@
   width: 200px;
   border: none;
   border-radius: 10px;
-  color: #FFF;
+  color: #fff;
   background-color: #278949;
 }
 .flexbox-button:hover {

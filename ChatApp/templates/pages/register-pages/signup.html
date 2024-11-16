@@ -2,48 +2,63 @@
 <title>登録</title>
 {% endblock %} {% block body %}
 <div class="signup-box">
-    <!--登録ボタンまで全体を囲うmainタグ-->
-    <main class="signup-main">
-        <!--入力フォーム全体を囲うdivタグ-->
-        <div class="flexbox">
-            <!--それぞれの入力フォームを囲うタグ-->
-            <div class="flex-item">
-                <label for="username">お名前(ニックネーム)</label>
-                <input type="text" id="username" name="username">
-            </div>
-            <!--性別のラジオボタンの部分は他と違うクラスを割り当てている-->
-            <div class="signup-radio">
-                <p>性別</p>
-                <label for="man"><input type="radio" id="man"   name="sex" value="man">男</label>
-                <label for="woman"><input type="radio" id="woman" name="sex" value="woman">女</label>
-            </div>    
-
-            <div class="flex-item">
-                <label for="mail">登録メールアドレス</label>
-                <input type="email" id="mail" name="mail">
-            </div>
-
-            <div class="flex-item">
-                <label for="password">パスワード</label>
-                <input type="password" id="password" name="password">
-            </div>
-
-            <div class="flex-item">
-                <label for="passwordConfirm">確認用パスワード</label>
-                <input type="password" id="passwordConfirm" name="passwordConfirm">
-            </div>
-
-            <div class="flex-item">
-                <label for="sharehouse">所属シェアハウス</label>
-                <select id="sharehouse" name="sharehouse">
-                    <option value="1">東京</option>
-                </select>
-            </div>
+  <!--登録ボタンまで全体を囲うmainタグ-->
+  <main class="signup-main">
+    <form class="signup-form" method="post">
+      <!--入力フォーム全体を囲うdivタグ-->
+      <div class="flexbox">
+        <!--それぞれの入力フォームを囲うタグ-->
+        <div class="flex-item">
+          <label for="name">お名前(ニックネーム)</label>
+          <input type="text" id="name" name="name" />
         </div>
-        <!--登録ボタンにもフレックスボックスを指定するためのdivタグ。上のflexboxの部分とは分けてフレックスボックスを使っている。-->
-        <div class="button-container">
-            <button class="flexbox-button">登録</button>
+        <!--性別のラジオボタンの部分は他と違うクラスを割り当てている-->
+        <div class="signup-radio">
+          <p>性別</p>
+          <label for="man"
+            ><input type="radio" id="man" name="sex" value="man" />男</label
+          >
+          <label for="woman"
+            ><input type="radio" id="woman" name="sex" value="woman" />女</label
+          >
         </div>
-    </main>
+
+        <div class="flex-item">
+          <label for="mailaddress">登録メールアドレス</label>
+          <input type="email" id="mailaddress" name="mailaddress" />
+        </div>
+
+        <div class="flex-item">
+          <label for="password">パスワード</label>
+          <input type="password" id="password" name="password" />
+        </div>
+
+        <div class="flex-item">
+          <label for="passwordConfirm">確認用パスワード</label>
+          <input type="password" id="passwordConfirm" name="passwordConfirm" />
+        </div>
+
+        <div class="flex-item">
+          <label for="sharehouseid">所属シェアハウス</label>
+          <select id="sharehouseid" name="sharehouseid">
+            <option value="1">東京</option>
+          </select>
+        </div>
+      </div>
+      <!--登録ボタンにもフレックスボックスを指定するためのdivタグ。上のflexboxの部分とは分けてフレックスボックスを使っている。-->
+      <div class="error-container">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+      </div>
+      <div class="button-container">
+        <button class="flexbox-button">登録</button>
+      </div>
+    </form>
+  </main>
 </div>
 {% endblock %}
