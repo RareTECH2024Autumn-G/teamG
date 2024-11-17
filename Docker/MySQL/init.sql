@@ -61,4 +61,5 @@ CREATE TABLE messages (
 );
 
 -- サンプルユーザーをINSERT
-INSERT INTO users(uid, name, mailaddress, password,sex,sharehouseid)VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578',"man",1);
+INSERT INTO users(uid, name, mailaddress, password,sex,sharehouseid)VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578','man',1);
+INSERT INTO chatgroups(cid, name, required, comment, statusid)VALUES(1,'バスケグループ',0,'0',0);

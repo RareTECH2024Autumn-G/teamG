@@ -18,7 +18,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "INSERT INTO users (uid, name, mailaddress, password,sex,sharehouseid) VALUES (%s, %s, %s, %s,%s,%s);"
+            sql = 'INSERT INTO users (uid, name, mailaddress, password,sex,sharehouseid) VALUES (%s, %s, %s, %s,%s,%s);'
             cur.execute(sql, (uid, name, mailaddress, password,sex,sharehouseid))
             conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
@@ -34,7 +34,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT * FROM users WHERE mailaddress=%s;"
+            sql = 'SELECT * FROM users WHERE mailaddress=%s;'
             cur.execute(sql, (mailaddress))
             user = cur.fetchone()
             return user
@@ -51,7 +51,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "SELECT * FROM channels;"
+    #         sql = 'SELECT * FROM channels;'
     #         cur.execute(sql)
     #         channels = cur.fetchall()
     #         return channels
@@ -66,7 +66,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "SELECT * FROM channels WHERE id=%s;"
+    #         sql = 'SELECT * FROM channels WHERE id=%s;'
     #         cur.execute(sql, (cid))
     #         channel = cur.fetchone()
     #         return channel
@@ -81,7 +81,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "SELECT * FROM channels WHERE name=%s;"
+    #         sql = 'SELECT * FROM channels WHERE name=%s;'
     #         cur.execute(sql, (channel_name))
     #         channel = cur.fetchone()
     #         return channel
@@ -96,7 +96,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "INSERT INTO channels (uid, name, abstract) VALUES (%s, %s, %s);"
+    #         sql = 'INSERT INTO channels (uid, name, abstract) VALUES (%s, %s, %s);'
     #         cur.execute(sql, (uid, newChannelName, newChannelDescription))
     #         conn.commit()
     #     except Exception as e:
@@ -110,7 +110,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "SELECT * FROM channels WHERE name=%s;"
+    #         sql = 'SELECT * FROM channels WHERE name=%s;'
     #         cur.execute(sql, (channel_name))
     #         channel = cur.fetchone()
     #     except Exception as e:
@@ -125,7 +125,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "UPDATE channels SET uid=%s, name=%s, abstract=%s WHERE id=%s;"
+    #         sql = 'UPDATE channels SET uid=%s, name=%s, abstract=%s WHERE id=%s;'
     #         cur.execute(sql, (uid, newChannelName, newChannelDescription, cid))
     #         conn.commit()
     #     except Exception as e:
@@ -140,7 +140,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "DELETE FROM channels WHERE id=%s;"
+    #         sql = 'DELETE FROM channels WHERE id=%s;'
     #         cur.execute(sql, (cid))
     #         conn.commit()
     #     except Exception as e:
@@ -154,7 +154,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "SELECT id,u.uid, user_name, message FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s;"
+    #         sql = 'SELECT id,u.uid, user_name, message FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s;'
     #         cur.execute(sql, (cid))
     #         messages = cur.fetchall()
     #         return messages
@@ -169,7 +169,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "INSERT INTO messages(uid, cid, message) VALUES(%s, %s, %s)"
+    #         sql = 'INSERT INTO messages(uid, cid, message) VALUES(%s, %s, %s)'
     #         cur.execute(sql, (uid, cid, message))
     #         conn.commit()
     #     except Exception as e:
@@ -183,7 +183,7 @@ class dbConnect:
     #     try:
     #         conn = DB.getConnection()
     #         cur = conn.cursor()
-    #         sql = "DELETE FROM messages WHERE id=%s;"
+    #         sql = 'DELETE FROM messages WHERE id=%s;'
     #         cur.execute(sql, (message_id))
     #         conn.commit()
     #     except Exception as e:
