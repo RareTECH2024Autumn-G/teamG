@@ -1,0 +1,7 @@
+/* 全てのCSSをまとめてエクスポート */
+
+@import "group.css";
+@import "home.css"; 
+@import "base.css";
+@import "chat.css";
+@import "registration.css";

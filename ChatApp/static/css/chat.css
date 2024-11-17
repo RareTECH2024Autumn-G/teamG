@@ -1,0 +1,52 @@
+.chat-border {
+    border-radius: 20px; /* 角を丸くする */
+    padding: 5px; /* 内側の余白 */
+    max-width: 1200px;/* 最大幅を設定 */
+    margin: 100px auto;/* 上下に100pxの余白を追加し、左右は中央揃え */
+    background-color: white;
+    height: 620px;
+}
+
+.chat-container{
+    display: flex;
+    font-size: 30px;
+    color: #8E8E93;
+    
+}
+
+
+
+.chat-wrapper{
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    padding: 20px; /* 内側の余白 */
+    height: 300px; /* 固定の高さを設定 */
+    overflow-y: auto; /* 縦方向のオーバーフローを自動処理 */
+    background-color: #ffffff; /* 背景色 */
+    border: 1px solid #ccc; /* 枠線 */
+    border-radius: 5px; /* 角を丸くする */
+    margin: 20px;
+}
+
+.own-message {
+    background-color: #d1f7c4;  /* 現在のユーザーのメッセージの背景色 */
+    text-align: right;  /* メッセージを右寄せ */
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.own-message {
+    background-color: #d1f7c4;
+}
+.message-meta {
+    font-size: 0.8em;
+    color: #555;
+}
+.chat-form-container {
+    margin-top: 20px;
+}
