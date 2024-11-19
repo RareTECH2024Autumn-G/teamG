@@ -52,8 +52,10 @@ class dbConnect:
             conn = DB.getConnection()
             cur = conn.cursor()
             sql = 'SELECT firstlogin FROM users WHERE mailaddress=%s;'
-            cur.execute(sql, (mailaddress))
-            conn.commit()
+            cur.execute(sql, (mailaddress,))
+            firstlogin = cur.fetchone()
+            # print(f"models.py 57 DEBUG: checkfirst(mailaddress) = {firstlogin}")  # 戻り値を出力
+            return firstlogin
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
             abort(500)
