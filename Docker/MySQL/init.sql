@@ -31,7 +31,9 @@ CREATE TABLE users (
     sex varchar(30) NOT NULL,
     sharehouseid int NOT NULL REFERENCES sharehouse(id),
     comment varchar(255),
-    admin boolean 
+    admin boolean,
+    -- #2024118 うっちゃん firstloginを追加
+    firstlogin int
 );
 
 CREATE TABLE statuses (
@@ -62,4 +64,12 @@ CREATE TABLE messages (
 
 -- サンプルユーザーをINSERT
 INSERT INTO users(uid, name, mailaddress, password,sex,sharehouseid)VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578','man',1);
-INSERT INTO chatgroups(cid, name, required, comment, statusid)VALUES(1,'バスケグループ',0,'0',0);
+
+-- 2024/11/18 初期表示のグループ6こをINSERT
+INSERT INTO chatgroups(cid, name, required, comment, statusid)VALUES
+(1,'バスケグループ',0,'0',0),
+(2,'野球グループ',0,'0',0),
+(3,'音楽グループ',0,'0',0),
+(4,'ドッチボールグループ',0,'0',0),
+(5,'お茶グループ',0,'0',0),
+(6,'モルックグループ',0,'0',0);

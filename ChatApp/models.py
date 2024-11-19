@@ -14,12 +14,12 @@ from util.DB import DB
 
 class dbConnect:
     @staticmethod
-    def createUser(uid, name, mailaddress, password,sex,sharehouseid):
+    def createUser(uid, name, mailaddress, password,sex,sharehouseid,firstlogin):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = 'INSERT INTO users (uid, name, mailaddress, password,sex,sharehouseid) VALUES (%s, %s, %s, %s,%s,%s);'
-            cur.execute(sql, (uid, name, mailaddress, password,sex,sharehouseid))
+            sql = 'INSERT INTO users (uid, name, mailaddress, password,sex,sharehouseid,firstlogin) VALUES (%s, %s, %s, %s,%s,%s,%s);'
+            cur.execute(sql, (uid, name, mailaddress, password,sex,sharehouseid,firstlogin))
             conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
@@ -46,6 +46,23 @@ class dbConnect:
             if 'cur' in locals() and cur is not None:
                 cur.close()
 
+    @staticmethod #20241118 1回目のログインかを判別する
+    def checkfirst(mailaddress):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'SELECT firstlogin FROM users WHERE mailaddress=%s;'
+            cur.execute(sql, (mailaddress,))
+            firstlogin = cur.fetchone()
+            # print(f"models.py 57 DEBUG: checkfirst(mailaddress) = {firstlogin}")  # 戻り値を出力
+            return firstlogin
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
 
     # def getChannelAll():
     #     try:

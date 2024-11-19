@@ -15,6 +15,10 @@ services:
     # ローカルの/data/dbをコンテナの/var/lib/mysqlにマウントする
     volumes:
       - mysql_data:/var/lib/mysql
+      # init.sqlをマウント。20241116_ウッチャン追加
+      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql  
+      # End init.sqlをマウント。20241116_ウッチャン追加
+
     # コンテナ内の環境変数を設定
     environment:
       - MYSQL_ROOT_PASSWORD=root
