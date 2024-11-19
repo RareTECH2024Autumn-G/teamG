@@ -20,6 +20,10 @@ from flask_sqlalchemy import SQLAlchemy
 import pymysql
 # end 11/15/04:30 DB接続
 
+# # 2024/11/18 VSCode上でデバックを行うためにインポート
+# import pdb
+# # End  2024/11/18 VSCode上でデバックを行うためにインポート
+
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
 app.permanent_session_lifetime = timedelta(days=30)
@@ -55,6 +59,9 @@ def userSignup():
     password = request.form.get('password')
     passwordConfirm = request.form.get('passwordConfirm')
     sharehouseid = request.form.get('sharehouseid')
+    #2024118 うっちゃん firstloginを追加    
+    firstlogin = 1
+    #2024118 End うっちゃん firstloginを追加    
 
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
@@ -72,7 +79,9 @@ def userSignup():
         if DBuser != None:
             flash('すでに登録されています')
         else:
-            dbConnect.createUser(uid, name, mailaddress, password,sex,sharehouseid)
+            #2024118 うっちゃん firstloginを追加    
+            dbConnect.createUser(uid, name, mailaddress, password,sex,sharehouseid,firstlogin)
+            #2024118 End うっちゃん firstloginを追加    
             UserId = str(uid)
             session['uid'] = UserId
             return redirect('/login')
@@ -88,11 +97,14 @@ def display_login():
 def userLogin():
     mailaddress = request.form.get('mailaddress')
     password = request.form.get('password')
+    #
+    firstlogin = dbConnect.checkfirst('mailaddress')
 
     if mailaddress == '' or password == '':
         flash('メールアドレスおよびパスワードを入力してください')
     else:
         user = dbConnect.getUser(mailaddress)
+        # pdb.set_trace()
         if user is None:
             flash('このユーザーは存在しません')
         else:
@@ -100,8 +112,15 @@ def userLogin():
             if hashPassword !=user['password']:
                 flash('パスワードが違います')
             else:
-                session['uid'] = user['uid']
-                return redirect('/home')
+                # 2024/11/18 これが1回目のログインかを判別する
+                # 0の時は1回目のログイン、1以外の時は2回目以上のログイン
+                firstlogin = dbConnect.checkfirst('mailaddress')
+                if firstlogin == 0:
+                    return redirect('/first-group')
+                else: 
+                    session['uid'] = user['uid']
+                    return redirect('/home')
+                # End 2024/11/18 これが1回目のログインかを判別する
         return redirect('/signup')
     
 # homeページの表示
@@ -120,5 +139,12 @@ def first_group():
 def second_group():
     return render_template('pages/large-window-pages/second-group.html')
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', debug=False)
+# 2024/11/19 うっちゃん：デバッグのために仕込んでみた。
+if __name__ == "__main__":
+    app.run(
+        debug=True,
+        host='0.0.0.0',
+        port=5000
+    )
