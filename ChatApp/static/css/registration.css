@@ -3,11 +3,12 @@
 .registration-box {
   border: solid #000;
   border-radius: 30px;
-  padding: 50px;
+  padding: 30px;
   margin: 80px auto;
   box-shadow: 4px 4px 6px #8e8e93;
   width: 80%;
   max-width: 1000px;
+  background-color: #fff;
 }
 .registration-main {
   display: flex;
@@ -34,6 +35,7 @@
   height: 40px;
   border: solid;
   border-radius: 10px;
+  font-size: 20px;
 }
 .login-button {
   font-size: 20px;
@@ -69,24 +71,25 @@
 .signup-box {
   border: solid #000;
   border-radius: 30px;
-  padding: 50px;
+  padding: 60px 40px;
   margin: 80px auto;
   box-shadow: 4px 4px 6px #8e8e93;
-  width: 80%;
-  max-width: 800px;
+  width: 980px;
   text-align: center;
+  background-color: #fff;
 }
 .flexbox {
   display: flex;
   flex-direction: column;
 }
 .flex-item {
-  margin-top: 80px;
+  margin-top: 30px;
 }
 
 /* この3つは性別ラジオボタンのCSS */
 .signup-radio {
-  margin-top: 70px;
+  margin-top: 35px;
+  margin-bottom: 10px;
 }
 .signup-radio p {
   display: inline-block;
@@ -112,6 +115,7 @@
   height: 35px;
   border: solid;
   border-radius: 10px;
+  font-size: 18px;
 }
 /* 所属シェアハウスのセレクトボタンのCSS */
 .flex-item select {
@@ -124,7 +128,7 @@
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 90px;
+  margin-top: 65px;
 }
 .flexbox-button {
   font-size: 20px;
