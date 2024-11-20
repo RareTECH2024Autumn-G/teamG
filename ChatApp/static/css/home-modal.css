@@ -1,0 +1,43 @@
+
+/* モーダル表示の際の拝啓 */
+.home-modal-layer{
+    background: rgba(0, 0, 0, .2); /*背景を薄くする*/
+    width: 100%;
+    height: 100%;
+    position: fixed; /*画面を固定する*/
+    top: 0;
+    left: 0;
+    display: none; /* 初期状態で非表示 */
+}
+
+/* モーダルサイズ */
+.home-modal{
+    position: relative; /*子要素の位置指定を*/
+    margin-left: auto; /*モーダルを中央に置く*/
+    margin-right: auto; /*モーダルを中央に置く*/
+    width: 50%; /*モーダルの幅が画面のサイズに応じて変化する。*/
+    min-width: 440px; /*画面が狭くなってもここで固定される*/
+}
+
+/*  */
+.home-modal-inner{
+    margin-top: 150px;
+    position: relative;/* 相対位置を指定 */
+    margin-left: auto;
+    margin-left: auto;
+    background: #ffffff;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25); /*モーダルの影を入れる*/
+    border-radius: 20px; /* 丸み */
+    padding: 50px;
+    height: auto; 
+}
+
+.home-modal-close {
+    position: absolute; /* 絶対位置を指定 */
+    top: 10px; /* 上からの距離 */
+    right: 15px; /* 右からの距離 */
+    background: none; /* 背景を透明に */
+    border: none; /* ボーダーをなしに */
+    font-size: 40px; /* フォントサイズを調整 */
+    cursor: pointer; /* カーソルをポインタに */
+}
