@@ -19,7 +19,7 @@ FLUSH PRIVILEGES;
 -- end 11/15/05:00 DB接続
 
 CREATE TABLE sharehouses (
-    sid int NOT NULL PRIMARY KEY AUTO_INCREMENT, --2024/11/20 うっちゃん更新
+    sid int NOT NULL PRIMARY KEY AUTO_INCREMENT, -- 2024/11/20 うっちゃん更新
     name varchar(255) NOT NULL
 );
 
@@ -29,15 +29,15 @@ CREATE TABLE users (
     mailaddress varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
     sex varchar(30) NOT NULL,
-    sharehouse_id int NOT NULL REFERENCES sharehouse(id),
+    sharehouse_id int NOT NULL REFERENCES sharehouse(sid),
     comment varchar(255),
     admin boolean,
-    firstlogin int-- #2024118 うっちゃん firstloginを追加
+    firstlogin int-- 2024118 うっちゃん firstloginを追加
 );
 
 CREATE TABLE statuses (
-    stid int NOT NULL PRIMARY KEY AUTO_INCREMENT,--2024/11/20 うっちゃん更新
-    name varchar(50)--2024/11/20 うっちゃん更新
+    stid int NOT NULL PRIMARY KEY AUTO_INCREMENT,-- 2024/11/20 うっちゃん更新
+    name varchar(50)-- 2024/11/20 うっちゃん更新
 );
 
 CREATE TABLE chatgroups (
@@ -45,7 +45,7 @@ CREATE TABLE chatgroups (
     name varchar(255) NOT NULL,
     required int NOT NULL,
     comment varchar(255),
-    status_id int REFERENCES statuses(stid)--2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
+    status_id int REFERENCES statuses(stid) -- 2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
 );
 
 CREATE TABLE usergroups (
@@ -54,7 +54,7 @@ CREATE TABLE usergroups (
 );
 
 CREATE TABLE messages (
-    mid int PRIMARY KEY AUTO_INCREMENT,--2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
+    mid int PRIMARY KEY AUTO_INCREMENT, -- 2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
     user_id varchar(255)  NOT NULL REFERENCES users(uid),
     group_id int REFERENCES chatgroups(cid),
     creatdate date not null,
@@ -62,10 +62,10 @@ CREATE TABLE messages (
 );
 
 -- サンプルユーザーをINSERT
-INSERT INTO users(uid, name, mailaddress, password,sex,sharehouseid)VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578','man',1);
+INSERT INTO users(uid, name, mailaddress, password,sex,sharehouse_id)VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578','man',1);
 
 -- 2024/11/18 初期表示のグループ6こをINSERT
-INSERT INTO chatgroups(cid, name, required, comment, statusid)VALUES
+INSERT INTO chatgroups(cid, name, required, comment, status_id)VALUES
 (1,'バスケグループ',0,'0',0),
 (2,'野球グループ',0,'0',0),
 (3,'音楽グループ',0,'0',0),

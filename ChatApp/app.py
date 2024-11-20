@@ -54,7 +54,7 @@ def userSignup():
     mailaddress = request.form.get('mailaddress')
     password = request.form.get('password')
     passwordConfirm = request.form.get('passwordConfirm')
-    sharehouseid = request.form.get('sharehouseid')
+    sharehouse_id = request.form.get('sharehouseid')
     #2024118 うっちゃん firstloginを追加    
     firstlogin = 1
 
@@ -75,7 +75,7 @@ def userSignup():
             flash('すでに登録されています')
         else:
             #2024118 うっちゃん firstloginを追加    
-            dbConnect.createUser(uid, name, mailaddress, password,sex,sharehouseid,firstlogin)
+            dbConnect.createUser(uid, name, mailaddress, password,sex,sharehouse_id,firstlogin)
             #2024118 End うっちゃん firstloginを追加    
             UserId = str(uid)
             session['uid'] = UserId

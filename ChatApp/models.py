@@ -14,12 +14,12 @@ from util.DB import DB
 
 class dbConnect:
     @staticmethod
-    def createUser(uid, name, mailaddress, password,sex,sharehouseid,firstlogin):
+    def createUser(uid, name, mailaddress, password,sex,sharehouse_id,firstlogin):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = 'INSERT INTO users (uid, name, mailaddress, password,sex,sharehouseid,firstlogin) VALUES (%s, %s, %s, %s,%s,%s,%s);'
-            cur.execute(sql, (uid, name, mailaddress, password,sex,sharehouseid,firstlogin))
+            sql = 'INSERT INTO users (uid, name, mailaddress, password,sex,sharehouse_id,firstlogin) VALUES (%s, %s, %s, %s,%s,%s,%s);'
+            cur.execute(sql, (uid, name, mailaddress, password,sex,sharehouse_id,firstlogin))
             conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
