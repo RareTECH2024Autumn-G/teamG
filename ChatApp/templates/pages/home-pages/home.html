@@ -2,12 +2,41 @@
 <title>ホーム</title>
 {% endblock %}
 {% block body %}
-<div class="registration-box">
-  <main class="registration-main">
-    <img src="../../static/img/cathouse.svg" alt="キャットハウス" />
-    <div class="registration-container">
-      <h1>おめでとう！ログイン成功</h1>
+<div class="home-border">
+  <div class="home-title-container"><!--題名-->
+    <h1>チャットリスト</h1>
+    <input type="search" class="search" placeholder="検索"> <!--ソート検索機能-->
+    <button id="openModal<任意のID>" class="open-modal js-modal-button">＋</button> <!--友達追加ボタン-->
+  </div>
+  <div class="home-wrapper">
+      <button class="home-group" id="(グループのID)">グループ１</button>
+      <button class="home-group" id="(グループのID)">グループ２スポーツクラブ！！！＊＊＊＊＊＊</button>
+      <button class="home-group" id="(グループのID)">グループ３</button>
+      <button class="home-group" id="(グループのID)">グループ４</button>
+      <button class="home-group" id="(グループのID)">グループ５</button>
+      <button class="home-group" id="(グループのID)">グループ６</button>
+  </div>
+  <div>
+    <button class="inquiry-chat" id="(グループのID)">運営チャット</button>
+  </div>
+</div> 
+
+
+<div class="home-modal-layer js-home-modal">
+  <div class="home-modal">
+    <div class="home-modal-inner">
+      <div class="home-modal-wrap">
+        <button class="home-modal-close js-close-button">
+          <span>&times;</span> <!-- 閉じるアイコン -->
+        </button>
+          <div>
+            <a href="/addgroup"><button>新規チャット作成</button></a>
+            <a href="/second-group"><button>既存グループに参加</button></a>
+          </div>
+      </div>
     </div>
-  </main>
+  </div>
 </div>
+<script src="../static/JS/home-modal.js"></script> <!-- ここにJSファイル名を入れる -->
 {% endblock %}
+
