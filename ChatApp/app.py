@@ -164,6 +164,40 @@ def select_firstgroup():
 def second_group():
     return render_template('pages/large-window-pages/second-group.html')
 
+# 2024/11/19 yoneyama:add start 
+
+#チャットメッセージ表示
+#  グループ一覧からグループを選択したら
+#  グループのチャットメッセージを表示する
+@app.route('/message', methods=['GET'])
+def showChatMessage:
+
+    #セッションからuidを取得して変数uidに格納
+    uid = session.get("uid")
+
+    #変数uidがない（None）場合
+    if uid is None:
+
+        #login.html（ログイン画面）に戻る
+        return redirect('/login')
+
+    #画面から受け取った選択中のグループ名（groupname）から
+    groupname = request.form.get('groupname')
+
+    #グループ情報をDB取得＝＞DB：getGroup
+    #取得した結果をgroup変数に格納
+    group = dbConnect.getGroup(groupname)
+
+    #画面から受け取った選択中のグループID（groupid）から
+    #選択中グループのメッセージをDB取得＝＞DB：getMessage
+    #取得した結果をgroupmessage変数に格納
+    groupmessage = dbConnect.getMessage(groupid?)
+
+    #home.html（ホーム画面（グループ））を呼び出す（引数：group、getMessage、uid）
+    return render_template('home.html', group=group , groupmessage=groupmessage, uid=uid)
+
+# 2024/11/19 yoneyama:add end
+
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
 # 2024/11/19 うっちゃん：デバッグのために仕込みdebug=Trueの時、上のprintたちがターミナルに出力される。
