@@ -135,27 +135,29 @@ def firstgroup():
 @app.route('/select_firstgroup',methods = ['POST'])
 def select_firstgroup():
     # 画面上でチェックされたチェックボックスを画面から受け取る
-    try:
-        # リクエストからJSONデータを取得
-        data = request.get_json()
-        group_id = data.get('group_id')
-        print(f"app.py 142 DEBUG: group_id = {group_id}")  # 戻り値を出力【削除すること！！！】
+    services = request.form.getlist('services')  # 画面で複数選択されたサービスを受け取る
+    print(f"app.py 139 DEBUG:選択されたサービスは{services}です")
+    
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+        print(f"app.py 144 DEBUG：ログイン中のユーザーIDは→ {user_id}です")
+    else:
+        return "ログインしていません。"
 
-        if not group_id:
-            return jsonify({"error": "グループIDが指定されていません"}), 400
+    # もしserviceが選択されていたらusergruopsに登録処理
+    if services != None:
+        dbConnect.registsevices(user_id,services)
 
-        # グループIDの処理 (例: データベースに保存)
-        # ここでユーザー情報と選択されたグループを保存する処理を追加できます。
-        # 例: user.selected_group_id = group_id
+    
+    # ユーザーが存在するか確認
+    dbConnect.checkfirstuser(user_id) 
+    if user != none:
+        # 初回ログインフラグを更新1→0へ
+        dbConnect.updatefirstlogin(user_id)
 
-        return jsonify({"message": f"グループ {group_id} が選択されました！"})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-    # 画面上でチェックされたチェックボックスの内容でusergruopsに登録を行う
-    # 初回ログインフラグを更新1→0へ
     # ホーム画面を表示する
-    return render_template('pages/large-window-pages/first-group.html')
+    return redirect('/home')
 
 # second-groupページの表示
 @app.route('/second-group')

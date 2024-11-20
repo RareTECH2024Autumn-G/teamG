@@ -18,9 +18,9 @@ GRANT ALL PRIVILEGES ON sharehappy.* TO 'testuser'@'%';
 FLUSH PRIVILEGES;
 -- end 11/15/05:00 DB接続
 
-CREATE TABLE sharehouse (
-  id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  name varchar(255) NOT NULL
+CREATE TABLE sharehouses (
+    sid int NOT NULL PRIMARY KEY AUTO_INCREMENT, --2024/11/20 うっちゃん更新
+    name varchar(255) NOT NULL
 );
 
 CREATE TABLE users (
@@ -29,16 +29,15 @@ CREATE TABLE users (
     mailaddress varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
     sex varchar(30) NOT NULL,
-    sharehouseid int NOT NULL REFERENCES sharehouse(id),
+    sharehouse_id int NOT NULL REFERENCES sharehouse(id),
     comment varchar(255),
     admin boolean,
-    -- #2024118 うっちゃん firstloginを追加
-    firstlogin int
+    firstlogin int-- #2024118 うっちゃん firstloginを追加
 );
 
 CREATE TABLE statuses (
-    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name varchar(255)
+    stid int NOT NULL PRIMARY KEY AUTO_INCREMENT,--2024/11/20 うっちゃん更新
+    name varchar(50)--2024/11/20 うっちゃん更新
 );
 
 CREATE TABLE chatgroups (
@@ -46,7 +45,7 @@ CREATE TABLE chatgroups (
     name varchar(255) NOT NULL,
     required int NOT NULL,
     comment varchar(255),
-    statusid int REFERENCES statuses(id)
+    status_id int REFERENCES statuses(stid)--2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
 );
 
 CREATE TABLE usergroups (
@@ -55,7 +54,7 @@ CREATE TABLE usergroups (
 );
 
 CREATE TABLE messages (
-    mid int PRIMARY KEY AUTO_INCREMENT,
+    mid int PRIMARY KEY AUTO_INCREMENT,--2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
     user_id varchar(255)  NOT NULL REFERENCES users(uid),
     group_id int REFERENCES chatgroups(cid),
     creatdate date not null,

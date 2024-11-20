@@ -64,6 +64,59 @@ class dbConnect:
             if 'cur' in locals() and cur is not None:
                 cur.close()
 
+    @staticmethod #20241120 サービスを保存する
+    def registsevices(user_id,services):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'INSERT INTO usergroups (user_id, group_id) VALUES (%s, %s);'
+
+            service = 1
+            for service in services:
+                cur.execute(
+                    sql,(user_id,service)
+                )
+            conn.commit()
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
+
+    @staticmethod #20241120 初回ログインを更新する前にデータが存在するか確認する
+    def checkfirstuser(user_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'SELECT firstlogin FROM users WHERE uid=%s;'
+            cur.execute(sql, (user_id))
+            user = cur.fetchone()
+            return user
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
+
+    @staticmethod #20241120 初回ログインを更新する
+    def updatefirstlogin(user_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'UPDATE users SET firstlogin = 0 WHERE uid=%s;'
+            cur.execute(sql, (user_id))
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
+ 
     # def getChannelAll():
     #     try:
     #         conn = DB.getConnection()
