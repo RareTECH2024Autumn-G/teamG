@@ -164,6 +164,25 @@ def select_firstgroup():
 def second_group():
     return render_template('pages/large-window-pages/second-group.html')
 
+
+# MANA追記
+# add-personalページの表示(友達追加画面)
+@app.route('/addpersonal')
+def addpersonal():
+    return render_template('pages/large-window-pages/add-personal.html')
+
+# add-groupページの表示(友達追加画面・グループ作成モード)
+@app.route('/addgroup')
+def addgroup():
+    return render_template('pages/large-window-pages/add-group.html')
+
+# make-groupページの表示(グループ作成画面)
+@app.route('/makegroup')
+def makegroup():
+    return render_template('pages/large-window-pages/make-group.html')
+# MANA追記
+
+
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
 # 2024/11/19 うっちゃん：デバッグのために仕込みdebug=Trueの時、上のprintたちがターミナルに出力される。
