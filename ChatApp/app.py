@@ -39,7 +39,7 @@ def userSignup():
 
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
-    if name == '' or mailaddress =='' or password == '' or passwordConfirm == '' or sex == '':
+    if name == '' or mailaddress =='' or password == '' or passwordConfirm == '' or sex is None: #2024118 タラ　sex is None　に変更
         flash('空のフォームがあるようです')
     elif password != passwordConfirm:
         flash('二つのパスワードの値が違っています')
