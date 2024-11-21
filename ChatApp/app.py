@@ -191,6 +191,31 @@ def showChatMessage():
     return render_template('home.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
 
 # 2024/11/20 yoneyama add end
+
+    # ダミーデータで定義↓↓↓↓（画面の確認できないため）削除しても問題ない　アナザー　2024/11/21
+
+@app.route('/chat/<cid>')
+def chat(cid):
+    channel = {
+        "id": cid,
+        "name": f"{cid}",
+        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
+    }
+    messages = [
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "こんにちは！", "created_at": "11/17 10:00"},
+        {"id": 2, "user_id": 102, "user_name": "MANA", "content": "元気ですか？", "created_at": "11/17 10:05"},
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+    ]
+    return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)
+ # ダミーデータで定義↑↑↑↑（画面の確認できないため）
+    # テンプレートに渡す　削除しても問題ない　アナザー　2024/11/21
+
+
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
 # 2024/11/19 うっちゃん：デバッグのために仕込みdebug=Trueの時、上のprintたちがターミナルに出力される。
