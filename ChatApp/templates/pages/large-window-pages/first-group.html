@@ -4,20 +4,32 @@
 {% endblock %} 
 {% block body %}
 <div class="border "><!--メッセージ（ようこそ）-->
-  <div class="group-add"> 
-       <h1>Nice to meet you!</h1>
-       <h2>グループを選択してね！</h2>
-  </div>
-  <div class="group-add-container"> <!--グループ一覧-->
-      <button class="group-button" id="1">グループ１</button>
-      <button class="group-button" id="2">グループ２スポーツクラブ！！！＊＊＊＊＊＊</button>
-      <button class="group-button" id="3">グループ３</button>
-      <button class="group-button" id="4">グループ４</button>
-      <button class="group-button" id="5">グループ５</button>
-      <button class="group-button" id="6">グループ６</button>
-  </div>
-  <div class="add-button">
-    <a href="/home"><button class="add-button2" id="join-group-button()">参加</button></a> <!-- 参加ボタンを追加 -->
-  </div>
+  <form class="firstgroup-form" method="post" action="/select_firstgroup"> <!--2024/11/21 うっちゃん追加-->
+    <div class="group-add"> 
+        <h1>Nice to meet you!</h1>
+        <h2>グループを選択してね！</h2>
+    </div>
+    <div class="group-add-container"> <!--グループ一覧（2024/11/21 うっちゃん グループ直指定）-->
+        <!-- 
+        <button class="group-button" id="1">バスケグループ</button>
+        <button class="group-button" id="2">野球グループ</button>
+        <button class="group-button" id="3">音楽グループ</button>
+        <button class="group-button" id="4">ドッチボールグループ</button>
+        <button class="group-button" id="5">お茶グループ</button>
+        <button class="group-button" id="6">モルックグループ</button> 
+        -->
+        <label><input type="checkbox" name="group_id" value="1">バスケグループ</label><br>
+        <label><input type="checkbox" name="group_id" value="2">野球グループ</label><br>
+        <label><input type="checkbox" name="group_id" value="3">音楽グループ</label><br>
+        <label><input type="checkbox" name="group_id" value="4">ドッチボールグループ</label><br>
+        <label><input type="checkbox" name="group_id" value="5">お茶グループ</label><br>
+        <label><input type="checkbox"  name="group_id" value="6">モルックグループ</label><br>        
+    </div>
+    <div class="add-button">
+      <!-- <a href="/home"> -->
+      <!-- <button class="add-button2" id="join-group-button()">参加</button></a> 参加ボタンを追加 -->
+      <button class="add-button2" type="submit" >参加</button></a> <!-- 参加ボタンを追加 -->
+    </div>
+  </form> <!--2024/11/21 うっちゃん追加-->
 </div>
 {% endblock %}

@@ -76,6 +76,7 @@ class dbConnect:
                 cur.execute(
                     sql,(user_id,service)
                 )
+                print(f"models.py 78 DEBUG：通ってはいるぞ！")
             conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
@@ -109,6 +110,7 @@ class dbConnect:
             cur = conn.cursor()
             sql = 'UPDATE users SET firstlogin = 0 WHERE uid=%s;'
             cur.execute(sql, (user_id))
+            conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
             abort(500)

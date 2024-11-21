@@ -18,6 +18,18 @@
           <label for="password">パスワード</label>
           <input type="password" id="password" name="password" />
         </div>
+    
+        <!-- 2024/11/21 うっちゃん エラーを追記 -->
+        <div class="error-container">
+          {% with messages = get_flashed_messages() %} {% if messages %}
+          <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %} {% endwith %}
+        </div>
+    
         <div class="registraion-button">
           <button class="login-button">ログイン</button>
           <a class="signup-button" href="{{url_for('signup')}}"> 新規登録 </a>

@@ -6,28 +6,24 @@ import re
 
 from models import dbConnect
 
-# 11/15/04:20 localでのフロントなしAPIテスト
-from flasgger import Swagger
-# end 11/15/04:20 localでのフロントなしAPIテスト
+# # 11/15/04:20 localでのフロントなしAPIテスト
+# from flasgger import Swagger
+# # end 11/15/04:20 localでのフロントなしAPIテスト
 
-# 11/15/04:30 DB接続
-from flask_sqlalchemy import SQLAlchemy
-import pymysql
-# end 11/15/04:30 DB接続
+# # 11/15/04:30 DB接続
+# from flask_sqlalchemy import SQLAlchemy
+# import pymysql
+# # end 11/15/04:30 DB接続
 
 app = Flask(__name__)
 
-# 11/15/04:20 localでのフロントなしAPIテスト
-swagger = Swagger(app)
-# end 11/15/04:20 localでのフロントなしAPIテスト
+# # 11/15/04:30 DB接続
+# # SQLAlchemy 設定 (MySQL接続)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://testuser:testuser@db:3306/sharehappy'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# 11/15/04:30 DB接続
-# SQLAlchemy 設定 (MySQL接続)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://testuser:testuser@db:3306/sharehappy'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-# end 11/15/04:30 DB接続
+# db = SQLAlchemy(app)
+# # end 11/15/04:30 DB接続
 
 
 # 11/15/04:20 localでのフロントなしAPIテスト
