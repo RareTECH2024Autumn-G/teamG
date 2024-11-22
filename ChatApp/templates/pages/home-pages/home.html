@@ -9,18 +9,28 @@
     <button id="openModal<任意のID>" class="open-modal js-modal-button">＋</button> <!--友達追加ボタン-->
   </div>
   <div class="home-wrapper">
-      <button class="home-group" id="(グループのID)">グループ１</button>
+      <!-- <button class="home-group" id="(グループのID)">グループ１</button>
       <button class="home-group" id="(グループのID)">グループ２スポーツクラブ！！！＊＊＊＊＊＊</button>
       <button class="home-group" id="(グループのID)">グループ３</button>
       <button class="home-group" id="(グループのID)">グループ４</button>
       <button class="home-group" id="(グループのID)">グループ５</button>
-      <button class="home-group" id="(グループのID)">グループ６</button>
-  </div>
+      <button class="home-group" id="(グループのID)">グループ６</button> -->
+
+      <!-- 2024/11/22 うっちゃん グループリストを動的に描画 -->
+    {% for group in groups %}
+      <button class="home-group" id="{{ group['group_id'] }}">{{ group['name'] }}</button>
+    {% endfor %}
+
+    <div>
+      <h2>デバッグ出力</h2>
+      <pre>{{ groups }}</pre>
+    </div>
+
+    </div>
   <div>
     <button class="inquiry-chat" id="(グループのID)">運営チャット</button>
   </div>
 </div> 
-
 
 <div class="home-modal-layer js-home-modal">
   <div class="home-modal">
