@@ -53,11 +53,21 @@ def userSignup():
         if DBuser != None:
             flash('すでに登録されています')
         else:
-            #2024118 うっちゃん firstloginを追加    
+            # 2024/11/18 うっちゃん firstloginを追加    
             dbConnect.createUser(uid, name, mailaddress, password,sex,sharehouse_id,firstlogin)
-            #2024118 End うっちゃん firstloginを追加    
+            
+            # # 2024/11/22 うっちゃん 初回グループ登録
+            # print(f"app.py 60 デバッグ:通っているぞ{sex}")
+
+            if sex == 'man':
+                sexcid = 2
+            elif sex == 'woman':
+                sexcid = 3
+            dbConnect.registrequiregroups(uid,sexcid)
+
             UserId = str(uid)
             session['uid'] = UserId
+
             return redirect('/login')
     return redirect('/signup')
 
@@ -101,7 +111,18 @@ def userLogin():
 # homeページの表示
 @app.route('/home',methods = ['GET'])
 def home():
-    return render_template('pages/home-pages/home.html')
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    groups = dbConnect.getbelonggroups(user_id) #user_idをもとにデータベースのusergroupsのデータを取得
+    if groups != None: #resultsが空欄でない場合画面にデータを引き渡す
+        # print(f"app.py 122 デバッグ:通っているぞ{groups}")
+        return render_template('pages/home-pages/home.html', groups=groups)
+    else:
+        return "グループが存在しません。"
 
 # first-groupページの表示(初回グループ選択画面)
 @app.route('/firstgroup',methods = ['GET'])
@@ -112,49 +133,73 @@ def firstgroup():
 @app.route('/select_firstgroup',methods = ['POST'])
 def select_firstgroup():
     # 画面上でチェックされたチェックボックスを画面から受け取る
-    services = request.form.getlist('group_id')  # 画面で複数選択されたサービスを受け取る
-    print(f"app.py 118 DEBUG:選択されたサービスは{services}です")
-    
+    selectgroups = request.form.getlist('group_id')  # 画面で複数選択されたサービスを受け取る
+    # print(f"app.py 118 DEBUG:選択されたサービスは{selectgroups}です")
+
     # セッションにユーザーIDが保存されているか確認
     if 'uid' in session:  
         user_id = session['uid']  # 現在のユーザーのIDを取得
-        print(f"app.py 123 DEBUG：ログイン中のユーザーIDは→ {user_id}です")
     else:
         return "ログインしていません。"
 
-    # もしserviceが選択されていたらusergruopsに登録処理
-    if services != None:
-        dbConnect.registsevices(user_id,services)
+    # もしselectgroupsが選択されていたらusergruopsに登録処理
+    if selectgroups != None:
+        dbConnect.registgroups(user_id,selectgroups)
+        # print(f"app.py 147 デバッグ:通っているぞ{selectgroups}")
 
     # ユーザーが存在するか確認
     user = dbConnect.checkfirstuser(user_id) 
+    # print(f"app.py 151 デバッグ:通っているぞ")
     if user != None:
         # 初回ログインフラグを更新1→0へ
         dbConnect.updatefirstlogin(user_id)
+        # print(f"app.py 155 デバッグ:通っているぞ")
 
     # ホーム画面を表示する
     return redirect('/home')
 
-# second-groupページの表示
-@app.route('/second-group')
+# second-groupページの表示（2024/11/22 既存グループ選択画面 うっちゃん）
+@app.route('/second-group',methods = ['GET'])
 def second_group():
-    return render_template('pages/large-window-pages/second-group.html')
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    allgroups = dbConnect.getallgroups(user_id) 
+    # print(f"app.py 171 デバッグ:通っているぞ{allgroups}")
+
+    if not allgroups:
+        flash('未加入のグループが存在しません。')
+        return redirect('/home')
+    else:
+        return render_template('pages/large-window-pages/second-group.html', allgroups=allgroups)
 
 
 # MANA追記
 # add-personalページの表示(友達追加画面)
-@app.route('/addpersonal')
+@app.route('/addpersonal',methods = ['GET'])
 def addpersonal():
+    # 
+    # 
+    # 
     return render_template('pages/large-window-pages/add-personal.html')
 
 # add-groupページの表示(友達追加画面・グループ作成モード)
-@app.route('/addgroup')
+@app.route('/addgroup',methods = ['GET'])
 def addgroup():
+    # 
+    # 
+    # 
     return render_template('pages/large-window-pages/add-group.html')
 
 # make-groupページの表示(グループ作成画面)
-@app.route('/makegroup')
+@app.route('/makegroup',methods = ['GET'])
 def makegroup():
+    # 
+    # 
+    # 
     return render_template('pages/large-window-pages/make-group.html')
 # MANA追記
 
