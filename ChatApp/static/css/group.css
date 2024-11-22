@@ -21,33 +21,56 @@
     font-size: 30px;/* 文字サイズと色 */
 }
 
-/*--グループ選択画面表示 */
+/* .group-add-container のスタイル */
 .group-add-container {  
     display: flex;
-    align-items: center; /* 水平方向の中央揃え */
-    flex-direction:row;/*左から右へ*/
-    flex-wrap: wrap;/*折り返し*/
-    justify-content: space-between;/*子要素を均等に配置*/
+    flex-direction: row; /* 横並び */
+    flex-wrap: wrap; /* 折り返し */
+    justify-content: center; /* 子要素を中央に配置 */
+    align-items: center; /* 垂直方向にも中央揃え */
 }
 
-/* 既存選択グループ選択画面のボタン指定*/
+/* label 要素のスタイル */
+.group-add-container label {
+    display: flex; /* フレックスボックスで中央配置 */
+    justify-content: center; /* 横方向に中央配置 */
+    align-items: center; /* 垂直方向に中央配置 */
+    margin: 50px; /* ボタン間の余白 */
+    width: 250px; /* ボタンの幅を指定 */
+    height: 100px; /* 高さを指定 */
+}
+
+/* group-button のスタイル */
 .group-button {
+    display: flex; /* フレックスボックスで中央配置 */
+    justify-content: center; /* 横方向に中央配置 */
+    align-items: center; /* 垂直方向に中央配置 */
+    text-align: center; /* テキストを中央揃え */
     color: #8E8E93;
-    width: 25%; /* ボタンの幅を設定 */
-    margin-left: 50px;/* ボタンの間の余白 */
-    margin-right: 50px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 10px;/* ボタンの内側の余白 */
-    height: 15vh;
     background: #FFFFFF;
-    border-radius: 20px; /*丸み*/
+    border-radius: 20px; /* 丸みを付ける */
     font-size: 24px;
     border: none;
     box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.4);
-    cursor: pointer;/* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時のトランジションを設定 */
+    cursor: pointer; /* ポインターカーソル */
+    transition: background-color 0.3s; /* ホバー時のトランジション */
+    width: 100%; /* 親要素の幅に合わせる */
+    height: 100%; /* 親要素の高さに合わせる */
 }
+
+/* チェックボックス自体を非表示にする */
+input[type="checkbox"] {
+    position: absolute; /* 完全に配置を外す */
+    opacity: 0;         /* 透明にする */
+    pointer-events: none; /* ユーザー操作を防ぐ */
+}
+
+/* チェックされた状態のスタイル */
+input[type="checkbox"]:checked + .group-button {
+    border-color: #007BFF;
+    background-color: #e0f7ff;
+}
+
 
 .group-button:hover{
     background-color: #bfc4bf;/* ホバー時の背景色を変更 */
