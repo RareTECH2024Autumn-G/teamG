@@ -1,9 +1,25 @@
 {% extends 'pages/large-window-pages/base.html' %}
 {% block title %}
-<title>チャットリスト</title>
+<title>既存グループ選択画面</title>
 {% endblock %} 
 {% block body %}
-<div>徹すと</div>
+
+{% if groups %}
+<ul>
+    {% for group in groups %}
+        <li>
+            {{ group.name }}
+            <!-- 必要に応じて参加ボタンなどを追加 -->
+            <form action="/join-group" method="POST">
+                <input type="hidden" name="group_id" value="{{ group.id }}">
+                <button type="submit">参加</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>未加入のグループはありません。</p>
+{% endif %}
 <!--メッセージ（ようこそ）-->
 <!--サブメッセージ（ようこそ）-->
 <!--グループ一覧-->

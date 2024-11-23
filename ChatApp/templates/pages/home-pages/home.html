@@ -6,7 +6,7 @@
   <div class="home-title-container"><!--題名-->
     <h1>チャットリスト</h1>
     <input type="search" class="search" placeholder="検索"> <!--ソート検索機能-->
-    <button id="openModal<任意のID>" class="open-modal js-modal-button">＋</button> <!--友達追加ボタン-->
+    <button class="open-modal js-modal-button">＋</button> <!--友達追加ボタン-->
   </div>
   <div class="home-wrapper">
       <!-- <button class="home-group" id="(グループのID)">グループ１</button>
@@ -18,7 +18,9 @@
 
       <!-- 2024/11/22 うっちゃん グループリストを動的に描画 -->
     {% for group in groups %}
-      <button class="home-group" id="{{ group['group_id'] }}">{{ group['name'] }}</button>
+       <a href="/chat/{{group['name'] }}">
+         <button class="home-group" id="{{ group['group_id'] }}">{{ group['name'] }}</button>
+       </a>
     {% endfor %}
 
     <div>
@@ -28,7 +30,7 @@
 
     </div>
   <div>
-    <button class="inquiry-chat" id="(グループのID)">運営チャット</button>
+       <button class="inquiry-chat" id="(グループのID)">運営チャット</button>
   </div>
 </div> 
 

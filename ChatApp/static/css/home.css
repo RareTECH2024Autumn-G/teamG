@@ -26,8 +26,8 @@
 }
 
 .open-modal {
-    background-color: #A1EC95; /* ボタンの背景色 */
-    color: white; /* テキストの色 */
+    background: linear-gradient(90deg, rgb(247, 247, 208), rgb(187, 243, 188)); /* ボタンの背景色 */
+    color:  #8E8E93;; /* テキストの色 */
     padding: 10px; /* ボタンの内側の余白 */
     border: 1px solid #ccc; /* ボタンの枠線を削除 */
     border-radius: 10px; /* ボタンの角を丸くする */
@@ -36,7 +36,7 @@
 }
 
 .open-modal:hover {
-    background-color: #45a049; /* ホバー時の背景色 */
+    background: linear-gradient(90deg, rgb(239, 239, 99), rgb(112, 248, 114)); /* ホバー時の背景色 */
 }
 
 
@@ -55,25 +55,29 @@
 
 .home-group {
     width: 90%;
+    color:  rgb(67, 66, 66); /* テキストの色 */
+    font-size: 24px;
     border: 1px solid #ccc;
-    background-color: #e0e0e0; /* グループの背景色 */
+    background: linear-gradient(90deg, rgb(247, 247, 208), rgb(187, 243, 188));
     padding: 10px; /* 内側の余白 */
-    border-radius: 5px; /* 角を丸くする */
+    border-radius: 10px; /* 角を丸くする */
     margin: 10px; /* 上下の余白 */   
     cursor: pointer;/* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時のトランジションを設定 */
 }
 
 .home-group:hover{
-    background-color: #A1EC95;/* ホバー時の背景色を変更 */
+    background: linear-gradient(90deg, rgb(239, 239, 99), rgb(112, 248, 114));/* ホバー時の背景色を変更 */
 }
 
 .inquiry-chat{
     width: 70%;
+    color:  rgb(67, 66, 66);
+    font-size: 24px;
     border: 1px solid #ccc;
     background-color: #e0e0e0; /* グループの背景色 */
     padding: 10px; /* 内側の余白 */
-    border-radius: 5px; /* 角を丸くする */  
+    border-radius: 10px; /* 角を丸くする */  
     margin-top: 20px;
     margin-bottom: 40px; 
     margin-left: 125px;
