@@ -6,10 +6,29 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!--レスポンシブデザインのため。モバイルの可動領域-->
       {% block title %}{% endblock %}
       <link rel="icon" href="../../static/img/favicon.svg" /> <!--ファビコン画像-->
+      <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- グーグルフォント -->
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rammetto+One&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="../../static/css/styles.css" /><!--cssのリンクファイル-->
    </head>
    <header class="design">
-      <h1>ShareHappy</h1>
+      <!-- アプリ名・ホームボタン・設定ボタンの３つのクラス-->
+      <div class="base-header">
+         <!-- アプリ名タイトル -->
+         <h1>ShareHappy</h1>
+         <!-- ホームボタン -->
+         <div class="home-btn">
+            <a href="../home-pages/home.html"> <!-- ホームへ移動 -->
+               <img src="../../../static/img/home-icon.svg" alt="ホームボタン" class="home-btn-svg" width="50" height="50">
+            </a>
+         </div>
+         <!--設定ボタン--> <!-- アカウント管理画面へ移動 -->
+         <div class="setting-btn">
+               <a href="">
+                  <img src="../../../static/img/setting-icon.svg" alt="設定ボタン" width="50" height="50">
+               </a>
+         </div>
+      </div>
    </header>
    <body>
       {% block body %}{% endblock %}
