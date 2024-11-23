@@ -5,6 +5,7 @@ import hashlib
 import re
 import sys
 import os
+import datetime # 2024/11/21 yoneyama add
 
 # 現在のディレクトリをPythonのパスに追加
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -187,7 +188,7 @@ def makegroup():
 #チャットメッセージ表示
 #  グループ一覧からグループを選択したら
 #  グループのチャットメッセージを表示する
-@app.route('/message', methods=['GET'])
+@app.route('/chat', methods=['GET'])
 def showChatMessage():
 
     #セッションからuidを取得して変数uidに格納
@@ -209,12 +210,50 @@ def showChatMessage():
     #画面から受け取った選択中のグループID（groupid）から
     #選択中グループのメッセージをDB取得＝＞DB：getMessage
     #取得した結果をgroupmessage変数に格納
-    l_groupmessage = dbConnect.getMessage(groupid)
+    l_groupmessage = dbConnect.getMessage(l_group.cid)
 
-    #home.html（ホーム画面（グループ））を呼び出す（引数：group、getMessage、uid）
-    return render_template('home.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
+    #chat.html（チャット画面）を呼び出す（引数：group、getMessage、uid）
+    return render_template('chat.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
 
 # 2024/11/20 yoneyama add end
+
+# 2024/11/23 yoneyama add start
+#チャットメッセージ送信
+#  グループに向けたチャットを送信する
+
+@app.route('/chat', methods=['POST'])
+def sendChatMessage():
+
+    #セッションからuidを取得して変数uidに格納
+    uid = session.get("uid")
+
+    #変数uidがない（None）場合
+    if uid is None:
+
+        #login.html（ログイン画面）に戻る
+        return redirect('/login')
+
+    #画面からメッセージを受け取り、変数messageに格納する
+    l_message = request.form.get('message')
+
+    #画面からグループIDを受け取り、変数group_idに格納
+    #l_group_id = request.form.get(”group_id”) #dockers compose upしたらエラー
+    l_group_id = request.form.get('cid')
+
+    #日付を取得＝＞DateTime
+    l_datetime = datetime.datetime.now()
+
+    #変数messageが存在する場合
+    if l_message is None:
+
+        #メッセージ内容をDBに登録＝＞DB：createMessageのコール
+        dbConnect.createMessage(uid ,l_group_id ,l_datetime ,l_message)
+
+    #chat.html（チャット画面）を再表示?
+    return render_template('chat.html')
+
+# 2024/11/23 yoneyama add end
+
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
 # 2024/11/19 うっちゃん：デバッグのために仕込みdebug=Trueの時、上のprintたちがターミナルに出力される。

@@ -261,3 +261,45 @@ class dbConnect:
     #         abort(500)
     #     finally:
     #         cur.close()
+
+# 2024/11/23 yoneyama add start
+    def getGroup(groupname):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT c.cid ,c.name ,c.required ,c.comment ,c.statusid FROM chatgroups c WHERE c.name = %s;"
+            cur.execute(sql, (groupname))
+            group = cur.fetchone()
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+            return group
+
+    def getMessage(group_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "SELECT m.mid ,m.user_id ,m.group_id ,m.creatdate ,m.message FROM messages m WHERE m.group_id = %s;"
+            cur.execute(sql, (group_id))
+            messages = cur.fetchone()
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+            return messages
+
+    def createMessage(i_user_id , i_group_id , l_datetime , l_message):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = "INSERT INTO messages(user_id , group_id , createdate ,message)VALUES(%s ,%s ,%s ,%s);"
+            cur.execute(sql, (i_user_id , i_group_id , l_datetime , l_message))
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+# 2024/11/23 yoneyama add end
