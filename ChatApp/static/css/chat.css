@@ -1,6 +1,6 @@
 .chat-border {
     border-radius: 20px; /* 角を丸くする */
-    padding: 5px; /* 内側の余白 */
+    padding: 10px; /* 内側の余白 */
     max-width: 1200px;/* 最大幅を設定 */
     margin: 100px auto;/* 上下に100pxの余白を追加し、左右は中央揃え */
     background-color: white;
@@ -10,17 +10,58 @@
 .chat-container{
     display: flex;
     font-size: 30px;
+    margin: 20px;
     color: #8E8E93;
-    
+    align-items: center;
 }
 
+.task-calendar-container{
+    display: flex;
+}
+
+.abstract{
+    white-space: nowrap; /* テキストを改行せずに1行で表示 */
+    overflow: hidden; /* 親要素を超えたテキストを隠す */
+    text-overflow: ellipsis; /* テキストが溢れた場合に「…」を表示 */
+    width: 40%; /* 幅を指定 */
+    height: 30px;
+    border: 1px solid #ccc; /* ボーダーを追加して見やすくする */
+    font-size: 20px;
+    padding: 5px;
+    margin: 0 20px;
+    border-radius: 10px;
+}
+
+.chat-edit{
+    background-color: #d1f7c4;
+    margin-left: 5px;
+    border-radius: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.chat-calendar{
+    background-color: #d1f7c4;
+    margin-left: 20px;
+    border-radius: 20px;
+    width: 100px;
+    height: 50px;
+}
+
+.chat-task{
+    background: #d1f7c4;
+    margin-left: 20px;
+    border-radius: 20px;
+    width: 100px;
+    height: 50px;
+}
 
 
 .chat-wrapper{
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
     padding: 20px; /* 内側の余白 */
-    height: 300px; /* 固定の高さを設定 */
+    height: 380px; /* 固定の高さを設定 */
     overflow-y: auto; /* 縦方向のオーバーフローを自動処理 */
     background-color: #ffffff; /* 背景色 */
     border: 1px solid #ccc; /* 枠線 */
@@ -28,25 +69,36 @@
     margin: 20px;
 }
 
-.own-message {
-    background-color: #d1f7c4;  /* 現在のユーザーのメッセージの背景色 */
-    text-align: right;  /* メッセージを右寄せ */
-}
-
 .message {
-    padding: 10px;
+    padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #f9f9f9;
 }
 .own-message {
     background-color: #d1f7c4;
+    text-align: right;  /* メッセージを右寄せ */
+    border: 10px;
 }
 .message-meta {
     font-size: 0.8em;
-    color: #555;
+    color: black;
 }
 .chat-form-container {
-    margin-top: 20px;
+    margin-top: 40px;
+    margin-right: 60px;
+}
+
+.chat-button-container{
+    display: flex;
+    justify-content: end;
+}
+
+.chat-area{
+    field-sizing: content;
+    width: 500px;
+    margin-right: 10px;
+    resize: none;
+    padding: 5px;
 }

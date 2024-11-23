@@ -11,31 +11,11 @@ import datetime # 2024/11/21 yoneyama add
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from models import dbConnect
-
-# 11/15/04:20 localでのフロントなしAPIテスト
-from flasgger import Swagger
-# end 11/15/04:20 localでのフロントなしAPIテスト
-
-# 11/15/04:30 DB接続
-from flask_sqlalchemy import SQLAlchemy
 import pymysql
-# end 11/15/04:30 DB接続
 
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
 app.permanent_session_lifetime = timedelta(days=30)
-
-# 11/15/04:20 localでのフロントなしAPIテスト
-# swagger = Swagger(app)
-# end 11/15/04:20 localでのフロントなしAPIテスト
-
-# 11/15/04:30 DB接続
-# SQLAlchemy 設定 (MySQL接続)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://testuser:testuser@db:3306/sharehappy'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-# end 11/15/04:30 DB接続
 
 # 接続した時のログインページを表示
 @app.route('/')
@@ -56,12 +36,11 @@ def userSignup():
     password = request.form.get('password')
     passwordConfirm = request.form.get('passwordConfirm')
     sharehouse_id = request.form.get('sharehouseid')
-    #2024118 うっちゃん firstloginを追加    
-    firstlogin = 1
+    firstlogin = 1 #2024118 うっちゃん firstloginを追加    
 
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
-    if name == '' or mailaddress =='' or password == '' or passwordConfirm == '' or sex == '':
+    if name == '' or mailaddress =='' or password == '' or passwordConfirm == '' or sex is None: #2024118 タラ　sex is None　に変更
         flash('空のフォームがあるようです')
     elif password != passwordConfirm:
         flash('二つのパスワードの値が違っています')
@@ -75,11 +54,21 @@ def userSignup():
         if DBuser != None:
             flash('すでに登録されています')
         else:
-            #2024118 うっちゃん firstloginを追加    
+            # 2024/11/18 うっちゃん firstloginを追加    
             dbConnect.createUser(uid, name, mailaddress, password,sex,sharehouse_id,firstlogin)
-            #2024118 End うっちゃん firstloginを追加    
+            
+            # # 2024/11/22 うっちゃん 初回グループ登録
+            # print(f"app.py 60 デバッグ:通っているぞ{sex}")
+
+            if sex == 'man':
+                sexcid = 2
+            elif sex == 'woman':
+                sexcid = 3
+            dbConnect.registrequiregroups(uid,sexcid)
+
             UserId = str(uid)
             session['uid'] = UserId
+
             return redirect('/login')
     return redirect('/signup')
 
@@ -94,26 +83,24 @@ def userLogin():
     mailaddress = request.form.get('mailaddress')
     password = request.form.get('password')
     firstlogin = dbConnect.checkfirst(mailaddress)
-    # print(f"app.py 101 DEBUG: checkfirst(mailaddress) = {firstlogin}")  # 戻り値を出力【削除すること！！！】
 
     if mailaddress == '' or password == '':
         flash('メールアドレスおよびパスワードを入力してください')
-        return redirect('/signup') #2024/11/19 うっちゃん エラー時ログイン画面に止まるように変更
+        return redirect('/login') #2024/11/19 うっちゃん エラー時ログイン画面に止まるように変更
     else:
         user = dbConnect.getUser(mailaddress)
 
         if user is None:
             flash('このユーザーは存在しません')
-            return redirect('/signup')#2024/11/19 うっちゃん エラー時ログイン画面に止まるように変更
+            return redirect('/login')#2024/11/19 うっちゃん エラー時ログイン画面に止まるように変更
         else:
             hashPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
             if hashPassword !=user['password']:
                 flash('パスワードが違います')
-                return redirect('/signup')#2024/11/19 うっちゃん エラー時ログイン画面に止まるように変更
+                return redirect('/login')#2024/11/19 うっちゃん エラー時ログイン画面に止まるように変更
             else:
                 # 2024/11/18 これが1回目のログインかを判別する（1の時は1回目のログイン、1以外の時は2回目以上のログイン）
                 firstlogin = dbConnect.checkfirst(mailaddress)
-                # print(f"app.py 121 DEBUG: firstlogin = {firstlogin}")  # 戻り値を出力【削除すること！！！】                
 
                 # 1回目のログインの時、初回グループ選択に遷移する
                 if firstlogin['firstlogin'] == 1:
@@ -123,9 +110,20 @@ def userLogin():
                     return redirect('/home')        
     
 # homeページの表示
-@app.route('/home')
+@app.route('/home',methods = ['GET'])
 def home():
-    return render_template('pages/home-pages/home.html')
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    groups = dbConnect.getbelonggroups(user_id) #user_idをもとにデータベースのusergroupsのデータを取得
+    if groups != None: #resultsが空欄でない場合画面にデータを引き渡す
+        # print(f"app.py 122 デバッグ:通っているぞ{groups}")
+        return render_template('pages/home-pages/home.html', groups=groups)
+    else:
+        return "グループが存在しません。"
 
 # first-groupページの表示(初回グループ選択画面)
 @app.route('/firstgroup',methods = ['GET'])
@@ -136,50 +134,73 @@ def firstgroup():
 @app.route('/select_firstgroup',methods = ['POST'])
 def select_firstgroup():
     # 画面上でチェックされたチェックボックスを画面から受け取る
-    services = request.form.getlist('services')  # 画面で複数選択されたサービスを受け取る
-    print(f"app.py 139 DEBUG:選択されたサービスは{services}です")
-    
+    selectgroups = request.form.getlist('group_id')  # 画面で複数選択されたサービスを受け取る
+    # print(f"app.py 118 DEBUG:選択されたサービスは{selectgroups}です")
+
     # セッションにユーザーIDが保存されているか確認
     if 'uid' in session:  
         user_id = session['uid']  # 現在のユーザーのIDを取得
-        print(f"app.py 144 DEBUG：ログイン中のユーザーIDは→ {user_id}です")
     else:
         return "ログインしていません。"
 
-    # もしserviceが選択されていたらusergruopsに登録処理
-    if services != None:
-        dbConnect.registsevices(user_id,services)
+    # もしselectgroupsが選択されていたらusergruopsに登録処理
+    if selectgroups != None:
+        dbConnect.registgroups(user_id,selectgroups)
+        # print(f"app.py 147 デバッグ:通っているぞ{selectgroups}")
 
-    
     # ユーザーが存在するか確認
-    dbConnect.checkfirstuser(user_id) 
-    if user != none:
+    user = dbConnect.checkfirstuser(user_id) 
+    # print(f"app.py 151 デバッグ:通っているぞ")
+    if user != None:
         # 初回ログインフラグを更新1→0へ
         dbConnect.updatefirstlogin(user_id)
+        # print(f"app.py 155 デバッグ:通っているぞ")
 
     # ホーム画面を表示する
     return redirect('/home')
 
-# second-groupページの表示
-@app.route('/second-group')
+# second-groupページの表示（2024/11/22 既存グループ選択画面 うっちゃん）
+@app.route('/second-group',methods = ['GET'])
 def second_group():
-    return render_template('pages/large-window-pages/second-group.html')
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    allgroups = dbConnect.getallgroups(user_id) 
+    # print(f"app.py 171 デバッグ:通っているぞ{allgroups}")
+
+    if not allgroups:
+        flash('未加入のグループが存在しません。')
+        return redirect('/home')
+    else:
+        return render_template('pages/large-window-pages/second-group.html', allgroups=allgroups)
 
 
 # MANA追記
 # add-personalページの表示(友達追加画面)
-@app.route('/addpersonal')
+@app.route('/addpersonal',methods = ['GET'])
 def addpersonal():
+    # 
+    # 
+    # 
     return render_template('pages/large-window-pages/add-personal.html')
 
 # add-groupページの表示(友達追加画面・グループ作成モード)
-@app.route('/addgroup')
+@app.route('/addgroup',methods = ['GET'])
 def addgroup():
+    # 
+    # 
+    # 
     return render_template('pages/large-window-pages/add-group.html')
 
 # make-groupページの表示(グループ作成画面)
-@app.route('/makegroup')
+@app.route('/makegroup',methods = ['GET'])
 def makegroup():
+    # 
+    # 
+    # 
     return render_template('pages/large-window-pages/make-group.html')
 # MANA追記
 
@@ -216,6 +237,29 @@ def showChatMessage():
     return render_template('chat.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
 
 # 2024/11/20 yoneyama add end
+
+    # ダミーデータで定義↓↓↓↓（画面の確認できないため）削除しても問題ない　アナザー　2024/11/21
+
+@app.route('/chat/<cid>')
+def chat(cid):
+    channel = {
+        "id": cid,
+        "name": f"{cid}",
+        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
+    }
+    messages = [
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "こんにちは！", "created_at": "11/17 10:00"},
+        {"id": 2, "user_id": 102, "user_name": "MANA", "content": "元気ですか？", "created_at": "11/17 10:05"},
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
+    ]
+    return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)
+ # ダミーデータで定義↑↑↑↑（画面の確認できないため）
+    # テンプレートに渡す　削除しても問題ない　アナザー　2024/11/21
 
 # 2024/11/23 yoneyama add start
 #チャットメッセージ送信
