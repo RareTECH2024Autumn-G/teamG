@@ -1,0 +1,143 @@
+/* ↓ap-invite-chat.htmlのCSS */
+
+/* モーダルが表示される時のページ全体 */
+.apChatModal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+/* モーダルの箱 */
+.ap-modal-content {
+    display: none; /*　初期値 */
+    background-color: #D1D1D6;
+    margin: 10% auto;
+    padding: 40px;
+    width: 70%;
+    height: 65%;
+    border-radius: 30px;
+    opacity: 0.9;
+}
+/* 「〜〜さんから、〜参加しますか？」の質問文 */
+.ap-modal-header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 50px;
+    color: #fff;
+    font-weight: bold;
+}
+/* 「参加する」「今はしない」ボタンのクラス */
+.ap-modal-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+/* 「参加する」ボタンの装飾 */
+#apConfirmChat {
+    margin-right: 200px;
+    font-size: 40px;
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    border: solid #8E8E93;
+    background: linear-gradient(to right, #D4FC79, #96E6A1);
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 2px 3px 4px #8E8E93;
+}
+#apConfirmChat:hover {
+    box-shadow: 0px 5px 10px #353535;
+}
+/* 「今はしない」ボタンの装飾 */
+#apCancelChat {
+    font-size: 40px;
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    border: solid #8E8E93;
+    background: linear-gradient(to right, #D4FC79, #96E6A1);
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 2px 3px 4px #8E8E93;
+}
+#apCancelChat:hover {
+    box-shadow: 0px 5px 10px #353535;
+}
+
+/* ↓mg-invite-chat.htmlのCSS */
+
+/* モーダルが表示される時のページ全体 */
+.mgChatModal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+/* モーダルの箱 */
+.mg-modal-content {
+    display: none; /*　初期値 */
+    background-color: #D1D1D6;
+    margin: 10% auto;
+    padding: 40px;
+    width: 70%;
+    height: 65%;
+    border-radius: 30px;
+    opacity: 0.9;
+}
+/* 「〜〜さんから、〜参加しますか？」の質問文 */
+.mg-modal-header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 50px;
+    color: #fff;
+    font-weight: bold;
+}
+/* 「参加する」「今はしない」ボタンのクラス */
+.mg-modal-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+/* 「参加する」ボタンの装飾 */
+#mgConfirmChat {
+    margin-right: 200px;
+    font-size: 40px;
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    border: solid #8E8E93;
+    background: linear-gradient(to right, #D4FC79, #96E6A1);
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 2px 3px 4px #8E8E93;
+}
+#mgConfirmChat:hover {
+    box-shadow: 0px 5px 10px #353535;
+}
+/* 「今はしない」ボタンの装飾 */
+#mgCancelChat {
+    font-size: 40px;
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    border: solid #8E8E93;
+    background: linear-gradient(to right, #D4FC79, #96E6A1);
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 2px 3px 4px #8E8E93;
+}
+#mgCancelChat:hover {
+    box-shadow: 0px 5px 10px #353535;
+}
