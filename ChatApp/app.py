@@ -5,6 +5,7 @@ import hashlib
 import re
 import sys
 import os
+import datetime # 2024/11/21 yoneyama add
 
 # 現在のディレクトリをPythonのパスに追加
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -208,7 +209,7 @@ def makegroup():
 #チャットメッセージ表示
 #  グループ一覧からグループを選択したら
 #  グループのチャットメッセージを表示する
-@app.route('/message', methods=['GET'])
+@app.route('/chat', methods=['GET'])
 def showChatMessage():
 
     #セッションからuidを取得して変数uidに格納
@@ -230,10 +231,10 @@ def showChatMessage():
     #画面から受け取った選択中のグループID（groupid）から
     #選択中グループのメッセージをDB取得＝＞DB：getMessage
     #取得した結果をgroupmessage変数に格納
-    l_groupmessage = dbConnect.getMessage(groupid)
+    l_groupmessage = dbConnect.getMessage(l_group.cid)
 
-    #home.html（ホーム画面（グループ））を呼び出す（引数：group、getMessage、uid）
-    return render_template('home.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
+    #chat.html（チャット画面）を呼び出す（引数：group、getMessage、uid）
+    return render_template('chat.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
 
 # 2024/11/20 yoneyama add end
 
