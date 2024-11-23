@@ -1,45 +1,66 @@
-{% extends 'pages/large-window-pages/base.html' %}
-{% block title %}
+{% extends 'pages/large-window-pages/base.html' %} {% block title %}
 <title>グループ追加画面</title>
-{% endblock %}
-{% block body %}
+{% endblock %} {% block body %}
 <!-- ボックス（枠）-->
 <div class="make-group-box">
-    <div class="mg-img-edit-icon"> <!-- グループ画像・編集アイコン画像、２つのクラス -->
-        <!-- グループ画像 -->
-        <div class="mg-img-icon">
-            <img src="../../../static/img/mg-pic-icon.svg" alt="グループ画像" width="115" height="115">
-        </div>
-        <!-- 編集アイコン -->
-        <div class="mg-edit-icon">
-            <img src="../../../static/img/edit-pencil-icon.svg" alt="編集アイコン">
-        </div>
+  <form class="make-group-form" method="post" action="/makegroup">
+    <div class="mg-img-edit-icon">
+      <!-- グループ画像・編集アイコン画像、２つのクラス -->
+      <!-- グループ画像 -->
+      <div class="mg-img-icon">
+        <img
+          src="../../../static/img/mg-pic-icon.svg"
+          alt="グループ画像"
+          width="115"
+          height="115"
+        />
+      </div>
+      <!-- 編集アイコン -->
+      <div class="mg-edit-icon">
+        <img
+          src="../../../static/img/edit-pencil-icon.svg"
+          alt="編集アイコン"
+        />
+      </div>
     </div>
-    <!-- グループ名とそのフォーム --> <!-- バックエンドと相談？ & value属性必要？-->
+    <!-- グループ名とそのフォーム -->
+    <!-- バックエンドと相談？ & value属性必要？-->
     <div class="mg-edit-name">
-        <label for="group-name">グループ名：</label>
-        <input type="text" id="group-name" name="groupName">
+      <label for="group-name">グループ名：</label>
+      <input type="text" id="group-name" name="name" />
     </div>
-    <!-- コメントとそのフォーム --> <!-- バックエンドと相談？ --> <!-- <textarea>のvalue属性は少し特殊そう。colsは文字数で入力欄の幅指定、rowsは行数で高さ指定。-->
+    <!-- コメントとそのフォーム -->
+    <!-- バックエンドと相談？ -->
+    <!-- <textarea>のvalue属性は少し特殊そう。colsは文字数で入力欄の幅指定、rowsは行数で高さ指定。-->
     <div class="mg-edit-comment">
-        <label for="group-comment">コメント：</label>
-        <textarea id="group-comment" name="" cols="" rows=""></textarea>
+      <label for="group-comment">コメント：</label>
+      <textarea id="group-comment" name="comment"></textarea>
     </div>
-    <!-- 公開チェックボックス --> <!-- バックエンドと相談？ --> <!-- チェックボックス一つだけ選択する機能はJSで書くっぽい -->
+    <!-- 公開チェックボックス -->
+    <!-- バックエンドと相談？ -->
+    <!-- チェックボックス一つだけ選択する機能はJSで書くっぽい -->
+    <!-- 2024/11/23　タラ修正　チェックボックス→ラジオボタンにしました -->
     <div class="mg-pub-btn">
-        <p>公開：</p>
-        <label for="yes-pub-btn">
-            <input type="checkbox" id="yes-pub-btn" name="mgPubBtn" value="yesPubBtn">
-            する
-        </label>
-        <label for="no-pub-btn">
-            <input type="checkbox" id="no-pub-btn" name="mgPubBtn" value="noPubBtn">
-            しない
-        </label>
+      <p>公開：</p>
+      <label for="yes-pub-btn">
+        <input
+          type="radio"
+          id="yes-pub-btn"
+          name="required"
+          value="0"
+          checked
+        />
+        する
+      </label>
+      <label for="no-pub-btn">
+        <input type="radio" id="no-pub-btn" name="required" value="1" />
+        しない
+      </label>
     </div>
     <!-- 「グループを作成」ボタン -->
     <div class="mg-make-btn">
-        <button type="button">グループを作成</button>
+      <button type="submit">グループを作成</button>
     </div>
+  </form>
 </div>
 {% endblock %}

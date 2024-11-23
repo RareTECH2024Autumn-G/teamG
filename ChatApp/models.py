@@ -173,6 +173,67 @@ class dbConnect:
             abort(500)
         finally:
             cur.close()
+    
+    @staticmethod# 2024/11/23 タラ追記（ユーザー一覧を取得）    
+    def getallusers(uid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'SELECT uid,name FROM users WHERE uid<>%s;'
+            # 自分以外の複数usersを取れるようにする
+            cur.execute(sql, (uid,))
+            users = cur.fetchall()
+            print(f"models.py182 DEBUG: users = {users}")  # 戻り値を出力
+            return users
+        except Exception as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            cur.close()
+
+    @staticmethod# 2024/11/23 タラ追記（新しいchatgroupsを追加）    
+    def createGroup(name,required,comment):
+        try:
+            status_id = 0
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'INSERT INTO chatgroups (name,required,comment,status_id) VALUES (%s, %s, %s, %s);'
+            cur.execute(sql,(name,required,comment,status_id))
+            conn.commit()
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'SELECT cid FROM chatgroups WHERE name=%s;'
+            cur.execute(sql, (name))
+            cid = cur.fetchone()
+            print(f"models.py207 DEBUG: cid = {cid}")  # 戻り値を出力
+            return cid
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
+    
+    @staticmethod# 2024/11/23 タラ追記（usergruopsに新しいgroup_idを追加する）    
+    def addGroup(selectUsers, cid):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'INSERT INTO usergroups (user_id, group_id) VALUES (%s, %s);'
+            print(f"DEBUG: selectUsersの型: {type(selectUsers)} 値: {selectUsers}")
+            for selectUser in selectUsers:
+                cur.execute(
+                    sql,(selectUser,cid['cid'])
+                )
+            conn.commit()
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
 
     # def getChannelById(cid):
     #     try:

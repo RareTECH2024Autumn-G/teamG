@@ -1,36 +1,46 @@
-{% extends 'pages/large-window-pages/base.html' %}
-{% block title %}
+{% extends 'pages/large-window-pages/base.html' %} {% block title %}
 <title>新規チャット作成画面</title>
-{% endblock %}
-{% block body %}
+{% endblock %} {% block body %}
 <!--ボックス（枠）-->
 <div class="add-personal-box">
-    <!--タイトル・検索バー・グループモードボタン、３つのクラス-->
-    <div class="add-personal-tsg">
-        <!--タイトル「メンバー」-->
-        <div class="add-personal-title">
-            <h1>メンバー</h1>
-        </div>
-        <!--検索バー-->
-        <div class="add-personal-search">
-            <input type="search" name="q">
-            <button><img src="../../../static/img/search-icon.svg"></button>
-        </div>
-        <!--グループ追加モードボタン--> <!-- バックエンドと相談？ <a href="add-group.html> はいらないか、、、" -->
-        <div class="ap-add-group-btn">
-            <img src="../../../static/img/group-mode-icon.svg" alt="グループモードボタン" width="70" height="70">
-        </div>
+  <!--タイトル・検索バー・グループモードボタン、３つのクラス-->
+  <div class="add-personal-tsg">
+    <!--タイトル「メンバー」-->
+    <div class="add-personal-title">
+      <h1>メンバー</h1>
     </div>
-    <!--友達一覧テーブル？（アカウント画像？）-->
-    <div class="add-personal-friends">
-        <ul class="ap-friend-list"> 
-            <li class="ap-friend-item"> 
-                <img src="../../../static/img/user-icon.png" alt="友達1" class="profile-pic">
-                <span class="friend-name">友達1</span>
-                <!--バックエンドと相談-->
-                <button type="button">チャットする</button>
-            </li>
-            <li class="ap-friend-item">
+    <!--検索バー-->
+    <div class="add-personal-search">
+      <input type="search" name="q" />
+      <button><img src="../../../static/img/search-icon.svg" /></button>
+    </div>
+    <!--グループ追加モードボタン-->
+    <!-- バックエンドと相談？ <a href="add-group.html> はいらないか、、、" -->
+    <div class="ap-add-group-btn">
+      <img
+        src="../../../static/img/group-mode-icon.svg"
+        alt="グループモードボタン"
+        width="70"
+        height="70"
+      />
+    </div>
+  </div>
+  <!--友達一覧テーブル？（アカウント画像？）-->
+  <div class="add-personal-friends">
+    <ul class="ap-friend-list">
+      {% for user in users %}
+      <li class="ap-friend-item">
+        <img
+          src="../../../static/img/user-icon.png"
+          alt="{{user['name']}}"
+          class="profile-pic"
+        />
+        <span class="friend-name">{{user['name']}}</span>
+        <!--バックエンドと相談-->
+        <button type="button" type="submit">チャットする</button>
+      </li>
+      {% endfor %}
+      <!-- <li class="ap-friend-item">
                 <img src="../../../static/img/user-icon.png" alt="友達2" class="profile-pic">
                 <span class="friend-name">友達2</span>
                 <button type="button">チャットする</button>
@@ -84,9 +94,9 @@
                 <img src="../../../static/img/user-icon.png" alt="友達12" class="profile-pic">
                 <span class="friend-name">友達12</span>
                 <button type="button">チャットする</button>
-            </li>
-            <!--＊さらに友達を追加-->
-        </ul>
-    </div>
+            </li> -->
+      <!--＊さらに友達を追加-->
+    </ul>
+  </div>
 </div>
 {% endblock %}
