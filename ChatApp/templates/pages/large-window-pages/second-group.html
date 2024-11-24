@@ -3,25 +3,30 @@
 <title>既存グループ選択画面</title>
 {% endblock %} 
 {% block body %}
-
-{% if groups %}
-<ul>
-    {% for group in groups %}
-        <li>
-            {{ group.name }}
-            <!-- 必要に応じて参加ボタンなどを追加 -->
-            <form action="/join-group" method="POST">
-                <input type="hidden" name="group_id" value="{{ group.id }}">
-                <button type="submit">参加</button>
-            </form>
-        </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>未加入のグループはありません。</p>
-{% endif %}
-<!--メッセージ（ようこそ）-->
-<!--サブメッセージ（ようこそ）-->
-<!--グループ一覧-->
-<!--参加ボタン-->
+<div class="border "><!--メッセージ（ようこそ）-->
+    <form class="firstgroup-form" method="post" action="/select_firstgroup"> <!--2024/11/21 うっちゃん追加-->
+       <div class="group-add"> 
+           <h1>Can't wait to see you!</h1>
+           <h2>グループを選択してね！</h2>
+      {% if groups %}
+           <ul class="second-group-wrapper">
+      {% for group in allgroups %}
+               <li class="second-group-button">
+                   {{ group['name'] }}
+                <!-- 必要に応じて参加ボタンなどを追加 -->
+                   <form action="/join-group" method="POST">
+                       <input type="hidden" name="group_id" value="{{ group.id }}">
+                       <button type="submit">参加</button>
+                  </form>
+               </li>
+      {% endfor %}
+           </ul>
+      {% else %}
+           <div class="second-group-none">
+              <p>未加入のグループはありません。</p>
+           </div>
+      {% endif %}
+       </div>  
+   <form>
+</div>
 {% endblock %}

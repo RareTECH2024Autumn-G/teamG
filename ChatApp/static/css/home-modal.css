@@ -8,6 +8,8 @@
     top: 0;
     left: 0;
     display: none; /* 初期状態で非表示 */
+    justify-content: center;
+    align-items: center;
 }
 
 /* モーダルサイズ */
@@ -16,6 +18,7 @@
     margin-left: auto; /*モーダルを中央に置く*/
     margin-right: auto; /*モーダルを中央に置く*/
     width: 50%; /*モーダルの幅が画面のサイズに応じて変化する。*/
+    height: 60%;
     min-width: 440px; /*画面が狭くなってもここで固定される*/
 }
 
@@ -26,11 +29,42 @@
     margin-left: auto;
     margin-left: auto;
     background: #ffffff;
+    border: solid gray;
+    box-shadow: 6px 6px 8px #8E8E93;
     box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25); /*モーダルの影を入れる*/
     border-radius: 20px; /* 丸み */
     padding: 50px;
-    height: auto; 
+    height: 300px; 
 }
+
+.home-modal-container{
+    display: flex;
+    justify-content:  space-between;
+    flex-wrap: wrap; /* 子要素が溢れると次の行に移動 */
+
+}
+
+.home-modal-container button {
+    margin-top: 100px;
+    margin-bottom: auto;
+    padding: 15px 30px; /* 上下の余白を15px、左右の余白を30pxに設定 */
+    font-size: 30px; /* フォントサイズを18pxに設定 */
+    border-radius: 10px; /* 角を丸くする */
+    background: linear-gradient(90deg, rgb(199, 245, 16), rgb(112, 248, 114)); /* ホバー時の背景色 */
+    color: white; /* 文字色を白に設定 */
+    border: none; /* ボーダーをなしに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.5s; /* ホバー時のトランジションを設定 */
+    box-shadow: 2px 3px 4px #8E8E93;
+    width: 300x;
+    height: 100px;
+}
+
+.home-modal-container button:hover {
+    background: linear-gradient(to right,#79ce85,#aaca60);
+}
+
+
 
 .home-modal-close {
     position: absolute; /* 絶対位置を指定 */
@@ -41,3 +75,4 @@
     font-size: 40px; /* フォントサイズを調整 */
     cursor: pointer; /* カーソルをポインタに */
 }
+
