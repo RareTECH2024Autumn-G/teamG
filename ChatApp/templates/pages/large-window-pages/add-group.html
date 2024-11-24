@@ -1,10 +1,9 @@
-{% extends 'pages/large-window-pages/base.html' %}
-{% block title %}
+{% extends 'pages/large-window-pages/base.html' %} {% block title %}
 <title>新規グループ作成画面</title>
-{% endblock %}
-{% block body %}
+{% endblock %} {% block body %}
 <!--ボックス（枠）-->
-<div class="add-group-box">
+<form method="post" action="/select-addpersonal">
+  <div class="add-group-box">
     <!--タイトル・検索バー・グループモードボタン、３つのクラス-->
     <div class="add-personal-tsg">
         <!--タイトル「メンバー」-->
@@ -23,71 +22,34 @@
     </div>
     <!--友達一覧テーブル？（アカウント画像）-->
     <div class="add-personal-friends">
-        <ul class="friend-list">
-            <label for="friend-checkbox1">
-                <li class="friend-item">
-                    <!--バックエンドと相談-->
-                    <input type="checkbox" id="friend-checkbox1" name="selectUser" value="user_id">
-                    <img src="../../../static/img/user-icon.png" alt="友達1" class="profile-pic">
-                    <span class="friend-name">友達1</span>
-                    <button type="button">チャットする</button>
-                </li>
-            </label>
-            <!--<label>と<input>が結びついている"friend-checkbox"にそれぞれ数字をつけないと、チェックボックスが正しく反応しなかった-->
-            <label for="friend-checkbox2">
-                <li class="friend-item">
-                    <input type="checkbox" id="friend-checkbox2" name="selectUser" value="user_id">
-                    <img src="../../../static/img/user-icon.png" alt="友達2" class="profile-pic">
-                    <span class="friend-name">友達2</span>
-                    <button type="button">チャットする</button>
-                </li>
-            </label>
-            <label for="friend-checkbox3">
-                <li class="friend-item">
-                    <input type="checkbox" id="friend-checkbox3" name="selectUser" value="user_id">
-                    <img src="../../../static/img/user-icon.png" alt="友達3" class="profile-pic">
-                    <span class="friend-name">友達3</span>
-                    <button type="button">チャットする</button>
-                </li>
-            </label>
-            <label for="friend-checkbox4">
-                <li class="friend-item">
-                    <input type="checkbox" id="friend-checkbox4" name="selectUser" value="user_id">
-                    <img src="../../../static/img/user-icon.png" alt="友達4" class="profile-pic">
-                    <span class="friend-name">友達4</span>
-                    <button type="button">チャットする</button>
-                </li>
-            </label>
-            <label for="friend-checkbox5">
-                <li class="friend-item">
-                    <input type="checkbox" id="friend-checkbox5" name="selectUser" value="user_id">
-                    <img src="../../../static/img/user-icon.png" alt="友達5" class="profile-pic">
-                    <span class="friend-name">友達5</span>
-                    <button type="button">チャットする</button>
-                </li>
-            </label>
-            <label for="friend-checkbox6">
-                <li class="friend-item">
-                    <input type="checkbox" id="friend-checkbox6" name="selectUser" value="user_id">
-                    <img src="../../../static/img/user-icon.png" alt="友達6" class="profile-pic">
-                    <span class="friend-name">友達6</span>
-                    <button type="button">チャットする</button>
-                </li>
-            </label>
-            <label for="friend-checkbox7">
-                <li class="friend-item">
-                    <input type="checkbox" id="friend-checkbox7" name="selectUser" value="user_id">
-                    <img src="../../../static/img/user-icon.png" alt="友達7" class="profile-pic">
-                    <span class="friend-name">友達7</span>
-                    <button type="button">チャットする</button>
-                </li>
-            </label>
-            <!--＊さらに友達を追加-->
-        </ul>
+      <ul class="friend-list">
+        {% for user in users %}
+        <label for="friend-checkbox{{loop.index}}">
+          <li class="friend-item">
+            <!--バックエンドと相談-->
+            <input
+              type="checkbox"
+              id="friend-checkbox{{loop.index}}"
+              name="selectUser"
+              value="{{user['uid']}}"
+            />
+            <img
+              src="../../../static/img/user-icon.png"
+              alt="友達{{loop.index}}"
+              class="profile-pic"
+            />
+            <span class="friend-name">{{ user['name'] }}</span>
+            <button type="button">チャットする</button>
+          </li>
+        </label>
+        {% endfor %}
+      </ul>
     </div>
-</div>
-<!--バックエンドと相談？ <a href="make-group.html"> いらない？よね、、、--> <!--「次へ」ボタン -->
-<div class="add-group-next-btn">
-        <button type="button">次へ</button>
-</div>
+  </div>
+  <!--バックエンドと相談？ <a href="make-group.html"> いらない？よね、、、-->
+  <!--「次へ」ボタン -->
+  <div class="add-group-next-btn">
+    <button type="submit">次へ</button>
+  </div>
+</form>
 {% endblock %}

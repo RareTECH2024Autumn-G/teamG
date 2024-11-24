@@ -5,6 +5,7 @@ import hashlib
 import re
 import sys
 import os
+import datetime # 2024/11/21 yoneyama add
 
 # 現在のディレクトリをPythonのパスに追加
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -179,20 +180,44 @@ def second_group():
 
 # MANA追記
 # add-personalページの表示(友達追加画面)
+# 2024/11/23　タラ追記(addpersonalにユーザー一覧データ渡す)
 @app.route('/addpersonal',methods = ['GET'])
 def addpersonal():
-    # 
-    # 
-    # 
-    return render_template('pages/large-window-pages/add-personal.html')
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        uid = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusergroupsのデータを取得
+    return render_template('pages/large-window-pages/add-personal.html',users = users)
+
+
+# 2024/11/23　タラ追記(addpersonalで選択したユーザーデータをmake-groupに渡す)
+@app.route('/select-addpersonal',methods = ['POST'])
+def select_addpersonal():
+        # 画面上でチェックされたチェックボックスを画面から受け取る
+    selectUsers = request.form.getlist('selectUser')  # 画面で複数選択されたサービスを受け取る
+    print(f"app.py 198 DEBUG:選択されたユーザーは{selectUsers}です")
+
+    # セッションに保存
+    session['selectUsers'] = selectUsers
+
+    return render_template('pages/large-window-pages/make-group.html', selectUsers = selectUsers)
+
 
 # add-groupページの表示(友達追加画面・グループ作成モード)
+# 2024/11/23　タラ追記(addgroupにユーザー一覧データ渡す)
 @app.route('/addgroup',methods = ['GET'])
 def addgroup():
-    # 
-    # 
-    # 
-    return render_template('pages/large-window-pages/add-group.html')
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        uid = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"   
+    users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusergroupsのデータを取得
+    return render_template('pages/large-window-pages/add-group.html', users = users)
+
 
 # make-groupページの表示(グループ作成画面)
 @app.route('/makegroup',methods = ['GET'])
@@ -203,12 +228,36 @@ def makegroup():
     return render_template('pages/large-window-pages/make-group.html')
 # MANA追記
 
+# 2024/11/23　タラ追記(addgroupから受け取ったselectUsersの情報と合わせて、home画面に戻る)
+@app.route('/makegroup',methods = ['POST'])
+def make_newGroup():
+    name = request.form.get("name")
+    required = request.form.get("required")
+    comment = request.form.get("comment")
+
+    # セッションから'uid',`selectUsers`を取得
+    uid = session.get("uid")
+    selectUser = session.get('selectUsers')
+    selectUsers = [uid,*selectUser]
+    print(f"app.py 242 DEBUG:selectUsers = {selectUsers}です")
+
+    if name == "":
+        flash("グループ名を入力してください！")
+    else:
+        cid = dbConnect.createGroup(name,required,comment)
+        dbConnect.addGroup(selectUsers,cid)
+        return redirect("/home")
+    return redirect("/makegroup")
+
+
+
+
 # 2024/11/20 yoneyama add start
 
 #チャットメッセージ表示
 #  グループ一覧からグループを選択したら
 #  グループのチャットメッセージを表示する
-@app.route('/message', methods=['GET'])
+@app.route('/chat', methods=['GET'])
 def showChatMessage():
 
     #セッションからuidを取得して変数uidに格納
@@ -230,10 +279,10 @@ def showChatMessage():
     #画面から受け取った選択中のグループID（groupid）から
     #選択中グループのメッセージをDB取得＝＞DB：getMessage
     #取得した結果をgroupmessage変数に格納
-    l_groupmessage = dbConnect.getMessage(groupid)
+    l_groupmessage = dbConnect.getMessage(l_group.cid)
 
-    #home.html（ホーム画面（グループ））を呼び出す（引数：group、getMessage、uid）
-    return render_template('home.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
+    #chat.html（チャット画面）を呼び出す（引数：group、getMessage、uid）
+    return render_template('chat.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
 
 # 2024/11/20 yoneyama add end
 
@@ -260,6 +309,42 @@ def chat(cid):
  # ダミーデータで定義↑↑↑↑（画面の確認できないため）
     # テンプレートに渡す　削除しても問題ない　アナザー　2024/11/21
 
+# 2024/11/23 yoneyama add start
+#チャットメッセージ送信
+#  グループに向けたチャットを送信する
+
+@app.route('/chat', methods=['POST'])
+def sendChatMessage():
+
+    #セッションからuidを取得して変数uidに格納
+    uid = session.get("uid")
+
+    #変数uidがない（None）場合
+    if uid is None:
+
+        #login.html（ログイン画面）に戻る
+        return redirect('/login')
+
+    #画面からメッセージを受け取り、変数messageに格納する
+    l_message = request.form.get('message')
+
+    #画面からグループIDを受け取り、変数group_idに格納
+    #l_group_id = request.form.get(”group_id”) #dockers compose upしたらエラー
+    l_group_id = request.form.get('cid')
+
+    #日付を取得＝＞DateTime
+    l_datetime = datetime.datetime.now()
+
+    #変数messageが存在する場合
+    if l_message is None:
+
+        #メッセージ内容をDBに登録＝＞DB：createMessageのコール
+        dbConnect.createMessage(uid ,l_group_id ,l_datetime ,l_message)
+
+    #chat.html（チャット画面）を再表示?
+    return render_template('chat.html')
+
+# 2024/11/23 yoneyama add end
 
 #MANA追記2
 #setting-accountページの表示（アカウント管理画面）
