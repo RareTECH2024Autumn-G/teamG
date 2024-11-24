@@ -37,6 +37,7 @@
     height: 50px;
     border: solid #E5E5EA;
     border-radius: 20px;
+    box-shadow: 1px 2px 5px #8E8E93;
     background-color: #fff;
     padding: 10px;
     margin-left: 1040px;
@@ -44,7 +45,8 @@
     color: #000;
 }
 .home-btn:hover {
-    box-shadow: 0px 5px 10px #353535;
+    margin-top: 5px; /* 付け足し部分 */
+	box-shadow: 0px 0px 0px;
 }
 /* 設定ボタンの装飾 */
 .setting-btn {

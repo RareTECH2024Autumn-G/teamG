@@ -346,6 +346,14 @@ def sendChatMessage():
 
 # 2024/11/23 yoneyama add end
 
+#MANA追記2
+#setting-accountページの表示（アカウント管理画面）
+@app.route('/setting-page')
+def setting_page():
+    return render_template('pages/setting-account.html')
+#MANA追記2
+
+
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
 # 2024/11/19 うっちゃん：デバッグのために仕込みdebug=Trueの時、上のprintたちがターミナルに出力される。

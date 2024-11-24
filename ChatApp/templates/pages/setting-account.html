@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+      <meta charset="UTF-8" /> <!--文字化けを防ぐ-->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!--IEとのバージョンの互換性を保つ-->
+      <title>アカウント管理画面</title>
+      <link rel="icon" href="../../static/img/favicon.svg" /> <!--ファビコン画像-->
+      <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- グーグルフォント -->
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rammetto+One&display=swap" rel="stylesheet">
+      <!-- 本番ではここ変える必要あるかも！！！！！！！！！ -->
+      <link rel="stylesheet" href="../../static/css/setting-account.css" /> <!--cssのリンクファイル-->
+   </head>
+   <header class="st-design">
+      <!-- アプリ名・ホームボタン・ログアウトボタンの３つのクラス-->
+      <div class="st-base-header">
+         <!-- アプリ名タイトル -->
+         <h1>ShareHappy</h1>
+         <!-- ホームボタン -->
+         <div class="st-home-btn">
+            <a href="../home-pages/home.html"> <!-- ホームへ移動 -->
+               <img src="../../static/img/home-icon.svg" alt="ホームボタン" class="home-btn-svg" width="50" height="50">
+            </a>
+         </div>
+         <!--ログアウトボタン--> <!-- ログイン画面へ移動 -->
+         <div class="logout-btn">
+            <a href="">
+                <button type="button">ログアウト</button>
+            </a>
+         </div>
+      </div>
+   </header>
+   <body>
+    <!--　ボックス（枠）-->
+    <div class="setting-account-box">
+        <div class="setting-pic-edit"> <!-- アカウント画像・編集アイコンの２つのクラス -->
+            <!-- アカウント画像 -->
+            <div class="setting-pic">
+                <img src="../../static/img/user-pic-icon.svg" alt="アカウント画像" width="115" height="115">
+            </div>
+            <!-- 編集アイコン -->
+            <div class="setting-edit-icon">
+                <img src="../../static/img/edit-pencil-icon.svg" alt="編集アイコン">
+            </div>
+        </div>
+        <div class="setting-form"> <!-- お名前（ニックネーム）〜 所属シェアハウス全てを囲うクラス -->
+            <div class="setting-name-comment"> <!-- お名前（ニックネーム）・コメントの２つのクラス-->
+                <!-- お名前（ニックネーム）-->
+                <div class="setting-name">
+                    <label for="settingName">お名前(ニックネーム)</label>
+                    <input type="text" id="settingName" name="settingName">
+                </div>
+                <!-- コメント -->
+                <div class="setting-comment">
+                    <label for="settingComment">コメント</label>
+                    <textarea id="settingComment" name="" cols="" rows=""></textarea>
+                </div>
+                <!-- メールアドレス変更 (付け足し)-->
+                <div class="setting-mailaddress">
+                    <label for="newMailAddress">新しいメールアドレス</label>
+                    <input type="email" id="newMailAddress" name="newMailAddress">
+                </div>
+            </div>
+            <div class="setting-pass-sharehouse"> <!-- 新しいパスワード・新しいパスワード確認・所属シェアハウスの３つのクラス -->
+                <!-- 新しいパスワード -->
+                <div class="setting-new-pass">
+                    <label for="settingNewPassword">新しいパスワード</label>
+                    <input type="password" id="settingNewPassword" name="settingNewPassword">
+                </div>
+                <!-- 新しいパスワード確認 -->
+                <div class="snp-confirm">
+                    <label for="SNPConfirm">新しいパスワード確認</label>
+                    <input type="password" id="SNPConfirm" name="SNPConfirm">
+                </div>
+                <!-- 所属シェアハウス -->
+                <div class="setting-sharehouse">
+                    <label for="settingSharehouseId">所属シェアハウス</label>
+                    <select id="settingSharehouseId" name="settingSharehouseId">
+                    <option value="1">東京</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- 「変更する」ボタン -->
+        <div class="setting-edit-btn">
+            <button type="button">変更する</button>
+        </div>
+    </div>
+
+   </body>
+   <footer class="st-design2"></footer>
+</html>
