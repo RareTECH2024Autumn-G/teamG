@@ -29,7 +29,7 @@ CREATE TABLE users (
     mailaddress varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
     sex varchar(30) NOT NULL,
-    sharehouse_id int NOT NULL REFERENCES sharehouse(sid),
+    sharehouse_id int NOT NULL REFERENCES sharehouses(sid),
     comment varchar(255),
     admin boolean,
     firstlogin int-- 2024118 うっちゃん firstloginを追加
@@ -61,8 +61,15 @@ CREATE TABLE messages (
     message varchar(255)
 );
 
--- サンプルユーザーをINSERT
-INSERT INTO users(uid, name, mailaddress, password,sex,sharehouse_id)VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578','man',1);
+-- サンプルユーザーをINSERT-- 2024/11/23 タラ追記（サンプルユーザー追加）
+INSERT INTO users(uid, name, mailaddress, password,sex,sharehouse_id)VALUES
+('970af84c-dd40-47ff-af23-282b72b7cca8','ねむ太郎','sasuganinemui@gmail.com','37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578','man',1),
+('c58a7b1d-1e75-48cb-bf19-4e3d5f9e8e9f', '睡眠次郎', 'suiminjiro@gmail.com', 'e8d5c8240b1b8ed2a6f6c94701c5b83cfad67f07c1d6889c08b5c23660d8723e', 'man', 1),
+('d4a7c3bb-19d6-41c5-8f3f-8dcf0e48f154', 'いねむり花子', 'inemurihanako@gmail.com', 'b1c51e77de84c1f8a4e68429c223ea7e81e43bda0154d857cba8cbded17fb2f1', 'woman', 1),
+('32b4a7d9-2e44-4d38-bc55-91e2d8e556d7', 'ねむりの小五郎', 'nemurino.kogoro@gmail.com', 'c7e8d8f6b4c4d8e7a6b7c98705c6d57b9a8367f13cbd8d7c12c7a4d0172c8e64', 'man', 1),
+('94d3f2a7-2c56-4fb9-a8e4-fcda4d6b83e4', 'ねむり姫', 'nemurihime@gmail.com', 'd1c34a76fe85b2e7a5c6c8e709d5b93e78d67f12d0a678c71c8b4d25d2f9c867', 'woman', 1),
+('a2c9e7d4-5e31-4fd2-9b8c-6e4d9a6f81c2', 'スリープ一郎', 'sleepichiro@gmail.com', 'f3d74a96fe85d3e7a9c6c8d708c5d63e85b57f12d4a698c83c7b5d45e1c9d876', 'man', 1);
+
 
 -- 2024/11/18 初期表示のグループ6こをINSERT
 INSERT INTO chatgroups(cid, name, required, comment, status_id)VALUES

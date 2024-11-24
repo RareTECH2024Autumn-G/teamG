@@ -1,22 +1,22 @@
 {% extends 'pages/home-pages/base.html' %} {% block title %}
 <title>ホーム</title>
-{% endblock %}
-{% block body %}
+{% endblock %} {% block body %}
 <div class="home-border">
-  <div class="home-title-container"><!--題名-->
+  <div class="home-title-container">
+    <!--題名-->
     <h1>チャットリスト</h1>
     <input type="search" class="search" placeholder="検索"> <!--ソート検索機能-->
     <button class="open-modal js-modal-button">＋</button> <!--友達追加ボタン-->
   </div>
   <div class="home-wrapper">
-      <!-- <button class="home-group" id="(グループのID)">グループ１</button>
+    <!-- <button class="home-group" id="(グループのID)">グループ１</button>
       <button class="home-group" id="(グループのID)">グループ２スポーツクラブ！！！＊＊＊＊＊＊</button>
       <button class="home-group" id="(グループのID)">グループ３</button>
       <button class="home-group" id="(グループのID)">グループ４</button>
       <button class="home-group" id="(グループのID)">グループ５</button>
       <button class="home-group" id="(グループのID)">グループ６</button> -->
 
-      <!-- 2024/11/22 うっちゃん グループリストを動的に描画 -->
+    <!-- 2024/11/22 うっちゃん グループリストを動的に描画 -->
     {% for group in groups %}
        <a href="/chat/{{group['name'] }}">
          <button class="home-group" id="{{ group['group_id'] }}">{{ group['name'] }}</button>
@@ -27,19 +27,20 @@
       <h2>デバッグ出力</h2>
       <pre>{{ groups }}</pre>
     </div>
-    -->
+
     </div>
   <div>
        <button class="inquiry-chat" id="(グループのID)">運営チャット</button>
   </div>
-</div> 
+</div>
 
 <div class="home-modal-layer js-home-modal">
   <div class="home-modal">
     <div class="home-modal-inner">
       <div class="home-modal-wrap">
         <button class="home-modal-close js-close-button">
-          <span>&times;</span> <!-- 閉じるアイコン -->
+          <span>&times;</span>
+          <!-- 閉じるアイコン -->
         </button>
           <div class="home-modal-container">
             <a href="/addgroup"><button>新規チャット作成</button></a>
@@ -51,4 +52,3 @@
 </div>
 <script src="../static/JS/modal/home-modal.js"></script> <!-- ここにJSファイル名を入れる -->
 {% endblock %}
-
