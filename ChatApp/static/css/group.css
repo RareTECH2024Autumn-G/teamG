@@ -1,10 +1,12 @@
-.border {
-  border-radius: 20px; /* 角を丸くする */
-  padding: 5px; /* 内側の余白 */
-  max-width: 1200px; /* 最大幅を設定 */
-  margin: 100px auto; /* 上下に100pxの余白を追加し、左右は中央揃え */
-  filter: drop-shadow(0 0 15px #96e6a1);
-  background: linear-gradient(90deg, #d4fc79, #96e6a1);
+
+.border{
+    border-radius: 20px; /* 角を丸くする */
+    padding: 5px; /* 内側の余白 */
+    max-width: 1200px;/* 最大幅を設定 */
+    margin: 100px auto;/* 上下に100pxの余白を追加し、左右は中央揃え */
+    filter: drop-shadow(0 0 15px #96E6A1);
+    background: linear-gradient(90deg, #D4FC79, #96E6A1);
+    box-shadow: 0px 3px 10px #353535;
 }
 
 .group-add {
@@ -97,4 +99,44 @@
 
 .add-button2:hover{
     background: linear-gradient(to right,#79ce85,#aaca60);
+}
+
+
+.second-group-wrapper{
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    padding: 20px; /* 内側の余白 */
+    height: 380px; /* 固定の高さを設定 */
+    overflow-y: auto; /* 縦方向のオーバーフローを自動処理 */
+    background-color: #ffffff; /* 背景色 */
+    border: 1px solid #ccc; /* 枠線 */
+    border-radius: 5px; /* 角を丸くする */
+    margin: 20px;
+}
+
+.second-group-button {
+    display: flex; /* フレックスボックスで中央配置 */
+    justify-content: center; /* 横方向に中央配置 */
+    align-items: center; /* 垂直方向に中央配置 */
+    text-align: center; /* テキストを中央揃え */
+    color: #8E8E93;
+    background: #FFFFFF;
+    border-radius: 20px; /* 丸みを付ける */
+    font-size: 24px;
+    border: none;
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.4);
+    cursor: pointer; /* ポインターカーソル */
+    transition: background-color 0.3s; /* ホバー時のトランジション */
+    width: 100%; /* 親要素の幅に合わせる */
+    height: 100%; /* 親要素の高さに合わせる */
+}
+
+.second-group-none {
+    display: flex;
+    justify-content: center;
+}
+
+.second-group-none p{
+    font-size: 40px;
+    margin: 100px;
 }
