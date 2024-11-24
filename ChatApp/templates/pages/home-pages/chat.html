@@ -9,8 +9,8 @@
         {% if channel.abstract %} <!--channel.abstractが存在し、空でない場合にのみ適用（チャットのコメント部分）-->
        <div class="abstract">{{ channel.abstract }}</div>
        {% endif %}
+       <button class="chat-edit"><img src="../../../static/img/edit-pencil-icon.svg" alt="編集アイコン"></button>
    <div class="task-calendar-container">
-       <button class="chat-edit">○</button>
        <button class="chat-calendar">カレンダー</button>
        <button class="chat-task">タスク</button>
    </div>

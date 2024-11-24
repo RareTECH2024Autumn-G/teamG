@@ -5,6 +5,8 @@
     max-width: 1200px;/* 最大幅を設定 */
     margin: 100px auto;/* 上下に100pxの余白を追加し、左右は中央揃え */
     background-color: white;
+    border: solid gray;
+    box-shadow: 6px 6px 8px #8E8E93;
 }
 
 .home-title-container{
@@ -33,6 +35,7 @@
     border-radius: 10px; /* ボタンの角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     margin: 50px 0; /* 上下の余白を設定 */
+    
 }
 
 .open-modal:hover {
@@ -43,7 +46,7 @@
 .home-wrapper {
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
-    padding: 20px; /* 内側の余白 */
+    padding: 20px 60px; /* 内側の余白 */
     height: 300px; /* 固定の高さを設定 */
     overflow-y: auto; /* 縦方向のオーバーフローを自動処理 */
     background-color: #ffffff; /* 背景色 */
@@ -54,7 +57,7 @@
 
 
 .home-group {
-    width: 90%;
+    width: 100%;
     color:  rgb(67, 66, 66); /* テキストの色 */
     font-size: 24px;
     border: 1px solid #ccc;
@@ -62,8 +65,10 @@
     padding: 10px; /* 内側の余白 */
     border-radius: 10px; /* 角を丸くする */
     margin: 10px; /* 上下の余白 */   
+    margin-left: auto;
     cursor: pointer;/* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時のトランジションを設定 */
+    box-shadow: 2px 3px 4px #8E8E93;
 }
 
 .home-group:hover{

@@ -22,12 +22,12 @@
          <button class="home-group" id="{{ group['group_id'] }}">{{ group['name'] }}</button>
        </a>
     {% endfor %}
-
+    <!--アナザーにより画面から非表示に2024/11/24
     <div>
       <h2>デバッグ出力</h2>
       <pre>{{ groups }}</pre>
     </div>
-
+    -->
     </div>
   <div>
        <button class="inquiry-chat" id="(グループのID)">運営チャット</button>
@@ -41,7 +41,7 @@
         <button class="home-modal-close js-close-button">
           <span>&times;</span> <!-- 閉じるアイコン -->
         </button>
-          <div>
+          <div class="home-modal-container">
             <a href="/addgroup"><button>新規チャット作成</button></a>
             <a href="/second-group"><button>既存グループに参加</button></a>
           </div>
@@ -49,6 +49,6 @@
     </div>
   </div>
 </div>
-<script src="../static/JS/home-modal.js"></script> <!-- ここにJSファイル名を入れる -->
+<script src="../static/JS/modal/home-modal.js"></script> <!-- ここにJSファイル名を入れる -->
 {% endblock %}
 
