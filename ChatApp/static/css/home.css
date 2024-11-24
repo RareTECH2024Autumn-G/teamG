@@ -35,7 +35,6 @@
     border-radius: 10px; /* ボタンの角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     margin: 50px 0; /* 上下の余白を設定 */
-    
 }
 
 .open-modal:hover {
