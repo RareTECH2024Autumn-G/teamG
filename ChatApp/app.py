@@ -270,16 +270,16 @@ def showChatMessage():
         return redirect('/login')
 
     #画面から受け取った選択中のグループ名（groupname）から
-    l_groupname = request.form.get('groupname')
+    #l_groupname = request.form.get('groupname')
 
     #グループ情報をDB取得＝＞DB：getGroup
     #取得した結果をgroup変数に格納
-    l_group = dbConnect.getGroup(l_groupname)
+    l_group = dbConnect.getGroup(cid)
 
     #画面から受け取った選択中のグループID（groupid）から
     #選択中グループのメッセージをDB取得＝＞DB：getMessage
     #取得した結果をgroupmessage変数に格納
-    l_groupmessage = dbConnect.getMessage(l_group.cid)
+    l_groupmessage = dbConnect.getMessage(cid)
 
     #chat.html（チャット画面）を呼び出す（引数：group、getMessage、uid）
     return render_template('chat.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
@@ -290,11 +290,15 @@ def showChatMessage():
 
 @app.route('/chat/<cid>')
 def chat(cid):
-    channel = {
-        "id": cid,
-        "name": f"{cid}",
-        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
-    }
+# 2024/11/25 yoneyama mod start
+#    channel = {
+#        "id": cid,
+#        "name": f"{cid}",
+#        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
+#    }
+    channel = dbConnect.getGroup(cid)
+# 2024/11/25 yoneyama mod end
+    print('cid:'+cid)
     messages = [
         {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "こんにちは！", "created_at": "11/17 10:00"},
         {"id": 2, "user_id": 102, "user_name": "MANA", "content": "元気ですか？", "created_at": "11/17 10:05"},
@@ -305,6 +309,7 @@ def chat(cid):
        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
     ]
+#    messages = dbConnect.getMessage(cid)
     return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)
  # ダミーデータで定義↑↑↑↑（画面の確認できないため）
     # テンプレートに渡す　削除しても問題ない　アナザー　2024/11/21

@@ -1,0 +1,69 @@
+INSERT INTO users
+(uid,name,mailaddress,password,sex,sharehouse_id,comment)VALUES
+('10','hiro10','hiro10@yahoo.co.jp','a','男','2','hiro10、男です')
+
+INSERT INTO users
+(uid,name,mailaddress,password,sex,sharehouse_id,comment)VALUES
+('11','hiro11','hiro11@yahoo.co.jp','a','女','2','hiro11、女です')
+
+INSERT INTO users
+(uid,name,mailaddress,password,sex,sharehouse_id,comment)VALUES
+('12','hiro12','hiro12@yahoo.co.jp','a','男','2','hiro12、男です')
+
+-------------------------------
+
+INSERT INTO chatgroups
+(cid,name,required,comment)VALUES
+('10','グループA','1','グループAcomment')
+
+INSERT INTO chatgroups
+(cid,name,required,comment)VALUES
+('11','グループB','1','グループBcomment')
+
+-------------------------------
+
+INSERT INTO usergroups
+(user_id,group_id)VALUES
+(10,10)
+
+INSERT INTO usergroups
+(user_id,group_id)VALUES
+(11,10)
+
+INSERT INTO usergroups
+(user_id,group_id)VALUES
+(10,11)
+
+INSERT INTO usergroups
+(user_id,group_id)VALUES
+(12,11)
+
+-------------------------------
+
+INSERT INTO messages
+(mid,user_id,group_id,creatdate,message)VALUES
+('10','10','10','2024/11/25','グループA、hiro10 message1')
+
+INSERT INTO messages
+(mid,user_id,group_id,creatdate,message)VALUES
+('11','11','10','2024/11/25','グループA、hiro11 message2')
+
+INSERT INTO messages
+(mid,user_id,group_id,creatdate,message)VALUES
+('12','10','11','2024/11/25','グループB、hiro10 message3')
+
+INSERT INTO messages
+(mid,user_id,group_id,creatdate,message)VALUES
+('13','12','11','2024/11/25','グループB、hiro12 message4')
+
+INSERT INTO messages
+(mid,user_id,group_id,creatdate,message)VALUES
+('14','970af84c-dd40-47ff-af23-282b72b7cca8','1','2024/11/25','message14')
+
+INSERT INTO messages
+(mid,user_id,group_id,creatdate,message)VALUES
+('15','c58a7b1d-1e75-48cb-bf19-4e3d5f9e8e9f','1','2024/11/25','message15')
+
+
+
+SELECT m.mid as id ,m.user_id as user_id ,m.creatdate as created_at ,m.message as content ,u.name as user_name FROM messages m INNER JOIN users AS u ON m.user_id = u.uid INNER JOIN chatgroups g ON m.group_id = g.cid WHERE g.name = 'シェアハウス全体グループ'
