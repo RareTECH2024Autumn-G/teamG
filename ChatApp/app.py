@@ -346,13 +346,56 @@ def sendChatMessage():
 
 # 2024/11/23 yoneyama add end
 
-#MANA追記2
+#MANA追記2→2024/11/25 うっちゃん更新
 #setting-accountページの表示（アカウント管理画面）
-@app.route('/setting-page')
+@app.route('/setting-page',methods = ['GET'])
 def setting_page():
-    return render_template('pages/setting-account.html')
-#MANA追記2
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    # DBから現在の情報を取得する
+    getuserinfo = dbConnect.getuserinfo(user_id)
+    if getuserinfo != None: #resultsが空欄でない場合画面にデータを引き渡す
+        print(f"app.py 362 デバッグ:通っているぞ{getuserinfo}")
+        return render_template('pages/setting-account.html', getuserinfo=getuserinfo)
+    else:
+        return "データの取得に失敗しました。"
+# MANA追記
 
+# アカウント情報更新 2024/11/25 うっちゃん更新
+@app.route('/setting-page',methods = ['POST'])
+def updateuserinfo():
+    name = request.form.get('name')
+    mailaddress = request.form.get('mailaddress')
+    password = request.form.get('password')
+    passwordConfirm = request.form.get('passwordConfirm')
+    sharehouse_id = request.form.get('sharehouseid')
+
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    if name == '' or password == '' or mailaddress == ''  or passwordConfirm == '' or sharehouse_id == '': 
+        flash('空のフォームがあるようです')
+    elif password != passwordConfirm:
+        flash('二つのパスワードの値が違っています')
+    # elif re.match(pattern, mailaddress) is None:
+    #     flash('正しいメールアドレスの形式ではありません')
+    else:
+        uid = uuid.uuid4()
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        DBuser = dbConnect.getUser(mailaddress)
+
+        if DBuser == None:
+            flash('ユーザー情報が存在しません')
+        else:
+            # 2024/11/18 うっちゃん firstloginを追加    
+            dbConnect.updateuserinfo(uid, name, mailaddress, password,sharehouse_id)
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)

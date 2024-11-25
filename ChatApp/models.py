@@ -161,12 +161,20 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = 'SELECT group_id,name FROM usergroups INNER JOIN chatgroups ON cid = group_id WHERE user_id<>%s;'
-            # 複数グループを取れるようにする
-            # 自分が所属しているテーブルを取ってから除外する？？？？
+            sql = '''
+                SELECT cg.cid, cg.name 
+                FROM chatgroups cg 
+                LEFT JOIN ( 
+                SELECT ug.group_id 
+                FROM usergroups ug 
+                INNER JOIN chatgroups cg_inner ON ug.group_id = cg_inner.cid 
+                WHERE ug.user_id = %s 
+                ) subquery ON cg.cid = subquery.group_id 
+                WHERE subquery.group_id IS NULL AND cg.cid>3;
+                '''
             cur.execute(sql, (user_id))
-            groups = cur.fetchone()
-            print(f"models.py170 DEBUG: 存在していないグループ = {groups}")  # 戻り値を出力
+            groups = cur.fetchall() #複数グループを取得
+            print(f"models.py177 DEBUG: 取得できたグループ = {groups}")  # 戻り値を出力
             return groups
         except Exception as e:
             print(f'エラーが発生しています：{e}')
@@ -227,6 +235,42 @@ class dbConnect:
                     sql,(selectUser,cid['cid'])
                 )
             conn.commit()
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
+
+    @staticmethod #2024/11/24 うっちゃん user情報を取得する    
+    def getuserinfo(user_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'SELECT * FROM users WHERE uid = %s;'
+            cur.execute(sql, (user_id))
+            getuserinfo = cur.fetchone()
+            print(f'models.py254 DEBUG: ユーザー情報 = {getuserinfo}') 
+            return getuserinfo
+        except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            # curが定義されている場合のみcloseする
+            if 'cur' in locals() and cur is not None:
+                cur.close()
+
+    @staticmethod #2024/11/24 うっちゃん user情報を更新する    
+    def updateuserinfo(uid, name, mailaddress, password, sharehouse_id):
+        try:
+            conn = DB.getConnection()
+            cur = conn.cursor()
+            sql = 'UPDATE users WHERE uid = %s);'
+            cur.execute(sql, (user_id))
+            user_infomation = cur.fetchone()
+            print(f'models.py249 DEBUG: ユーザー情報 = {user_infomation}') 
+            return user_infomation
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
             abort(500)
