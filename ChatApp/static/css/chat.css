@@ -25,7 +25,7 @@
     white-space: nowrap; /* テキストを改行せずに1行で表示 */
     overflow: hidden; /* 親要素を超えたテキストを隠す */
     text-overflow: ellipsis; /* テキストが溢れた場合に「…」を表示 */
-    width: 40%; /* 幅を指定 */
+    width: 400px; /* 幅を指定 */
     height: 30px;
     border: 1px solid #ccc; /* ボーダーを追加して見やすくする */
     font-size: 20px;
@@ -132,6 +132,7 @@
     border: 1px solid #ccc; /* 枠線 */
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
+    height: 40px;
 }
 
 .send-button:hover{

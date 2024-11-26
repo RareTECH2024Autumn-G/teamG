@@ -5,26 +5,25 @@
 {% block body %}
 <div class="border "><!--メッセージ（ようこそ）-->
     <!-- <form class="firstgroup-form" method="post" action="/select_firstgroup"> 2024/11/21 うっちゃん追加 2024/11/26 うっちゃん 削除-->
-       <div class="group-add"> 
+     <form action="/joingroup" method="POST">
+         <div class="group-add"> 
            <h1>Can't wait to see you!</h1>
            <h2>グループを選択してね！</h2>
       {% if allgroups %} <!-- 2024/11/25 うっちゃん groups→allgroups-->
-           <ul class="second-group-wrapper">
+           <ul class="second-group-add-container">
           {% for allgroup in allgroups %} <!-- 2024/11/25 うっちゃん groups→allgroups-->
-               <li class="second-group-button">
-                   {{ allgroup['name'] }}
-                <!-- 必要に応じて参加ボタンなどを追加 -->
-                   <form action="/joingroup" method="POST">
-                       <input type="hidden" name="allgroup_id" value="{{ allgroup['cid'] }}"> <!-- 2024/11/25 うっちゃん valueの取得方法を変更-->
-                       <button type="submit">参加</button>
-                  </form>
-               </li>
+               <div>
+                   <span class="second-group-button">{{ allgroup['name'] }}</span>
+                   <input  type="radio" name="allgroup_id" value="{{ allgroup['cid'] }}" > <!-- 2024/11/25 うっちゃん valueの取得方法を変更-->
+               </div>
       {% endfor %}
            </ul>
+           <button type="submit">参加</button>
+     </form>
       {% else %}
-           <div class="second-group-none">
-              <p>未加入のグループはありません。</p>
-           </div>
+     <div class="second-group-none">
+          <p>未加入のグループはありません。</p>
+     </div>
       {% endif %}
        </div>  
    <!-- <form>  2024/11/26 うっちゃん 削除 -->
