@@ -4,18 +4,18 @@
 {% endblock %} 
 {% block body %}
 <div class="border "><!--メッセージ（ようこそ）-->
-    <form class="firstgroup-form" method="post" action="/select_firstgroup"> <!--2024/11/21 うっちゃん追加-->
+    <!-- <form class="firstgroup-form" method="post" action="/select_firstgroup"> 2024/11/21 うっちゃん追加 2024/11/26 うっちゃん 削除-->
        <div class="group-add"> 
            <h1>Can't wait to see you!</h1>
            <h2>グループを選択してね！</h2>
       {% if allgroups %} <!-- 2024/11/25 うっちゃん groups→allgroups-->
            <ul class="second-group-wrapper">
-      {% for allgroup in allgroups %} <!-- 2024/11/25 うっちゃん groups→allgroups-->
+          {% for allgroup in allgroups %} <!-- 2024/11/25 うっちゃん groups→allgroups-->
                <li class="second-group-button">
                    {{ allgroup['name'] }}
                 <!-- 必要に応じて参加ボタンなどを追加 -->
-                   <form action="/join-group" method="POST">
-                       <input type="hidden" name="allgroup_id" value="{{ allgroup.id }}">
+                   <form action="/joingroup" method="POST">
+                       <input type="hidden" name="allgroup_id" value="{{ allgroup['cid'] }}"> <!-- 2024/11/25 うっちゃん valueの取得方法を変更-->
                        <button type="submit">参加</button>
                   </form>
                </li>
@@ -27,6 +27,6 @@
            </div>
       {% endif %}
        </div>  
-   <form>
+   <!-- <form>  2024/11/26 うっちゃん 削除 -->
 </div>
 {% endblock %}

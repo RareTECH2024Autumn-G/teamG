@@ -159,9 +159,9 @@ def select_firstgroup():
     # ホーム画面を表示する
     return redirect('/home')
 
-# second-groupページの表示（2024/11/22 既存グループ選択画面 うっちゃん）
-@app.route('/second-group',methods = ['GET'])
-def second_group():
+# secondgroupページの表示（2024/11/22 既存グループ選択画面 うっちゃん）
+@app.route('/secondgroup',methods = ['GET'])
+def secondgroup():
     # セッションにユーザーIDが保存されているか確認
     if 'uid' in session:  
         user_id = session['uid']  # 現在のユーザーのIDを取得
@@ -177,7 +177,23 @@ def second_group():
     else:
         return render_template('pages/large-window-pages/second-group.html', allgroups=allgroups)
 
+# 既存グループ追加（2024/11/25 既存グループ登録 うっちゃん）
+@app.route('/joingroup',methods = ['POST'])
+def joingroup():
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        user_id = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    # 画面から取得したグループ名でINSERTする
+    selectgroups = request.form.get('allgroup_id')
+    print(f"app.py 191 DEBUG:選択されたグループは{selectgroups}です")
+    dbConnect.registgroups(user_id,selectgroups)
 
+    # チャット画面に遷移する
+    return redirect('/home')
+    
 # MANA追記
 # add-personalページの表示(友達追加画面)
 # 2024/11/23　タラ追記(addpersonalにユーザー一覧データ渡す)
@@ -359,7 +375,7 @@ def setting_page():
     # DBから現在の情報を取得する
     getuserinfo = dbConnect.getuserinfo(user_id)
     if getuserinfo != None: #resultsが空欄でない場合画面にデータを引き渡す
-        print(f"app.py 362 デバッグ:通っているぞ{getuserinfo}")
+        print(f"app.py 378 デバッグ:通っているぞ{getuserinfo}")
         return render_template('pages/setting-account.html', getuserinfo=getuserinfo)
     else:
         return "データの取得に失敗しました。"
@@ -368,11 +384,11 @@ def setting_page():
 # アカウント情報更新 2024/11/25 うっちゃん更新
 @app.route('/setting-page',methods = ['POST'])
 def updateuserinfo():
-    name = request.form.get('name')
-    mailaddress = request.form.get('mailaddress')
-    password = request.form.get('password')
-    passwordConfirm = request.form.get('passwordConfirm')
-    sharehouse_id = request.form.get('sharehouseid')
+    name = request.form.get('name', '')
+    mailaddress = request.form.get('mailaddress', '')
+    password = request.form.get('password', '')
+    passwordConfirm = request.form.get('passwordConfirm', '')
+    sharehouse_id = request.form.get('sharehouseid', '')
 
     # セッションにユーザーIDが保存されているか確認
     if 'uid' in session:  
@@ -391,11 +407,10 @@ def updateuserinfo():
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         DBuser = dbConnect.getUser(mailaddress)
 
-        if DBuser == None:
-            flash('ユーザー情報が存在しません')
-        else:
-            # 2024/11/18 うっちゃん firstloginを追加    
-            dbConnect.updateuserinfo(uid, name, mailaddress, password,sharehouse_id)
+        # if DBuser == None:
+        #     flash('ユーザー情報が存在しません')
+        # else:
+        #     dbConnect.updateuserinfo(uid, name, mailaddress, password,sharehouse_id)
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)

@@ -64,7 +64,7 @@ class dbConnect:
             if 'cur' in locals() and cur is not None:
                 cur.close()
 
-    @staticmethod #20241120 うっちゃん 選択したサービスを保存する
+    @staticmethod #20241120 うっちゃん 選択したサービスを保存する(新規グループ追加、既存グループ参加で使用)
     def registgroups(user_id,selectgroups):
         try:
             conn = DB.getConnection()
@@ -278,137 +278,7 @@ class dbConnect:
             # curが定義されている場合のみcloseする
             if 'cur' in locals() and cur is not None:
                 cur.close()
-
-    # def getChannelById(cid):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'SELECT * FROM channels WHERE id=%s;'
-    #         cur.execute(sql, (cid))
-    #         channel = cur.fetchone()
-    #         return channel
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
-
-    # def getChannelByName(channel_name):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'SELECT * FROM channels WHERE name=%s;'
-    #         cur.execute(sql, (channel_name))
-    #         channel = cur.fetchone()
-    #         return channel
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
-
-    # def addChannel(uid, newChannelName, newChannelDescription):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'INSERT INTO channels (uid, name, abstract) VALUES (%s, %s, %s);'
-    #         cur.execute(sql, (uid, newChannelName, newChannelDescription))
-    #         conn.commit()
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
-
-    # def getChannelByName(channel_name):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'SELECT * FROM channels WHERE name=%s;'
-    #         cur.execute(sql, (channel_name))
-    #         channel = cur.fetchone()
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-    #         return channel
-
-
-    # def updateChannel(uid, newChannelName, newChannelDescription, cid):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'UPDATE channels SET uid=%s, name=%s, abstract=%s WHERE id=%s;'
-    #         cur.execute(sql, (uid, newChannelName, newChannelDescription, cid))
-    #         conn.commit()
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
-
-    # #deleteチャンネル関数
-    # def deleteChannel(cid):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'DELETE FROM channels WHERE id=%s;'
-    #         cur.execute(sql, (cid))
-    #         conn.commit()
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
-
-    # def getMessageAll(cid):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'SELECT id,u.uid, user_name, message FROM messages AS m INNER JOIN users AS u ON m.uid = u.uid WHERE cid = %s;'
-    #         cur.execute(sql, (cid))
-    #         messages = cur.fetchall()
-    #         return messages
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
-
-    # def createMessage(uid, cid, message):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'INSERT INTO messages(uid, cid, message) VALUES(%s, %s, %s)'
-    #         cur.execute(sql, (uid, cid, message))
-    #         conn.commit()
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
-
-    # def deleteMessage(message_id):
-    #     try:
-    #         conn = DB.getConnection()
-    #         cur = conn.cursor()
-    #         sql = 'DELETE FROM messages WHERE id=%s;'
-    #         cur.execute(sql, (message_id))
-    #         conn.commit()
-    #     except Exception as e:
-    #         print(f'エラーが発生しています：{e}')
-    #         abort(500)
-    #     finally:
-    #         cur.close()
-
+      
 # 2024/11/23 yoneyama add start
     def getGroup(groupname):
         try:
