@@ -306,11 +306,14 @@ def showChatMessage():
 
 @app.route('/chat/<cid>')
 def chat(cid):
-    channel = {
-        "id": cid,
-        "name": f"{cid}",
-        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
-    }
+# 2024/11/26 yoneyama mod start
+#    channel = {
+#        "id": cid,
+#        "name": f"{cid}",
+#        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
+#    }
+    channel = dbConnect.getGroup(cid)
+# 2024/11/26 yoneyama mod end
     messages = [
         {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "こんにちは！", "created_at": "11/17 10:00"},
         {"id": 2, "user_id": 102, "user_name": "MANA", "content": "元気ですか？", "created_at": "11/17 10:05"},
@@ -321,6 +324,8 @@ def chat(cid):
        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
     ]
+#    messages = dbConnect.getMessage(cid)
+    print(messages)
     return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)
  # ダミーデータで定義↑↑↑↑（画面の確認できないため）
     # テンプレートに渡す　削除しても問題ない　アナザー　2024/11/21

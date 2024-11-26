@@ -284,7 +284,8 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT c.cid ,c.name ,c.required ,c.comment ,c.statusid FROM chatgroups c WHERE c.name = %s;"
+#            sql = "SELECT c.cid ,c.name ,c.required ,c.comment ,c.statusid FROM chatgroups c WHERE c.name = %s;"
+            sql = "SELECT c.cid as id ,c.name as name ,c.comment as abstract FROM chatgroups c WHERE c.name = %s;"
             cur.execute(sql, (groupname))
             group = cur.fetchone()
         except Exception as e:
@@ -294,12 +295,14 @@ class dbConnect:
             cur.close()
             return group
 
-    def getMessage(group_id):
+#    def getMessage(group_id):
+    def getMessage(groupname):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = "SELECT m.mid ,m.user_id ,m.group_id ,m.creatdate ,m.message FROM messages m WHERE m.group_id = %s;"
-            cur.execute(sql, (group_id))
+#            sql = "SELECT m.mid ,m.user_id ,m.group_id ,m.creatdate ,m.message FROM messages m WHERE m.group_id = %s;"
+            sql = "SELECT m.mid as id ,m.user_id as user_id ,m.creatdate as created_at ,m.message as content ,u.name as user_name FROM messages m INNER JOIN users AS u ON m.user_id = u.uid INNER JOIN chatgroups g ON m.group_id = g.cid WHERE g.name = %s;"
+            cur.execute(sql, (groupname))
             messages = cur.fetchone()
         except Exception as e:
             print(f'エラーが発生しています：{e}')
