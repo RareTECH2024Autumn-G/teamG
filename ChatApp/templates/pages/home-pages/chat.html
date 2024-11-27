@@ -20,9 +20,9 @@
         {% for message in messages %} <!--リストや配列の中の要素をループ処理するためのもの-->
             <div>{{ message.user_name }}</div>  <!--チャット内ユーザー名-->
             <div>{{ message.created_at }}</div> <!--年月日-->
-            <div class="message {% if message.user_id == current_user_id %}own-message{% endif %}"> <!--message.user_id はそのメッセージを送信したユーザーのIDを指し、current_user_id は現在ログインしているユーザーのID-->
+            <div class="message {% if message.user_id == current_user_id %}own-message{% endif %}" value="{{ message.content }}"> <!--message.user_id はそのメッセージを送信したユーザーのIDを指し、current_user_id は現在ログインしているユーザーのID-->
                  <!--own-message クラスは、通常、現在のユーザーが送信したメッセージに特別なスタイルを適用するために使われます。例えば、背景色を変更したり、メッセージの位置を右側に配置するなどの視覚的な違いをつけることができます。-->
-                <p>{{ message.content | e }}</p> <!--.content は、サーバーサイドから渡されたメッセージの内容。メッセージの内容が "Hello, world!" であれば、この構文は "Hello, world!" を出力します。-->
+                <p value = "{{ message.content | e }}">{{message.content}}</p> <!--.content は、サーバーサイドから渡されたメッセージの内容。メッセージの内容が "Hello, world!" であれば、この構文は "Hello, world!" を出力します。-->
                 <div class="message-meta">
                    {% if message.user_id == current_user_id %} <!--テンプレートエンジンの条件分岐-、メッセージを送信したユーザーが現在ログインしているユーザーの場合のみ、以下の削除ボタンを表示-->
                         <form action="/delete_message" method="POST" style="display:inline;"><!-- 削除ボタン -->

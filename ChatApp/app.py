@@ -313,6 +313,7 @@ def chat(cid):
 #        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
 #    }
     channel = dbConnect.getGroup(cid)
+    print(f"channel: {channel}")
 # 2024/11/26 yoneyama mod end
     messages = [
         {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "こんにちは！", "created_at": "11/17 10:00"},
@@ -325,8 +326,10 @@ def chat(cid):
        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
     ]
 #    messages = dbConnect.getMessage(cid)
-    print(messages)
+    print(f"messages:  {messages}")
     return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)
+    print(f"returnの後")
+    print(f"app.py 198 DEBUG:選択されたユーザーは{selectUsers}です")
  # ダミーデータで定義↑↑↑↑（画面の確認できないため）
     # テンプレートに渡す　削除しても問題ない　アナザー　2024/11/21
 
@@ -334,11 +337,12 @@ def chat(cid):
 #チャットメッセージ送信
 #  グループに向けたチャットを送信する
 
-@app.route('/chat', methods=['POST'])
+@app.route('/message', methods=['POST'])
 def sendChatMessage():
-
+    print(f"messages2:")
     #セッションからuidを取得して変数uidに格納
     uid = session.get("uid")
+    print(f"uid:{uid}")
 
     #変数uidがない（None）場合
     if uid is None:
@@ -348,22 +352,31 @@ def sendChatMessage():
 
     #画面からメッセージを受け取り、変数messageに格納する
     l_message = request.form.get('message')
+    print(f"messages3:{l_message}")
 
     #画面からグループIDを受け取り、変数group_idに格納
     #l_group_id = request.form.get(”group_id”) #dockers compose upしたらエラー
     l_group_id = request.form.get('cid')
+    print(f"l_group_id: {l_group_id}")
 
     #日付を取得＝＞DateTime
     l_datetime = datetime.datetime.now()
+    print(f"l_datetime: {l_datetime}")
 
     #変数messageが存在する場合
-    if l_message is None:
+    if l_message:
 
+        #print(f"messages3:")
         #メッセージ内容をDBに登録＝＞DB：createMessageのコール
+#        print(f"l_group_id:" + l_group_id)
+#        print(f"l_message:" + l_message)
         dbConnect.createMessage(uid ,l_group_id ,l_datetime ,l_message)
+        print(f"insert after:")
 
     #chat.html（チャット画面）を再表示?
-    return render_template('chat.html')
+#    return render_template('chat.html')
+#    return redirect('/login')
+    return redirect('/chat/{cid}'.format(cid = l_group_id))
 
 # 2024/11/23 yoneyama add end
 
