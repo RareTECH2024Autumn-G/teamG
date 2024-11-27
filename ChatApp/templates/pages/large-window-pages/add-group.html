@@ -12,7 +12,7 @@
         </div>
         <!--検索バー-->
         <div class="add-personal-search">
-            <input type="search" name="q">
+            <input type="search" name="q" id="search-input">
             <button><img src="../../../static/img/search-icon.svg"></button>
         </div>
         <!--グループ追加モードボタン-->
@@ -24,24 +24,26 @@
     <div class="add-personal-friends">
       <ul class="friend-list">
         {% for user in users %}
-        <label for="friend-checkbox{{loop.index}}">
-          <li class="friend-item">
-            <!--バックエンドと相談-->
-            <input
-              type="checkbox"
-              id="friend-checkbox{{loop.index}}"
-              name="selectUser"
-              value="{{user['uid']}}"
-            />
-            <img
-              src="../../../static/img/user-icon.png"
-              alt="友達{{loop.index}}"
-              class="profile-pic"
-            />
-            <span class="friend-name">{{ user['name'] }}</span>
-            <button type="button">チャットする</button>
-          </li>
-        </label>
+        <div class="search-target">
+          <label for="friend-checkbox{{loop.index}}">
+            <li class="friend-item">
+              <!--バックエンドと相談-->
+              <input
+                type="checkbox"
+                id="friend-checkbox{{loop.index}}"
+                name="selectUser"
+                value="{{user['uid']}}"
+              />
+              <img
+                src="../../../static/img/user-icon.png"
+                alt="友達{{loop.index}}"
+                class="profile-pic"
+              />
+              <span class="friend-name">{{ user['name'] }}</span>
+              <button type="button">チャットする</button>
+            </li>
+          </label>
+        </div>
         {% endfor %}
       </ul>
     </div>
@@ -52,4 +54,5 @@
     <button type="submit">次へ</button>
   </div>
 </form>
+<script src="../../../static/js/apg-search.js"></script>
 {% endblock %}
