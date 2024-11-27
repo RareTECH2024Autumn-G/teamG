@@ -205,8 +205,30 @@ def addpersonal():
     else:
         return "ログインしていません。"
     
-    users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusergroupsのデータを取得
+    users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusersのデータを取得
     return render_template('pages/large-window-pages/add-personal.html',users = users)
+
+# add-personalページでチャットするボタンを押した時の挙動 2024/11/27 うっちゃん
+@app.route('/addpersonal',methods = ['POST'])
+def makepersonal():
+    # セッションにユーザーIDが保存されているか確認
+    if 'uid' in session:  
+        uid = session['uid']  # 現在のユーザーのIDを取得
+    else:
+        return "ログインしていません。"
+    
+    user_id = request.form.get('chat_user_id') #user_idをもとにデータベースのusergroupsのデータを取得
+    print(f"app.py 221 DEBUG:selectUsers = {user_id}です")
+    
+    # ユーザー情報を取得する
+    dbConnect.getallusers(user_id)
+
+    # グループを追加する 
+    dbConnect.createGroup(name,required,comment)
+    
+    # グループをusergroupsに追加する
+    dbConnect.addGroup(selectUsers,cid)
+    return redirect('/chat')
 
 
 # 2024/11/23　タラ追記(addpersonalで選択したユーザーデータをmake-groupに渡す)
@@ -234,15 +256,14 @@ def addgroup():
     users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusergroupsのデータを取得
     return render_template('pages/large-window-pages/add-group.html', users = users)
 
-
-# make-groupページの表示(グループ作成画面)
-@app.route('/makegroup',methods = ['GET'])
-def makegroup():
-    # 
-    # 
-    # 
-    return render_template('pages/large-window-pages/make-group.html')
-# MANA追記
+# # make-groupページの表示(グループ作成画面)
+# @app.route('/makegroup',methods = ['GET'])
+# def makegroup():
+#     # 
+#     # 
+#     # 
+#     return render_template('pages/large-window-pages/make-group.html')
+# # MANA追記
 
 # 2024/11/23　タラ追記(addgroupから受け取ったselectUsersの情報と合わせて、home画面に戻る)
 @app.route('/makegroup',methods = ['POST'])
@@ -384,33 +405,46 @@ def setting_page():
 # アカウント情報更新 2024/11/25 うっちゃん更新
 @app.route('/setting-page',methods = ['POST'])
 def updateuserinfo():
-    name = request.form.get('name', '')
-    mailaddress = request.form.get('mailaddress', '')
-    password = request.form.get('password', '')
-    passwordConfirm = request.form.get('passwordConfirm', '')
-    sharehouse_id = request.form.get('sharehouseid', '')
+    name = request.form.get('newName', '')
+    comment = request.form.get('newcomment', '')
+    mailaddress = request.form.get('newMailAddress', '')
+    password = request.form.get('settingNewPassword', '')
+    passwordConfirm = request.form.get('SNPConfirm', '')
+    sharehouse_id = request.form.get('settingSharehouseId', '')
 
     # セッションにユーザーIDが保存されているか確認
     if 'uid' in session:  
         user_id = session['uid']  # 現在のユーザーのIDを取得
     else:
         return "ログインしていません。"
+
+    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     
     if name == '' or password == '' or mailaddress == ''  or passwordConfirm == '' or sharehouse_id == '': 
         flash('空のフォームがあるようです')
     elif password != passwordConfirm:
         flash('二つのパスワードの値が違っています')
-    # elif re.match(pattern, mailaddress) is None:
-    #     flash('正しいメールアドレスの形式ではありません')
+    elif re.match(pattern, mailaddress) is None:
+         flash('正しいメールアドレスの形式ではありません')
     else:
         uid = uuid.uuid4()
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         DBuser = dbConnect.getUser(mailaddress)
 
-        # if DBuser == None:
-        #     flash('ユーザー情報が存在しません')
-        # else:
-        #     dbConnect.updateuserinfo(uid, name, mailaddress, password,sharehouse_id)
+        if DBuser == None:
+            flash('ユーザー情報が存在しません')
+        else:
+            dbConnect.updateuserinfo(uid, name, mailaddress, password, sharehouse_id, comment)
+            flash('ユーザー情報を更新しました')
+
+            # パスワードのプレーンテキスト
+            password = "ucchan29"
+
+            # SHA-256でハッシュ化
+            hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+            print("ハッシュ化されたパスワード:", hashed_password)
+
+            return redirect('/home')
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
