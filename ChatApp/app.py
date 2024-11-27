@@ -286,7 +286,10 @@ def make_newGroup():
         return redirect("/home")
     return redirect("/makegroup")
 
-
+# 接続した時のグループ作成を表示
+@app.route('/makegroup')
+def makegroup():
+    return render_template('pages/large-window-pages/make-group.html')
 
 
 # 2024/11/20 yoneyama add start

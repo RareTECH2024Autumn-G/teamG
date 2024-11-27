@@ -1,279 +1,297 @@
-.st-design{
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 45%;
-    height: 45%;
-    background-color: #A1EC95;
-    border-radius: 0% 100% 100% 0% / 100% 0% 100% 0% ;
+.st-design {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 45%;
+  background-color: #a1ec95;
+  border-radius: 0% 100% 100% 0% / 100% 0% 100% 0%;
 }
 
 /* アプリ名・ホームボタン・ログアウトボタンの３つのクラス */
 .st-base-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .st-base-header h1 {
-    font-family: "Rammetto One", sans-serif;
-    font-weight: 400;
-    font-style: normal; 
-    color: #fff;
-    margin-left: 50px;
+  font-family: "Rammetto One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #fff;
+  margin-left: 50px;
 }
 /* ホームボタンの装飾 */
 .st-home-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: -1;
-    width: 50px;
-    height: 50px;
-    border: solid #E5E5EA;
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px #8E8E93; /* 付け足し */
-    background-color: #fff;
-    padding: 10px;
-    margin-left: 930px; /* アカウント管理画面では変える必要あり */
-    text-decoration: none;
-    color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: -1;
+  width: 50px;
+  height: 50px;
+  border: solid #e5e5ea;
+  border-radius: 20px;
+  box-shadow: 1px 2px 5px #8e8e93; /* 付け足し */
+  background-color: #fff;
+  padding: 10px;
+  margin-left: 930px; /* アカウント管理画面では変える必要あり */
+  text-decoration: none;
+  color: #000;
 }
 .st-home-btn:hover {
-    margin-top: 5px; /* 付け足し部分 */
-	box-shadow: 0px 0px 0px;
+  margin-top: 5px; /* 付け足し部分 */
+  box-shadow: 0px 0px 0px;
 }
 /* ログアウトボタンのクラス */
 .logout-btn {
-    position: relative;
-    z-index: -1;
-    margin-left: 20px;
-    white-space: nowrap; /* 横書きにする */
-    margin-top: 10px;
+  position: relative;
+  z-index: -1;
+  margin-left: 20px;
+  white-space: nowrap; /* 横書きにする */
+  margin-top: 10px;
 }
 /* アイコンではないので、ボタンの装飾必要 */
 .logout-btn button {
-	text-decoration: none;
-	width: 146px;
-	margin: auto;
-	padding: 8px;
-    font-size: 25px;
-	font-weight: bold;
-    border: none;
-	border-radius: 10px;
-	border-bottom: 6px solid #8E8E93;
-	background: #9CA7A0;
-	color: #fff;
+  text-decoration: none;
+  width: 146px;
+  margin: auto;
+  padding: 8px;
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  border-bottom: 6px solid #8e8e93;
+  background: #9ca7a0;
+  color: #fff;
 }
 .logout-btn button:hover {
-    margin-top: 5px; /* 沈み込み */
-	border-bottom: 1px solid #8E8E93;
+  margin-top: 5px; /* 沈み込み */
+  border-bottom: 1px solid #8e8e93;
 }
 
 /* ここから<body>のCSS */
 
 /* ボックス（枠）*/
 .setting-account-box {
-    position: relative;
-    z-index: 1;
-    border: solid gray;
-    border-radius: 30px;
-    background-color: white;
-    height: 620px;
-    padding: 40px 60px;
-    margin: 100px 40px;
-    box-shadow: 6px 6px 8px #8E8E93;
+  position: relative;
+  z-index: 1;
+  border: solid gray;
+  border-radius: 30px;
+  background-color: white;
+  height: 620px;
+  padding: 40px 60px;
+  margin: 100px 40px;
+  box-shadow: 6px 6px 8px #8e8e93;
 }
 
 /* アカウント画像・編集アイコンの２つのクラス */
 .setting-pic-edit {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 /* アカウント画像 */
 .setting-pic {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 150px;
-    border: none;
-    border-radius: 50%;
-    background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  border: none;
+  border-radius: 50%;
+  background-color: #d9d9d9;
 }
 /* 編集アイコン */
 .setting-edit-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border: solid #8E8E93;
-    border-radius: 50%;
-    background-color: #d9d9d9;
-    margin-left: -18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: solid #8e8e93;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  margin-left: -18px;
 }
 .setting-edit-icon:hover {
-    box-shadow: 0px 2px 5px #353535;
+  box-shadow: 0px 2px 5px #353535;
 }
 
 /* お名前（ニックネーム）〜 所属シェアハウス全てを囲うクラス */
 .setting-form {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 /* お名前（ニックネーム）・コメントの２つのクラス。右のパスワードたちとの間を開けるために入れている */
 .setting-name-comment {
-    margin-right: 240px;
+  margin-right: 240px;
 }
 /* お名前（ニックネーム）*/
 .setting-name {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .setting-name label {
-    font-size: 25px; /* 文字サイズ */
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 20px;
+  font-size: 25px; /* 文字サイズ */
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 20px;
 }
 .setting-name input {
-    font-size: 25px;
-    width: 420px;
-    height: 40px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  font-size: 25px;
+  width: 420px;
+  height: 40px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 /* コメント */
 .setting-comment {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .setting-comment label {
-    font-size: 25px;
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 13px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 13px;
 }
 .setting-comment textarea {
-    resize: none;
-    font-size: 25px;
-    width: 420px;
-    height: 93px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  resize: none;
+  font-size: 25px;
+  width: 420px;
+  height: 93px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 /* メールアドレス変更 */
 .setting-mailaddress {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .setting-mailaddress label {
-    font-size: 25px;
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 12px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 12px;
 }
 .setting-mailaddress input {
-    font-size: 25px;
-    width: 420px;
-    height: 40px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  font-size: 25px;
+  width: 420px;
+  height: 40px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 
 /* 新しいパスワード */
 .setting-new-pass {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .setting-new-pass label {
-    font-size: 25px;
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 20px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 20px;
 }
 .setting-new-pass input {
-    font-size: 25px;
-    width: 420px;
-    height: 40px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  font-size: 25px;
+  width: 420px;
+  height: 40px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 /* 新しいパスワード確認 */
 .snp-confirm {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .snp-confirm label {
-    font-size: 25px;
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 40px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 40px;
 }
 .snp-confirm input {
-    font-size: 25px;
-    width: 420px;
-    height: 40px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  font-size: 25px;
+  width: 420px;
+  height: 40px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 /* 所属シェアハウス */
 .setting-sharehouse {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .setting-sharehouse label {
-    font-size: 25px;
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 40px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 40px;
 }
 .setting-sharehouse select {
-    font-size: 25px;
-    width: 430px;
-    height: 53px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  font-size: 25px;
+  width: 430px;
+  height: 53px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 
 /* 「変更する」ボタンのクラス */
 .setting-edit-btn {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .setting-edit-btn button {
-    padding: 10px;
-    width: 280px;
-    height: 70px;
-    font-size: 30px;
-    border-radius: 8px;
-    border: solid #8E8E93;
-    background: linear-gradient(to right, #D4FC79, #96E6A1);
-    color: #fff;
-    font-weight: bold;
-    box-shadow: 2px 3px 4px #8E8E93;
-    margin-top: 50px;
+  padding: 10px;
+  width: 280px;
+  height: 70px;
+  font-size: 30px;
+  border-radius: 8px;
+  border: solid #8e8e93;
+  background: linear-gradient(to right, #d4fc79, #96e6a1);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 2px 3px 4px #8e8e93;
+  margin-top: 50px;
 }
 .setting-edit-btn button:hover {
-    box-shadow: 0px 5px 10px #353535;
+  box-shadow: 0px 5px 10px #353535;
 }
 
-.st-design2{
-    z-index: -1;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 45%;
-    height: 45%;
-    background-color: #A1EC95;
-    border-radius: 100% 0% 0% 100% / 100% 100% 0% 0%  ;  
+.st-design2 {
+  z-index: -1;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 45%;
+  height: 45%;
+  background-color: #a1ec95;
+  border-radius: 100% 0% 0% 100% / 100% 100% 0% 0%;
+}
+
+.setting-edit-btn a {
+  padding: 10px;
+  width: 280px;
+  height: auto;
+  font-size: 30px;
+  border-radius: 8px;
+  border: solid #8e8e93;
+  background: linear-gradient(to right, #d4fc79, #96e6a1);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 2px 3px 4px #8e8e93;
+  margin-top: 50px;
+  text-align: center;
+}
+.setting-edit-btn a:hover {
+  box-shadow: 0px 5px 10px #353535;
 }
