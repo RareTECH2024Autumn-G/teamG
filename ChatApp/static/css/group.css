@@ -127,9 +127,24 @@
     box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.4);
     cursor: pointer; /* ポインターカーソル */
     transition: background-color 0.3s; /* ホバー時のトランジション */
-    width: 100%; /* 親要素の幅に合わせる */
-    height: 100%; /* 親要素の高さに合わせる */
+    width: 250px; /* 親要素の幅に合わせる */
+    height: 120px; /* 親要素の高さに合わせる */
+    margin: 40px;
 }
+
+.second-group-button:hover {
+  background-color: #bfc4bf; /* ホバー時の背景色を変更 */
+}
+
+.second-group-add-container {
+  display: flex;
+  flex-direction: row; /* 横並び */
+  flex-wrap: wrap; /* 折り返し */
+  justify-content: center; /* 子要素を中央に配置 */
+  align-items: center; /* 垂直方向にも中央揃え */
+}
+
+
 
 .second-group-none {
     display: flex;
@@ -139,4 +154,12 @@
 .second-group-none p{
     font-size: 40px;
     margin: 100px;
+}
+
+.second-group-add-container {
+  display: flex;
+  flex-direction: row; /* 横並び */
+  flex-wrap: wrap; /* 折り返し */
+  justify-content: center; /* 子要素を中央に配置 */
+  align-items: center; /* 垂直方向にも中央揃え */
 }
