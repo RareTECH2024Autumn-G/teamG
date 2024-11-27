@@ -262,15 +262,17 @@ class dbConnect:
                 cur.close()
 
     @staticmethod #2024/11/24 うっちゃん user情報を更新する    
-    def updateuserinfo(uid, name, mailaddress, password, sharehouse_id):
+    def updateuserinfo(uid, name, mailaddress, password, sharehouse_id, comment):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = 'UPDATE users WHERE uid = %s);'
-            cur.execute(sql, (user_id))
-            user_infomation = cur.fetchone()
-            print(f'models.py249 DEBUG: ユーザー情報 = {user_infomation}') 
-            return user_infomation
+            sql = '''
+                UPDATE users
+                SET name = %s, mailaddress = %s, password = %s, sharehouse_id = %s, comment = %s
+                WHERE uid = %s
+            '''
+            cur.execute(sql, (name, mailaddress, password, sharehouse_id, comment, uid))
+            conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
             abort(500)
