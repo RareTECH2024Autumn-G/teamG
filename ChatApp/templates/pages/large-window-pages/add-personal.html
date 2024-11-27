@@ -11,7 +11,7 @@
       </div>
       <!--検索バー-->
       <div class="add-personal-search">
-          <input type="search" name="q">
+          <input type="search" name="q" id="search-input">
           <button><img src="../../../static/img/search-icon.svg"></button>
       </div>
       <!--グループ追加モードボタン--> <!-- バックエンドと相談？ <a href="add-group.html> はいらないか、、、" -->
@@ -23,18 +23,21 @@
   <div class="add-personal-friends">
     <ul class="ap-friend-list">
       {% for user in users %}
-      <li class="ap-friend-item">
-        <img
-          src="../../../static/img/user-icon.png"
-          alt="{{user['name']}}"
-          class="profile-pic"
-        />
-        <span class="friend-name">{{user['name']}}</span>
-        <!--バックエンドと相談-->
-        <button type="button" type="submit">チャットする</button>
-      </li>
+      <div class="search-target">
+        <li class="ap-friend-item">
+          <img
+            src="../../../static/img/user-icon.png"
+            alt="{{user['name']}}"
+            class="profile-pic"
+          />
+          <span class="friend-name">{{user['name']}}</span>
+          <!--バックエンドと相談-->
+          <button type="button" type="submit">チャットする</button>
+        </li>
+      </div>
       {% endfor %}
       </ul>
     </div>
 </div>
+<script src="../../../static/js/apg-search.js"></script>
 {% endblock %}
