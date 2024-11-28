@@ -256,7 +256,6 @@ def addgroup():
     users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusergroupsのデータを取得
     return render_template('pages/large-window-pages/add-group.html', users = users)
 
-
 # make-groupページの表示(グループ作成画面)
 @app.route('/makegroup',methods = ['GET'])
 def makegroup():
@@ -407,6 +406,8 @@ def updateuserinfo():
         user_id = session['uid']  # 現在のユーザーのIDを取得
     else:
         return "ログインしていません。"
+
+    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
