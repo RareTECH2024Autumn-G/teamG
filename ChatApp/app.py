@@ -205,37 +205,37 @@ def addpersonal():
     else:
         return "ログインしていません。"
     
-    users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusersのデータを取得
+    users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusergroupsのデータを取得
+    print(f"app.py 209 DEBUG:選択されたユーザーは{users}です")
     return render_template('pages/large-window-pages/add-personal.html',users = users)
 
-# add-personalページでチャットするボタンを押した時の挙動 2024/11/27 うっちゃん
+# 2024/11/28 うっちゃん 個人チャットを開始
 @app.route('/addpersonal',methods = ['POST'])
-def makepersonal():
+def joinpersonalchat():
     # セッションにユーザーIDが保存されているか確認
     if 'uid' in session:  
         uid = session['uid']  # 現在のユーザーのIDを取得
     else:
         return "ログインしていません。"
     
-    user_id = request.form.get('chat_user_id') #user_idをもとにデータベースのusergroupsのデータを取得
-    print(f"app.py 221 DEBUG:selectUsers = {user_id}です")
-    
-    # ユーザー情報を取得する
-    dbConnect.getallusers(user_id)
-
-    # グループを追加する 
-    dbConnect.createGroup(name,required,comment)
-    
-    # グループをusergroupsに追加する
+    # 選択した人とのGを追加する
+    selectUsers = request.form.getlist('selectUserid')
+    selectUsername = request.form.getlist('selectUsername')
+    print(f"app.py 222 DEBUG:選択されたユーザーは{selectUsers}:{selectUsername}です")
+    required = '1'
+    comment = ''
+    cid = dbConnect.createGroup(selectUsername,required,comment)
     dbConnect.addGroup(selectUsers,cid)
-    return redirect('/chat')
-
+    print(f"app.py 229 DEBUG:選択されたユーザーは{uid}です")
+    uid_list = [uid]
+    dbConnect.addGroup(uid_list,cid)
+    return redirect("/home")
 
 # 2024/11/23　タラ追記(addpersonalで選択したユーザーデータをmake-groupに渡す)
 @app.route('/select-addpersonal',methods = ['POST'])
 def select_addpersonal():
         # 画面上でチェックされたチェックボックスを画面から受け取る
-    selectUsers = request.form.getlist('selectUser')  # 画面で複数選択されたサービスを受け取る
+    selectUsers = request.form.get('selectUser')  # 画面で複数選択されたサービスを受け取る
     print(f"app.py 198 DEBUG:選択されたユーザーは{selectUsers}です")
 
     # セッションに保存
@@ -256,14 +256,11 @@ def addgroup():
     users = dbConnect.getallusers(uid) #user_idをもとにデータベースのusergroupsのデータを取得
     return render_template('pages/large-window-pages/add-group.html', users = users)
 
-# # make-groupページの表示(グループ作成画面)
-# @app.route('/makegroup',methods = ['GET'])
-# def makegroup():
-#     # 
-#     # 
-#     # 
-#     return render_template('pages/large-window-pages/make-group.html')
-# # MANA追記
+# make-groupページの表示(グループ作成画面)
+@app.route('/makegroup',methods = ['GET'])
+def makegroup():
+    return render_template('pages/large-window-pages/make-group.html')
+# MANA追記
 
 # 2024/11/23　タラ追記(addgroupから受け取ったselectUsersの情報と合わせて、home画面に戻る)
 @app.route('/makegroup',methods = ['POST'])
@@ -291,103 +288,92 @@ def make_newGroup():
 def makegroup():
     return render_template('pages/large-window-pages/make-group.html')
 
-
-# 2024/11/20 yoneyama add start
-
-#チャットメッセージ表示
-#  グループ一覧からグループを選択したら
-#  グループのチャットメッセージを表示する
-@app.route('/chat', methods=['GET'])
-def showChatMessage():
-
-    #セッションからuidを取得して変数uidに格納
-    uid = session.get("uid")
-
-    #変数uidがない（None）場合
-    if uid is None:
-
-        #login.html（ログイン画面）に戻る
-        return redirect('/login')
-
-    #画面から受け取った選択中のグループ名（groupname）から
-    l_groupname = request.form.get('groupname')
-
-    #グループ情報をDB取得＝＞DB：getGroup
-    #取得した結果をgroup変数に格納
-    l_group = dbConnect.getGroup(l_groupname)
-
-    #画面から受け取った選択中のグループID（groupid）から
-    #選択中グループのメッセージをDB取得＝＞DB：getMessage
-    #取得した結果をgroupmessage変数に格納
-    l_groupmessage = dbConnect.getMessage(l_group.cid)
-
-    #chat.html（チャット画面）を呼び出す（引数：group、getMessage、uid）
-    return render_template('chat.html', group=l_group , groupmessage=l_groupmessage, uid=uid)
-
-# 2024/11/20 yoneyama add end
-
-    # ダミーデータで定義↓↓↓↓（画面の確認できないため）削除しても問題ない　アナザー　2024/11/21
-
+# チャット内容を表示する 2024/11/28
 @app.route('/chat/<cid>')
 def chat(cid):
-# 2024/11/26 yoneyama mod start
-#    channel = {
-#        "id": cid,
-#        "name": f"{cid}",
-#        "abstract": "このチャットルームについての説明!!!!!!!!!!!!!!!!!!!!!!!!。"
-#    }
     channel = dbConnect.getGroup(cid)
-# 2024/11/26 yoneyama mod end
-    messages = [
-        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "こんにちは！", "created_at": "11/17 10:00"},
-        {"id": 2, "user_id": 102, "user_name": "MANA", "content": "元気ですか？", "created_at": "11/17 10:05"},
-        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
-        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
-        {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
-       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
-       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
-       {"id": 1, "user_id": 101, "user_name": "アナザー", "content": "元気！", "created_at": "11/17 10:20"},
-    ]
-#    messages = dbConnect.getMessage(cid)
-    print(messages)
+
+    messages = dbConnect.getMessage(cid)
+    print(f"app.py 327 DEBUG: messages={messages}")
     return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)
- # ダミーデータで定義↑↑↑↑（画面の確認できないため）
-    # テンプレートに渡す　削除しても問題ない　アナザー　2024/11/21
 
 # 2024/11/23 yoneyama add start
 #チャットメッセージ送信
 #  グループに向けたチャットを送信する
 
-@app.route('/chat', methods=['POST'])
-def sendChatMessage():
+# @app.route('/chat', methods=['POST'])
+# def sendChatMessage():
 
+#     #セッションからuidを取得して変数uidに格納
+#     uid = session.get("uid")
+
+#     #変数uidがない（None）場合
+#     if uid is None:
+
+#         #login.html（ログイン画面）に戻る
+#         return redirect('/login')
+
+#     #画面からメッセージを受け取り、変数messageに格納する
+#     l_message = request.form.get('message')
+#     print(f"app.py 348 DEBUG: l_message={l_message}")
+
+#     #画面からグループIDを受け取り、変数group_idに格納
+#     #l_group_id = request.form.get(”group_id”) #dockers compose upしたらエラー
+#     l_group_id = request.form.get('cid')
+#     print(f"app.py 353 DEBUG: l_group_id={l_group_id}")
+
+#     #日付を取得＝＞DateTime
+#     l_datetime = datetime.datetime.now()
+#     print(f"app.py 357 DEBUG: l_datetime={l_datetime}")
+
+#     #変数messageが存在する場合
+#     if l_message:
+
+#         #メッセージ内容をDBに登録＝＞DB：createMessageのコール
+#         dbConnect.createMessage(uid ,l_group_id ,l_datetime ,l_message)
+
+#     #chat.html（チャット画面）を再表示?
+#     return render_template('chat.html')
+
+@app.route('/message', methods=['POST'])
+def sendChatMessage():
+    print(f"messages2:")
     #セッションからuidを取得して変数uidに格納
     uid = session.get("uid")
+    print(f"uid:{uid}")
 
     #変数uidがない（None）場合
     if uid is None:
-
         #login.html（ログイン画面）に戻る
         return redirect('/login')
 
     #画面からメッセージを受け取り、変数messageに格納する
     l_message = request.form.get('message')
+    print(f"messages3:{l_message}")
 
     #画面からグループIDを受け取り、変数group_idに格納
     #l_group_id = request.form.get(”group_id”) #dockers compose upしたらエラー
     l_group_id = request.form.get('cid')
+    print(f"l_group_id: {l_group_id}")
 
     #日付を取得＝＞DateTime
     l_datetime = datetime.datetime.now()
+    print(f"l_datetime: {l_datetime}")
 
     #変数messageが存在する場合
-    if l_message is None:
+    if l_message:
 
+        #print(f"messages3:")
         #メッセージ内容をDBに登録＝＞DB：createMessageのコール
+#        print(f"l_group_id:" + l_group_id)
+#        print(f"l_message:" + l_message)
         dbConnect.createMessage(uid ,l_group_id ,l_datetime ,l_message)
 
     #chat.html（チャット画面）を再表示?
-    return render_template('chat.html')
+#    return render_template('chat.html')
+#    return redirect('/login')
+    # return redirect('/chat/{cid}'.format(cid = l_group_id))
+    return redirect(request.referrer)
 
 # 2024/11/23 yoneyama add end
 
@@ -402,10 +388,10 @@ def setting_page():
         return "ログインしていません。"
     
     # DBから現在の情報を取得する
-    getuserinfo = dbConnect.getuserinfo(user_id)
-    if getuserinfo != None: #resultsが空欄でない場合画面にデータを引き渡す
-        print(f"app.py 378 デバッグ:通っているぞ{getuserinfo}")
-        return render_template('pages/setting-account.html', getuserinfo=getuserinfo)
+    userinfo = dbConnect.getuserinfo(user_id)
+    if userinfo != None: #resultsが空欄でない場合画面にデータを引き渡す
+        print(f"app.py 378 デバッグ:通っているぞ{userinfo}")
+        return render_template('pages/setting-account.html', userinfo=userinfo)
     else:
         return "データの取得に失敗しました。"
 # MANA追記
@@ -428,30 +414,24 @@ def updateuserinfo():
 
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     
+    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+
     if name == '' or password == '' or mailaddress == ''  or passwordConfirm == '' or sharehouse_id == '': 
         flash('空のフォームがあるようです')
     elif password != passwordConfirm:
         flash('二つのパスワードの値が違っています')
     elif re.match(pattern, mailaddress) is None:
-         flash('正しいメールアドレスの形式ではありません')
+        flash('正しいメールアドレスの形式ではありません')
     else:
-        uid = uuid.uuid4()
+        # uid = uuid.uuid4()
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         DBuser = dbConnect.getUser(mailaddress)
 
         if DBuser == None:
             flash('ユーザー情報が存在しません')
+            return redirect('/setting-page')
         else:
-            dbConnect.updateuserinfo(uid, name, mailaddress, password, sharehouse_id, comment)
-            flash('ユーザー情報を更新しました')
-
-            # パスワードのプレーンテキスト
-            password = "ucchan29"
-
-            # SHA-256でハッシュ化
-            hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-            print("ハッシュ化されたパスワード:", hashed_password)
-
+            dbConnect.updateuserinfo(user_id, name, mailaddress, password,sharehouse_id,comment)
             return redirect('/home')
 
 if __name__ == '__main__':
