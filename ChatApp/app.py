@@ -436,7 +436,7 @@ if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
 # 2024/11/19 うっちゃん：デバッグのために仕込みdebug=Trueの時、上のprintたちがターミナルに出力される。
     app.run(
-        debug=True,
+        debug=False,
         host='0.0.0.0',
         port=5000
     )
