@@ -22,19 +22,24 @@
   <!--友達一覧テーブル？（アカウント画像？）-->
   <div class="add-personal-friends">
     <ul class="ap-friend-list">
-      {% for user in users %}
-      <li class="ap-friend-item">
-        <img
-          src="../../../static/img/user-icon.png"
-          alt="{{user['name']}}"
-          class="profile-pic"
-        />
-        <span class="friend-name">{{user['name']}}</span>
-        <!--バックエンドと相談-->
-        <button type="button" type="submit">チャットする</button>
-      </li>
+       {% for user in users %}
+        <form method="post" action="/addpersonal">
+        <li class="ap-friend-item">
+          <img
+            src="../../../static/img/user-icon.png"
+            alt="{{user['name']}}"
+            class="profile-pic"
+          />
+          <span class="friend-name">{{user['name']}}</span>
+          <!--バックエンドと相談-->
+          <input type="hidden" name="selectUserid" value="{{ user['uid'] }}">
+          <input type="hidden" name="selectUsername" value="{{ user['name'] }}">
+          <button type="submit">チャットする</button>
+        </li>
+        </form>
       {% endfor %}
-      </ul>
-    </div>
+    </ul>
+  </div>
+
 </div>
 {% endblock %}

@@ -83,3 +83,9 @@ INSERT INTO chatgroups(cid, name, required, comment, status_id)VALUES
 (7,'ドッチボールグループ',0,'童心に還る',0),
 (8,'お茶グループ',0,'chillしよ〜〜〜',0),
 (9,'モルックグループ',0,'レアスポーツを楽しみましょう！',0);
+
+-- 2024/11/28 初期表示のメッセージをINSERT
+INSERT INTO messages(mid, user_id, group_id, creatdate, message)VALUES
+(1,'970af84c-dd40-47ff-af23-282b72b7cca8',1,'2024/11/28','初めてのコメントです'),
+(2,'970af84c-dd40-47ff-af23-282b72b7cca8',1,'2024/11/28','みなさん初めまして'),
+(3,'970af84c-dd40-47ff-af23-282b72b7cca8',3,'2024/11/28','初めてのコメントです');
