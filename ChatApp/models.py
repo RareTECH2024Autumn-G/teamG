@@ -262,16 +262,13 @@ class dbConnect:
                 cur.close()
 
     @staticmethod #2024/11/24 うっちゃん user情報を更新する    
-    def updateuserinfo(uid, name, mailaddress, password, sharehouse_id, comment):
+    def updateuserinfo(user_id, name, mailaddress, password, sharehouse_id,comment):
+        print(f"DEBUG: uid={user_id}, name={name}, mailaddress={mailaddress}, password={password}, sharehouse_id={sharehouse_id}")
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-            sql = '''
-                UPDATE users
-                SET name = %s, mailaddress = %s, password = %s, sharehouse_id = %s, comment = %s
-                WHERE uid = %s
-            '''
-            cur.execute(sql, (name, mailaddress, password, sharehouse_id, comment, uid))
+            sql = 'UPDATE users SET name = %s ,mailaddress = %s ,password = %s , sharehouse_id = %s ,comment = %s WHERE uid = %s;'
+            cur.execute(sql, (name,mailaddress,password,sharehouse_id,comment,user_id))
             conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
@@ -286,7 +283,7 @@ class dbConnect:
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-#            sql = "SELECT c.cid ,c.name ,c.required ,c.comment ,c.statusid FROM chatgroups c WHERE c.name = %s;"
+
             sql = "SELECT c.cid as id ,c.name as name ,c.comment as abstract FROM chatgroups c WHERE c.name = %s;"
             cur.execute(sql, (groupname))
             group = cur.fetchone()
@@ -297,15 +294,18 @@ class dbConnect:
             cur.close()
             return group
 
-#    def getMessage(group_id):
     def getMessage(groupname):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
-#            sql = "SELECT m.mid ,m.user_id ,m.group_id ,m.creatdate ,m.message FROM messages m WHERE m.group_id = %s;"
-            sql = "SELECT m.mid as id ,m.user_id as user_id ,m.creatdate as created_at ,m.message as content ,u.name as user_name FROM messages m INNER JOIN users AS u ON m.user_id = u.uid INNER JOIN chatgroups g ON m.group_id = g.cid WHERE g.name = %s;"
+
+            sql = '''
+            SELECT m.mid as id ,m.user_id as user_id ,m.createdate as created_at ,m.message as content ,u.name as user_name 
+            FROM messages m INNER JOIN users AS u ON m.user_id = u.uid 
+            INNER JOIN chatgroups g ON m.group_id = g.cid WHERE g.name = %s;
+            '''
             cur.execute(sql, (groupname))
-            messages = cur.fetchone()
+            messages = cur.fetchall()
         except Exception as e:
             print(f'エラーが発生しています：{e}')
             abort(500)
@@ -313,12 +313,34 @@ class dbConnect:
             cur.close()
             return messages
 
+
+        #yoneyamaさん 11/28 
+#         def getMessage(groupname):
+#         try:
+#             conn = DB.getConnection()
+#             cur = conn.cursor()
+# #            sql = "SELECT m.mid ,m.user_id ,m.group_id ,m.creatdate ,m.message FROM messages m WHERE m.group_id = %s;"
+# #            sql = "SELECT m.mid as id ,m.user_id as user_id ,m.creatdate as created_at ,m.message as content ,u.name as user_name FROM messages m INNER JOIN users AS u ON m.user_id = u.uid INNER JOIN chatgroups g ON m.group_id = g.cid WHERE g.name = %s;"
+# #            sql = "SELECT u.name as user_name , m.creatdate as created_at ,m.message as content FROM messages m INNER JOIN users AS u ON m.user_id = u.uid INNER JOIN chatgroups g ON m.group_id = g.cid WHERE g.name = %s;"
+#             sql = "SELECT m.creatdate as created_at ,m.message as content 
+#             FROM messages m INNER JOIN users AS u ON m.user_id = u.uid 
+#             INNER JOIN chatgroups g ON m.group_id = g.cid WHERE g.name = %s;"
+#             cur.execute(sql, (groupname))
+#             messages = cur.fetchone()
+#         except Exception as e:
+#             print(f'エラーが発生しています：{e}')
+#             abort(500)
+#         finally:
+#             cur.close()
+#             return messages
+
     def createMessage(i_user_id , i_group_id , l_datetime , l_message):
         try:
             conn = DB.getConnection()
             cur = conn.cursor()
             sql = "INSERT INTO messages(user_id , group_id , createdate ,message)VALUES(%s ,%s ,%s ,%s);"
             cur.execute(sql, (i_user_id , i_group_id , l_datetime , l_message))
+            conn.commit()
         except Exception as e:
             print(f'エラーが発生しています：{e}')
             abort(500)
