@@ -1,0 +1,71 @@
+{% extends 'pages/large-window-pages/base.html' %} {% block title %}
+<title>新規グループ作成画面</title>
+{% endblock %} {% block body %}
+<!--ボックス（枠）-->
+<form method="post" action="/select-addpersonal">
+  <div class="add-group-box">
+    <!--タイトル・検索バー・グループモードボタン、３つのクラス-->
+    <div class="add-personal-tsg">
+      <!--タイトル「メンバー」-->
+      <div class="add-personal-title">
+        <h1>メンバー</h1>
+      </div>
+      <!--検索バー-->
+      <div class="add-personal-search">
+        <input type="search" name="q" id="search-input" />
+        <button><img src="../../../static/img/search-icon.svg" /></button>
+      </div>
+      <!--グループ追加モードボタン-->
+      <div class="add-group-btn">
+        <a href="/addpersonal"
+          ><img
+            src="../../../static/img/group-mode-icon.svg"
+            alt="グループモードボタン"
+            width="70"
+            height="70"
+        /></a>
+      </div>
+    </div>
+    <!-- 2024/11/28 タラ エラーを追記 -->
+    <div class="error-container-addgroup">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <p>エラー：{{ message }}</p>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+    <!--友達一覧テーブル？（アカウント画像）-->
+    <div class="add-personal-friends">
+      <ul class="friend-list">
+        {% for user in users %}
+        <div class="search-target">
+          <label for="friend-checkbox{{loop.index}}">
+            <li class="friend-item">
+              <!--バックエンドと相談-->
+              <input
+                type="checkbox"
+                id="friend-checkbox{{loop.index}}"
+                name="selectUser"
+                value="{{user['uid']}}"
+              />
+              <img
+                src="../../../static/img/user-icon.png"
+                alt="友達{{loop.index}}"
+                class="profile-pic"
+              />
+              <span class="friend-name">{{ user['name'] }}</span>
+              <button type="button">チャットする</button>
+            </li>
+          </label>
+        </div>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <!--バックエンドと相談？ <a href="make-group.html"> いらない？よね、、、-->
+  <!--「次へ」ボタン -->
+  <div class="add-group-next-btn">
+    <button type="submit">次へ</button>
+  </div>
+</form>
+<script src="../../../static/js/apg-search.js"></script>
+{% endblock %}

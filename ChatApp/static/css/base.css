@@ -1,0 +1,77 @@
+.body{
+    margin: 0; /* デフォルトの余白を削除 */
+}
+
+.design{
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 45%;
+    background-color: #A1EC95;
+    border-radius: 0% 100% 100% 0% / 100% 0% 100% 0% ;
+}
+
+/* アプリ名・ホームボタン・設定ボタンの３つのクラス */
+.base-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.base-header h1 {
+    font-family: "Rammetto One", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+    color: #fff;
+    margin-left: 50px;
+}
+/* ホームボタンの装飾 */
+.home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: -1;
+    width: 50px;
+    height: 50px;
+    border: solid #E5E5EA;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px #8E8E93;
+    background-color: #fff;
+    padding: 10px;
+    margin-left: 1040px;
+    text-decoration: none;
+    color: #000;
+}
+.home-btn:hover {
+    margin-top: 5px; /* 付け足し部分 */
+	box-shadow: 0px 0px 0px;
+}
+/* 設定ボタンの装飾 */
+.setting-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: -1;
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    padding: 10px;
+    margin-top: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #000;
+}
+
+.design2{
+    z-index: -1;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 45%;
+    height: 45%;
+    background-color: #A1EC95;
+    border-radius: 100% 0% 0% 100% / 100% 100% 0% 0%  ;  
+}

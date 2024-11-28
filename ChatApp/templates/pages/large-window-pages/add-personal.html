@@ -1,0 +1,46 @@
+{% extends 'pages/large-window-pages/base.html' %} {% block title %}
+<title>新規チャット作成画面</title>
+{% endblock %} {% block body %}
+<!--ボックス（枠）-->
+<div class="add-personal-box">
+  <!--タイトル・検索バー・グループモードボタン、３つのクラス-->
+  <div class="add-personal-tsg">
+      <!--タイトル「メンバー」-->
+      <div class="add-personal-title">
+          <h1>メンバー</h1>
+      </div>
+      <!--検索バー-->
+      <div class="add-personal-search">
+          <input type="search" name="q" id="search-input">
+          <button><img src="../../../static/img/search-icon.svg"></button>
+      </div>
+      <!--グループ追加モードボタン--> <!-- バックエンドと相談？ <a href="add-group.html> はいらないか、、、" -->
+      <div class="ap-add-group-btn">
+          <a href="/addgroup"><img src="../../../static/img/group-mode-icon.svg" alt="グループモードボタン" width="70" height="70"></a>
+      </div>
+  </div>
+  <!--友達一覧テーブル？（アカウント画像？）-->
+  <div class="add-personal-friends">
+    <ul class="ap-friend-list">
+       {% for user in users %}
+        <form method="post" action="/addpersonal">
+        <li class="ap-friend-item">
+          <img
+            src="../../../static/img/user-icon.png"
+            alt="{{user['name']}}"
+            class="profile-pic"
+          />
+          <span class="friend-name">{{user['name']}}</span>
+          <!--バックエンドと相談-->
+          <input type="hidden" name="selectUserid" value="{{ user['uid'] }}">
+          <input type="hidden" name="selectUsername" value="{{ user['name'] }}">
+          <button type="submit">チャットする</button>
+        </li>
+        </form>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+<script src="../../../static/js/apg-search.js"></script>
+{% endblock %}

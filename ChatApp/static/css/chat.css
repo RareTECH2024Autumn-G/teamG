@@ -1,0 +1,149 @@
+.chat-border {
+  border-radius: 20px; /* 角を丸くする */
+  padding: 10px; /* 内側の余白 */
+  max-width: 1200px; /* 最大幅を設定 */
+  margin: 100px auto; /* 上下に100pxの余白を追加し、左右は中央揃え */
+  background-color: white;
+  height: 620px;
+  border: solid gray;
+  box-shadow: 6px 6px 8px #8e8e93;
+}
+
+.chat-container {
+  display: flex;
+  font-size: 30px;
+  margin: 20px;
+  color: #8e8e93;
+  align-items: center;
+}
+
+.task-calendar-container {
+  display: flex;
+}
+
+.abstract {
+  white-space: nowrap; /* テキストを改行せずに1行で表示 */
+  overflow: hidden; /* 親要素を超えたテキストを隠す */
+  text-overflow: ellipsis; /* テキストが溢れた場合に「…」を表示 */
+  width: 400px; /* 幅を指定 */
+  height: 30px;
+  border: 1px solid #ccc; /* ボーダーを追加して見やすくする */
+  font-size: 20px;
+  padding: 5px;
+  margin: 0 20px;
+  border-radius: 10px;
+}
+
+.chat-edit {
+  background-color: white;
+  border: 1px solid #ccc; /* 枠線 */
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.chat-edit:hover {
+  background-color: #8e8e93;
+}
+
+.chat-calendar {
+  background: linear-gradient(90deg, rgb(247, 247, 208), rgb(187, 243, 188));
+  margin-left: 20px;
+  border-radius: 20px;
+  width: 100px;
+  height: 50px;
+  border: 1px solid #ccc;
+  cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.chat-calendar:hover {
+  background: linear-gradient(
+    90deg,
+    rgb(239, 239, 99),
+    rgb(112, 248, 114)
+  ); /* ホバー時の背景色を変更 */
+}
+
+.chat-task {
+  background: linear-gradient(90deg, rgb(247, 247, 208), rgb(187, 243, 188));
+  margin-left: 20px;
+  border-radius: 20px;
+  width: 100px;
+  height: 50px;
+  border: 1px solid #ccc;
+  cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.chat-task:hover {
+  background: linear-gradient(
+    90deg,
+    rgb(239, 239, 99),
+    rgb(112, 248, 114)
+  ); /* ホバー時の背景色を変更 */
+}
+
+.chat-wrapper {
+  display: flex; /* フレックスボックスを使用 */
+  flex-direction: column; /* 縦に並べる */
+  padding: 20px; /* 内側の余白 */
+  height: 380px; /* 固定の高さを設定 */
+  overflow-y: auto; /* 縦方向のオーバーフローを自動処理 */
+  background-color: #ffffff; /* 背景色 */
+  border: 1px solid #ccc; /* 枠線 */
+  border-radius: 5px; /* 角を丸くする */
+  margin: 20px;
+}
+
+.message {
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.own-message {
+  background-color: #d1f7c4;
+  text-align: right; /* メッセージを右寄せ */
+  border: 10px;
+  flex: end;
+}
+.message-meta {
+  font-size: 0.8em;
+  color: black;
+}
+.chat-form-container {
+  margin-top: 40px;
+  margin-right: 60px;
+}
+
+.chat-button-container {
+  display: flex;
+  justify-content: end;
+}
+
+.chat-area {
+  field-sizing: content;
+  width: 500px;
+  margin-right: 10px;
+  resize: none;
+  padding: 5px;
+  background: linear-gradient(90deg, rgb(247, 247, 208), rgb(187, 243, 188));
+  border: 1px solid #ccc; /* 枠線 */
+  border-radius: 5px; /* 角を丸くする */
+}
+
+.send-button {
+  background: linear-gradient(90deg, rgb(247, 247, 208), rgb(187, 243, 188));
+  border: 1px solid #ccc; /* 枠線 */
+  border-radius: 5px; /* 角を丸くする */
+  cursor: pointer; /* カーソルをポインターに変更 */
+  height: 40px;
+}
+
+.send-button:hover {
+  background: linear-gradient(
+    90deg,
+    rgb(239, 239, 99),
+    rgb(112, 248, 114)
+  ); /* ホバー時の背景色を変更 */
+}
