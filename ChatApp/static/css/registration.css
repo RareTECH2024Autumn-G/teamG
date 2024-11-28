@@ -44,7 +44,7 @@
   border: none;
   border-radius: 10px;
   margin-bottom: 10px;
-  color: #212529;
+  color: white;
   background-color: #278949;
 }
 .login-button:hover {
@@ -56,7 +56,7 @@
   height: 60px;
   border: none;
   border-radius: 10px;
-  color: #fff;
+  color: black;
   background-color: #a1ec95;
   display: flex;
   justify-content: center;
@@ -151,4 +151,7 @@
   font-size: 18px;
   padding: 20px 0px 20px 70px;
   color: black;
+}
+.error-container-login {
+  width: 400px;
 }

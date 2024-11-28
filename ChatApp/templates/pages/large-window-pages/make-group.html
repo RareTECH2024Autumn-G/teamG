@@ -57,6 +57,13 @@
         しない
       </label>
     </div>
+    <!-- 2024/11/28 タラ エラーを追記 -->
+    <div class="error-container-makegroup">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <p>エラー：{{ message }}</p>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
     <!-- 「グループを作成」ボタン -->
     <div class="mg-make-btn">
       <button type="submit">グループを作成</button>

@@ -2,152 +2,158 @@
 
 /* ボックス（枠）*/
 .make-group-box {
-    position: relative;
-    z-index: 1;
-    border: solid gray;
-    border-radius: 30px;
-    background-color: white;
-    height: 620px;
-    padding: 35px 60px;
-    margin: 100px 40px;
-    box-shadow: 6px 6px 8px #8E8E93;
+  position: relative;
+  z-index: 1;
+  border: solid gray;
+  border-radius: 30px;
+  background-color: white;
+  height: 620px;
+  padding: 35px 60px;
+  margin: 100px 40px;
+  box-shadow: 6px 6px 8px #8e8e93;
 }
 /* グループ画像と編集アイコン */
 .mg-img-edit-icon {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 /* グループ画像 */
 .mg-img-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 150px;
-    border: none;
-    border-radius: 50%;
-    background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  border: none;
+  border-radius: 50%;
+  background-color: #d9d9d9;
 }
 /* 編集アイコン */
 .mg-edit-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border: solid #8E8E93;
-    border-radius: 50%;
-    background-color: #d9d9d9;
-    margin-left: -18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: solid #8e8e93;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  margin-left: -18px;
 }
 .mg-edit-icon:hover {
-    box-shadow: 0px 2px 5px #353535;
+  box-shadow: 0px 2px 5px #353535;
 }
 /* グループ名 */
 .mg-edit-name {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .mg-edit-name label {
-    font-size: 30px;
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 20px;
 }
 .mg-edit-name input {
-    font-size: 30px;
-    width: 600px;
-    height: 50px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  font-size: 30px;
+  width: 600px;
+  height: 50px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 /* コメント */
 .mg-edit-comment {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .mg-edit-comment label {
-    font-size: 30px;
-    font-weight: bold;
-    color: #8E8E93;
-    margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin-top: 20px;
 }
 .mg-edit-comment textarea {
-    resize: none;
-    font-size: 30px;
-    width: 1285px;
-    height: 95px;
-    border: solid #8E8E93;
-    border-radius: 10px;
-    padding: 3px;
+  resize: none;
+  font-size: 30px;
+  width: 1285px;
+  height: 95px;
+  border: solid #8e8e93;
+  border-radius: 10px;
+  padding: 3px;
 }
 /* 公開チェックボックス */
 .mg-pub-btn {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
 }
 .mg-pub-btn p {
-    font-size: 30px;
-    font-weight: bold;
-    color: #8E8E93;
+  font-size: 30px;
+  font-weight: bold;
+  color: #8e8e93;
 }
 .mg-pub-btn label {
-    display: flex;
-    align-items: center;
-    font-size: 30px;
-    font-weight: bold;
-    color: #8E8E93;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #8e8e93;
 }
 .mg-pub-btn input {
-    position: relative;
-    width: 43px;
-    height: 43px;
-    appearance: none;
-    background-color: #fff;
-    border: solid 4px #8E8E93;
-    border-radius: 4px;
-    left: -10px;
-    margin-left: 60px;
+  position: relative;
+  width: 43px;
+  height: 43px;
+  appearance: none;
+  background-color: #fff;
+  border: solid 4px #8e8e93;
+  border-radius: 4px;
+  left: -10px;
+  margin-left: 60px;
 }
 .mg-pub-btn input::before {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    opacity: 0;
-    background-image: url(../img/check-icon.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: transparent;
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  opacity: 0;
+  background-image: url(../img/check-icon.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
 }
 .mg-pub-btn input:checked {
-    background: linear-gradient(to right, #D4FC79, #96E6A1);
+  background: linear-gradient(to right, #d4fc79, #96e6a1);
 }
 .mg-pub-btn input:checked::before {
-    opacity: 1;
+  opacity: 1;
 }
 /* 「グループを作成」ボタン */
 .mg-make-btn {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .mg-make-btn button {
-    padding: 10px;
-    width: 300px;
-    height: 70px;
-    font-size: 30px;
-    border-radius: 8px;
-    border: solid #8E8E93;
-    background: linear-gradient(to right, #D4FC79, #96E6A1);
-    color: #fff;
-    font-weight: bold;
-    box-shadow: 2px 3px 4px #8E8E93;
-    margin-top: 7px;
+  padding: 10px;
+  width: 300px;
+  height: 70px;
+  font-size: 30px;
+  border-radius: 8px;
+  border: solid #8e8e93;
+  background: linear-gradient(to right, #d4fc79, #96e6a1);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 2px 3px 4px #8e8e93;
+  margin-top: 7px;
 }
 .mg-make-btn button:hover {
-    box-shadow: 0px 5px 10px #353535;
+  box-shadow: 0px 5px 10px #353535;
+}
+.error-container-makegroup p {
+  font-size: 30px;
+  font-weight: bold;
+  color: #8e8e93;
+  margin: 0;
 }
