@@ -57,7 +57,7 @@ CREATE TABLE messages (
     mid int PRIMARY KEY AUTO_INCREMENT, -- 2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
     user_id varchar(255)  NOT NULL REFERENCES users(uid),
     group_id int REFERENCES chatgroups(cid),
-    creatdate date not null,
+    createdate date not null,
     message varchar(255)
 );
 
@@ -85,7 +85,7 @@ INSERT INTO chatgroups(cid, name, required, comment, status_id)VALUES
 (9,'モルックグループ',0,'レアスポーツを楽しみましょう！',0);
 
 -- 2024/11/28 初期表示のメッセージをINSERT
-INSERT INTO messages(mid, user_id, group_id, creatdate, message)VALUES
+INSERT INTO messages(mid, user_id, group_id, createdate, message)VALUES
 (1,'970af84c-dd40-47ff-af23-282b72b7cca8',1,'2024/11/28','初めてのコメントです'),
 (2,'970af84c-dd40-47ff-af23-282b72b7cca8',1,'2024/11/28','みなさん初めまして'),
 (3,'970af84c-dd40-47ff-af23-282b72b7cca8',3,'2024/11/28','初めてのコメントです');

@@ -297,39 +297,79 @@ def chat(cid):
 #チャットメッセージ送信
 #  グループに向けたチャットを送信する
 
-@app.route('/chat', methods=['POST'])
-def sendChatMessage():
+# @app.route('/chat', methods=['POST'])
+# def sendChatMessage():
 
+#     #セッションからuidを取得して変数uidに格納
+#     uid = session.get("uid")
+
+#     #変数uidがない（None）場合
+#     if uid is None:
+
+#         #login.html（ログイン画面）に戻る
+#         return redirect('/login')
+
+#     #画面からメッセージを受け取り、変数messageに格納する
+#     l_message = request.form.get('message')
+#     print(f"app.py 348 DEBUG: l_message={l_message}")
+
+#     #画面からグループIDを受け取り、変数group_idに格納
+#     #l_group_id = request.form.get(”group_id”) #dockers compose upしたらエラー
+#     l_group_id = request.form.get('cid')
+#     print(f"app.py 353 DEBUG: l_group_id={l_group_id}")
+
+#     #日付を取得＝＞DateTime
+#     l_datetime = datetime.datetime.now()
+#     print(f"app.py 357 DEBUG: l_datetime={l_datetime}")
+
+#     #変数messageが存在する場合
+#     if l_message:
+
+#         #メッセージ内容をDBに登録＝＞DB：createMessageのコール
+#         dbConnect.createMessage(uid ,l_group_id ,l_datetime ,l_message)
+
+#     #chat.html（チャット画面）を再表示?
+#     return render_template('chat.html')
+
+@app.route('/message', methods=['POST'])
+def sendChatMessage():
+    print(f"messages2:")
     #セッションからuidを取得して変数uidに格納
     uid = session.get("uid")
+    print(f"uid:{uid}")
 
     #変数uidがない（None）場合
     if uid is None:
-
         #login.html（ログイン画面）に戻る
         return redirect('/login')
 
     #画面からメッセージを受け取り、変数messageに格納する
     l_message = request.form.get('message')
-    print(f"app.py 348 DEBUG: l_message={l_message}")
+    print(f"messages3:{l_message}")
 
     #画面からグループIDを受け取り、変数group_idに格納
     #l_group_id = request.form.get(”group_id”) #dockers compose upしたらエラー
     l_group_id = request.form.get('cid')
-    print(f"app.py 353 DEBUG: l_group_id={l_group_id}")
+    print(f"l_group_id: {l_group_id}")
 
     #日付を取得＝＞DateTime
     l_datetime = datetime.datetime.now()
-    print(f"app.py 357 DEBUG: l_datetime={l_datetime}")
+    print(f"l_datetime: {l_datetime}")
 
     #変数messageが存在する場合
     if l_message:
 
+        #print(f"messages3:")
         #メッセージ内容をDBに登録＝＞DB：createMessageのコール
+#        print(f"l_group_id:" + l_group_id)
+#        print(f"l_message:" + l_message)
         dbConnect.createMessage(uid ,l_group_id ,l_datetime ,l_message)
 
     #chat.html（チャット画面）を再表示?
-    return render_template('chat.html')
+#    return render_template('chat.html')
+#    return redirect('/login')
+    # return redirect('/chat/{cid}'.format(cid = l_group_id))
+    return redirect(request.referrer)
 
 # 2024/11/23 yoneyama add end
 
@@ -344,10 +384,10 @@ def setting_page():
         return "ログインしていません。"
     
     # DBから現在の情報を取得する
-    getuserinfo = dbConnect.getuserinfo(user_id)
-    if getuserinfo != None: #resultsが空欄でない場合画面にデータを引き渡す
-        print(f"app.py 378 デバッグ:通っているぞ{getuserinfo}")
-        return render_template('pages/setting-account.html', getuserinfo=getuserinfo)
+    userinfo = dbConnect.getuserinfo(user_id)
+    if userinfo != None: #resultsが空欄でない場合画面にデータを引き渡す
+        print(f"app.py 378 デバッグ:通っているぞ{userinfo}")
+        return render_template('pages/setting-account.html', userinfo=userinfo)
     else:
         return "データの取得に失敗しました。"
 # MANA追記
@@ -355,11 +395,12 @@ def setting_page():
 # アカウント情報更新 2024/11/25 うっちゃん更新
 @app.route('/setting-page',methods = ['POST'])
 def updateuserinfo():
-    name = request.form.get('name', '')
-    mailaddress = request.form.get('mailaddress', '')
-    password = request.form.get('password', '')
-    passwordConfirm = request.form.get('passwordConfirm', '')
-    sharehouse_id = request.form.get('sharehouseid', '')
+    name = request.form.get('newName', '')
+    comment = request.form.get('newcomment', '')
+    mailaddress = request.form.get('newMailAddress', '')
+    password = request.form.get('settingNewPassword', '')
+    passwordConfirm = request.form.get('SNPConfirm', '')
+    sharehouse_id = request.form.get('settingSharehouseId', '')
 
     # セッションにユーザーIDが保存されているか確認
     if 'uid' in session:  
@@ -367,21 +408,25 @@ def updateuserinfo():
     else:
         return "ログインしていません。"
     
+    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+
     if name == '' or password == '' or mailaddress == ''  or passwordConfirm == '' or sharehouse_id == '': 
         flash('空のフォームがあるようです')
     elif password != passwordConfirm:
         flash('二つのパスワードの値が違っています')
-    # elif re.match(pattern, mailaddress) is None:
-    #     flash('正しいメールアドレスの形式ではありません')
+    elif re.match(pattern, mailaddress) is None:
+        flash('正しいメールアドレスの形式ではありません')
     else:
-        uid = uuid.uuid4()
+        # uid = uuid.uuid4()
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         DBuser = dbConnect.getUser(mailaddress)
 
-        # if DBuser == None:
-        #     flash('ユーザー情報が存在しません')
-        # else:
-        #     dbConnect.updateuserinfo(uid, name, mailaddress, password,sharehouse_id)
+        if DBuser == None:
+            flash('ユーザー情報が存在しません')
+            return redirect('/setting-page')
+        else:
+            dbConnect.updateuserinfo(user_id, name, mailaddress, password,sharehouse_id,comment)
+            return redirect('/home')
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
