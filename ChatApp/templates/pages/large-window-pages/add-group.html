@@ -6,19 +6,32 @@
   <div class="add-group-box">
     <!--タイトル・検索バー・グループモードボタン、３つのクラス-->
     <div class="add-personal-tsg">
-        <!--タイトル「メンバー」-->
-        <div class="add-personal-title">
-            <h1>メンバー</h1>
-        </div>
-        <!--検索バー-->
-        <div class="add-personal-search">
-            <input type="search" name="q" id="search-input">
-            <button><img src="../../../static/img/search-icon.svg"></button>
-        </div>
-        <!--グループ追加モードボタン-->
-        <div class="add-group-btn">
-            <a href="/addpersonal"><img src="../../../static/img/group-mode-icon.svg" alt="グループモードボタン" width="70" height="70"></a>
-        </div>
+      <!--タイトル「メンバー」-->
+      <div class="add-personal-title">
+        <h1>メンバー</h1>
+      </div>
+      <!--検索バー-->
+      <div class="add-personal-search">
+        <input type="search" name="q" id="search-input" />
+        <button><img src="../../../static/img/search-icon.svg" /></button>
+      </div>
+      <!--グループ追加モードボタン-->
+      <div class="add-group-btn">
+        <a href="/addpersonal"
+          ><img
+            src="../../../static/img/group-mode-icon.svg"
+            alt="グループモードボタン"
+            width="70"
+            height="70"
+        /></a>
+      </div>
+    </div>
+    <!-- 2024/11/28 タラ エラーを追記 -->
+    <div class="error-container-addgroup">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <p>エラー：{{ message }}</p>
+      {% endfor %} {% endif %} {% endwith %}
     </div>
     <!--友達一覧テーブル？（アカウント画像）-->
     <div class="add-personal-friends">
