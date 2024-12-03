@@ -50,7 +50,8 @@ CREATE TABLE chatgroups (
 
 CREATE TABLE usergroups (
     user_id varchar(255) NOT NULL REFERENCES users(uid),
-    group_id int NOT NULL REFERENCES chatgroups(cid)
+    group_id int NOT NULL REFERENCES chatgroups(cid),
+    gucheck int -- 2024/11/20 うっちゃん更新（今後NotNull制約を付与する）
 );
 
 CREATE TABLE messages (
@@ -82,7 +83,8 @@ INSERT INTO chatgroups(cid, name, required, comment, status_id)VALUES
 (6,'音楽グループ',0,'一緒に歌いましょう',0),
 (7,'ドッチボールグループ',0,'童心に還る',0),
 (8,'お茶グループ',0,'chillしよ〜〜〜',0),
-(9,'モルックグループ',0,'レアスポーツを楽しみましょう！',0);
+(9,'モルックグループ',0,'レアスポーツを楽しみましょう！',0),
+(10,'運営',1,'運営への問い合わせはここから！',0);
 
 -- 2024/11/28 初期表示のメッセージをINSERT
 INSERT INTO messages(mid, user_id, group_id, createdate, message)VALUES
