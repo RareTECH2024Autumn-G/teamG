@@ -238,10 +238,13 @@ def select_addpersonal():
     selectUsers = request.form.get('selectUser')  # 画面で複数選択されたサービスを受け取る
     print(f"app.py 198 DEBUG:選択されたユーザーは{selectUsers}です")
 
+    if selectUsers is None:
+        flash('追加するメンバーを選択してください')
+    else:
     # セッションに保存
-    session['selectUsers'] = selectUsers
-
-    return render_template('pages/large-window-pages/make-group.html', selectUsers = selectUsers)
+        session['selectUsers'] = selectUsers
+        return render_template('pages/large-window-pages/make-group.html', selectUsers = selectUsers)
+    return redirect("/addgroup")
 
 
 # add-groupページの表示(友達追加画面・グループ作成モード)
@@ -434,7 +437,7 @@ if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=False)
 # 2024/11/19 うっちゃん：デバッグのために仕込みdebug=Trueの時、上のprintたちがターミナルに出力される。
     app.run(
-        debug=True,
+        debug=False,
         host='0.0.0.0',
         port=5000
     )
