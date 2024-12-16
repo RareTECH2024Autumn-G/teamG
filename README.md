@@ -26,23 +26,66 @@ docker compose up
 .
 ├── ChatApp
 │   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── app.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   └── test_app.cpython-312.pyc
 │   ├── app.py
+│   ├── app_localfrontAPI-py.txt
 │   ├── models.py
 │   ├── static
 │   │   ├── css
-│   │   │   └── registration.css
+│   │   │   ├── add-group.css
+│   │   │   ├── add-personal.css
+│   │   │   ├── base.css
+│   │   │   ├── chat.css
+│   │   │   ├── group.css
+│   │   │   ├── home-modal.css
+│   │   │   ├── home.css
+│   │   │   ├── make-group.css
+│   │   │   ├── modal.css
+│   │   │   ├── registration.css
+│   │   │   ├── setting-account.css
+│   │   │   └── styles.css
 │   │   ├── img
 │   │   │   ├── cathouse.svg
-│   │   │   └── favicon.svg
+│   │   │   ├── check-icon.svg
+│   │   │   ├── edit-pencil-icon.svg
+│   │   │   ├── favicon.svg
+│   │   │   ├── group-mode-icon.svg
+│   │   │   ├── home-icon.svg
+│   │   │   ├── mg-pic-icon.svg
+│   │   │   ├── search-icon.svg
+│   │   │   ├── setting-icon.svg
+│   │   │   ├── user-icon.png
+│   │   │   └── user-pic-icon.svg
 │   │   └── js
+│   │       ├── apg-search.js
+│   │       └── modal
+│   │           ├── ap-modal.js
+│   │           ├── home-modal.js
+│   │           └── mg-modal.js
 │   ├── templates
-│   │   ├── error
-│   │   ├── modal
 │   │   └── pages
-│   │       └── register-pages
-│   │           ├── base.html
-│   │           ├── login.html
-│   │           └── signup.html
+│   │       ├── home-pages
+│   │       │   ├── base.html
+│   │       │   ├── chat.html
+│   │       │   └── home.html
+│   │       ├── large-window-pages
+│   │       │   ├── add-group.html
+│   │       │   ├── add-personal.html
+│   │       │   ├── base.html
+│   │       │   ├── first-group.html
+│   │       │   ├── make-group.html
+│   │       │   └── second-group.html
+│   │       ├── modal
+│   │       │   ├── ap-invite-chat.html
+│   │       │   └── mg-invite-chat.html
+│   │       ├── register-pages
+│   │       │   ├── base.html
+│   │       │   ├── login.html
+│   │       │   └── signup.html
+│   │       └── setting-account.html
 │   └── util
 │       └── DB.py
 ├── Docker
