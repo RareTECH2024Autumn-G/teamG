@@ -187,7 +187,7 @@ def joingroup():
         return "ログインしていません。"
     
     # 画面から取得したグループ名でINSERTする
-    selectgroups = request.form.getlist('allgroup_id')
+    selectgroups = request.form.get('allgroup_id')
     print(f"app.py 191 DEBUG:選択されたグループは{selectgroups}です")
     dbConnect.registgroups(user_id,selectgroups)
 
@@ -275,9 +275,7 @@ def make_newGroup():
     # セッションから'uid',`selectUsers`を取得
     uid = session.get("uid")
     selectUser = session.get('selectUsers')
-    # 2024/12/3 うっちゃん各文字が分割されてリストに入っている？
-    # selectUsers = [uid,*selectUser]
-    selectUsers = [uid] + [selectUser]    
+    selectUsers = [uid,*selectUser]
     print(f"app.py 242 DEBUG:selectUsers = {selectUsers}です")
 
     if name == "":
@@ -291,8 +289,8 @@ def make_newGroup():
 # チャット内容を表示する 2024/11/28
 @app.route('/chat/<cid>')
 def chat(cid):
-    
     channel = dbConnect.getGroup(cid)
+
     messages = dbConnect.getMessage(cid)
     print(f"app.py 327 DEBUG: messages={messages}")
     return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)

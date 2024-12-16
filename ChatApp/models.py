@@ -70,16 +70,12 @@ class dbConnect:
             conn = DB.getConnection()
             cur = conn.cursor()
             sql = 'INSERT INTO usergroups (user_id, group_id) VALUES (%s, %s);'
-            # 2024/12/3 うっちゃん
-            print(f"DEBUG: selectgroupsは {selectgroups}")
 
+            selectgroup = 1
             for selectgroup in selectgroups:
                 cur.execute(
                     sql,(user_id,selectgroup)
                 )
-                # 2024/12/3 うっちゃん INSERT文確認デバッグ
-                # params = (user_id,selectgroup)
-                # print(cur.mogrify(sql, params))
             conn.commit()
         except  (pymysql.DatabaseError, pymysql.OperationalError)  as e:
             print(f'エラーが発生しています：{e}')
@@ -174,7 +170,7 @@ class dbConnect:
                 INNER JOIN chatgroups cg_inner ON ug.group_id = cg_inner.cid 
                 WHERE ug.user_id = %s 
                 ) subquery ON cg.cid = subquery.group_id 
-                WHERE subquery.group_id IS NULL AND cg.cid>3 AND cg.cid<>10;
+                WHERE subquery.group_id IS NULL AND cg.cid>3;
                 '''
             cur.execute(sql, (user_id))
             groups = cur.fetchall() #複数グループを取得
