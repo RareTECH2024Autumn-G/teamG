@@ -294,8 +294,9 @@ def chat(cid):
     
     channel = dbConnect.getGroup(cid)
     messages = dbConnect.getMessage(cid)
+    current_user_id = session.get("uid")
     print(f"app.py 327 DEBUG: messages={messages}")
-    return render_template('pages/home-pages/chat.html', channel=channel, messages=messages)
+    return render_template('pages/home-pages/chat.html', channel=channel, messages=messages,current_user_id=current_user_id)
 
 # 2024/11/23 yoneyama add start
 #チャットメッセージ送信
@@ -414,8 +415,6 @@ def updateuserinfo():
 
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     
-    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-
     if name == '' or password == '' or mailaddress == ''  or passwordConfirm == '' or sharehouse_id == '': 
         flash('空のフォームがあるようです')
     elif password != passwordConfirm:
